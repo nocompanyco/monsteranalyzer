@@ -1,0 +1,35 @@
+{
+  "name": "MonsterAnalyzer",
+  "version": "0.1.1c",
+  "description": "",
+  "author": "",
+  "homepage": "https://github.com/nocompanyco/monsteranalyzer",
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "main": "scan.js",
+  "scripts": {
+    "start_node": "node scan.js",
+    "rebuild_node": "npm rebuild ."
+  },
+  "dependencies": {
+    "async": "^3.2.0",
+    "cap": "^0.2.1",
+    "default-network": "^0.2.0",
+    "express": "4.17.1",
+    "geolite2-redist": "^1.0.7",
+    "http-mitm-proxy": "^0.8.2",
+    "maxmind": "4.1.2",
+    "multicast-dns": "^7.2.2",
+    "node-arp": "^1.0.6",
+    "socket.io": "2.3.0",
+    "tldjs": "1.5.2"
+  },
+  "optionalDependencies": {
+    "pcap": "^3.1.0",
+    "windows-build-tools": "^4.0.0"
+  },
+  "private": true
+}

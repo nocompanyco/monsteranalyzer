@@ -1,9 +1,11 @@
-React based version of network scanning tool from Monster in the Middle.
+setup:
 
-Example settings / startup screen:
+    npm install
 
-[![settings](./docs/1_settings_sm.png)](./docs/1_settings.png)
+start, example:
 
-Example scanning UI window:
+    node scan.js --eth wlan0 --gateway 192.168.1.1 --start no
 
-[![settings](./docs/4_scan_sm.png)](./docs/4_scan.png)
+access UI:
+
+    http://localhost:8083
