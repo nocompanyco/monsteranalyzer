@@ -18,3 +18,5 @@ start Electron UI:
 
     npm run rebuild_electron
     sudo npm run --eth=wlan0 --gateway=192.168.178.1 start_electron
+    // to go back to the non-electron version you will have to rebuild node_modules:
+    // npm run rebuild_node
