@@ -12,7 +12,9 @@
   "main": "scan.js",
   "scripts": {
     "start_node": "node scan.js",
-    "rebuild_node": "npm rebuild ."
+    "start_electron": "electron electron.js --no-sandbox",
+    "rebuild_node": "npm rebuild .",
+    "rebuild_electron": "electron-rebuild -f -w ."
   },
   "dependencies": {
     "async": "^3.2.0",
@@ -26,6 +28,11 @@
     "node-arp": "^1.0.6",
     "socket.io": "2.3.0",
     "tldjs": "1.5.2"
+  },
+  "devDependencies": {
+    "electron": "^9.0.0",
+    "electron-builder": "^22.7.0",
+    "electron-rebuild": "^1.11.0"
   },
   "optionalDependencies": {
     "pcap": "^3.1.0",
