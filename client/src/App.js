@@ -1,7 +1,8 @@
 import './App.css';
+import LandingPage from './pages/landingPage/landingPage.component.jsx';
 
 function App() {
-  return <h1>hello Me</h1>;
+  return <LandingPage />;
 }
 
 export default App;
