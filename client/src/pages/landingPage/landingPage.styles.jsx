@@ -7,6 +7,10 @@ const useStyles = makeStyles((theme) => ({
   section1: {
     backgroundColor: '#c4c4c46b',
     height: 444,
+    backgroundImage:
+      'url(https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?cs=srgb&dl=pexels-johannes-plenio-1103970.jpg&fm=jpg)',
+    backgroundSize: 'cover',
+    backgroundBlendMode: 'color-burn'
   },
   section2: {
     borderRadius: 58,
