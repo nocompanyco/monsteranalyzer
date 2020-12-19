@@ -1,16 +1,17 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    height: '100%',
+  },
   section1: {
-    backgroundColor: '#C4C4C4',
+    backgroundColor: '#c4c4c46b',
     height: 444,
   },
   section2: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'end',
-    alignItems: 'flex-end',
-    height: 482,
+    borderRadius: 58,
+    borderTop: '12px solid #b83022',
+    height: 'fit-content',
   },
   logo: {
     width: 256,

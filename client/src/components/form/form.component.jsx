@@ -7,7 +7,7 @@ const Form = () => {
   const preventDefault = (event) => event.preventDefault();
   return (
     <Fragment>
-      <Grid container xs={12} justify="center">
+      <Grid container item xs={12} justify="center">
         <Grid container item justify="center">
           <Selection />
           <StartBtn />
@@ -19,6 +19,7 @@ const Form = () => {
             variant="body2"
             style={{
               color: '#3BB7E3',
+              marginLeft: 100,
             }}
           >
             {'Custom Settings'}

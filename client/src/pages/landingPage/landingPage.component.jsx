@@ -1,16 +1,34 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import useStyles from './landingPage.styles.jsx';
 import Grid from '@material-ui/core/Grid';
 import logo from '../../assets/logo.png';
 import SwiperText from '../../components/swiper/swiper.component.jsx';
 import Form from '../../components/form/form.component';
 import Ghost from '../../assets/ghost.png';
+import lottie from 'lottie-web';
+import firstpageData from './firstpageData.json';
+import happyTeam from './happyteam.json';
 
 const LandingPage = () => {
   const classes = useStyles();
+  const logoContainer = useRef(null);
+  useEffect(() => {
+    lottie.loadAnimation({
+      container: logoContainer.current, // the dom element that will contain the animation
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      animationData: firstpageData, // the path to the animation json
+    });
+  }, []);
   return (
     <Fragment>
-      <Grid container>
+      <Grid
+        container
+        justify="space-between"
+        id="WholeConatiner"
+        className={classes.container}
+      >
         <Grid
           container
           item
@@ -18,17 +36,28 @@ const LandingPage = () => {
           className={classes.section1}
           justify="center"
           alignItems="center"
+          id="section1"
         >
-          <img className={classes.logo} src={logo} alt="logo" />
+          <div
+            id="logoContainer"
+            style={{ width: '34%', margin: '0 auto' }}
+            ref={logoContainer}
+          ></div>
         </Grid>
-        <Grid container xs={12} className={classes.section2} direction="row">
-          <Grid item container xs={7} alignItems='start' className={classes.form}>
+        <Grid
+          container
+          item
+          justify="space-between"
+          alignItems="center"
+          xs={12}
+          className={classes.section2}
+          direction="row"
+          id="section2"
+        >
+          <Grid item xs={12}>
             <SwiperText />
-            <Form />
           </Grid>
-          <Grid item container xs={2}>
-            <img src={Ghost} alt="ghost" style={{ width: 320 }} />
-          </Grid>
+          <Form />
         </Grid>
       </Grid>
     </Fragment>

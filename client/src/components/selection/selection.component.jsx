@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Styles from './selection.styles';
 
 class Selection extends React.Component {
-  state = { network: null };
+  state = { network: '' };
 
   handleChange = (event) => {
     const { name } = event.target;
@@ -32,9 +32,9 @@ class Selection extends React.Component {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={1}>Ten</MenuItem>
-          <MenuItem value={2}>Twenty</MenuItem>
-          <MenuItem value={3}>Thirty</MenuItem>
+          <MenuItem value={'ten'}>Ten</MenuItem>
+          <MenuItem value={'twenty'}>Twenty</MenuItem>
+          <MenuItem value={'thirty'}>Thirty</MenuItem>
         </Select>
       </FormControl>
     );
