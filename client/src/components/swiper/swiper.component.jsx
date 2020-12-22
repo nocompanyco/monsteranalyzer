@@ -50,8 +50,7 @@ const SwiperText = () => {
         disableOnInteraction: false,
       }}
       pagination={{ clickable: true }}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log('slide change')}
+      
     >
       {slides.map((slide) => {
         return (
