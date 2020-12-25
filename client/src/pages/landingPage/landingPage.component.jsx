@@ -1,17 +1,22 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import useStyles from './landingPage.styles.jsx';
 import Grid from '@material-ui/core/Grid';
-import logo from '../../assets/logo.png';
+import logo from '../../assets/logo.mp4';
 import SwiperText from '../../components/swiper/swiper.component.jsx';
 import Form from '../../components/form/form.component';
 import Ghost from '../../assets/ghost.png';
 import lottie from 'lottie-web';
 import firstpageData from './firstpageData.json';
 import happyTeam from './happyteam.json';
+import Video from '../../components/video/video.component';
 
 const LandingPage = () => {
   const classes = useStyles();
   const logoContainer = useRef(null);
+  const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
+  const onLoadedData = () => {
+    setIsVideoLoaded(true);
+  };
   useEffect(() => {
     lottie.loadAnimation({
       container: logoContainer.current, // the dom element that will contain the animation
@@ -38,12 +43,12 @@ const LandingPage = () => {
           alignItems="center"
           id="section1"
         >
-         {/* <div
+          {/* <div
             id="logoContainer"
             style={{ width: '34%', margin: '0 auto' }}
             ref={logoContainer}
          ></div>*/}
-         <img src={logo} alt='logo'/>
+          <Video />
         </Grid>
         <Grid
           container

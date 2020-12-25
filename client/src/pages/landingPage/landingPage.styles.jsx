@@ -18,6 +18,19 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginLeft: 248,
   },
+  videoContainer :{
+    position: 'relative',
+    overflow: 'hidden',
+    width: '100%',
+    height: '100%',
+  },
+  video: {
+    position: 'absolute',
+    width: 'auto',
+    height: '100%',
+    top: 0,
+    left: 0,
+  }
 }));
 
 export default useStyles;
