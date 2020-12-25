@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Dialog,
@@ -9,6 +10,7 @@ import {
 } from '@material-ui/core';
 import CardSettingPage from '../../components/card/card.component';
 import './settingPage.styles.css';
+import useStyles from '../landingPage/landingPage.styles';
 
 // this is Fade in for the Dialog
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -17,37 +19,15 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 DialogContent.muiName = 'IconMenu';
 // this is to open Dialog for SettingPage
-export default function SettingPage({ open, handleClose }) {
-  const handleSave = (event) => {
-    event.preventDefault();
-  };
-  const [networkSetting, setNetworkSetting] = useState([
-    {
-      id: 1,
-      name: 'Network_Interface',
-      Network_Interface: ''
-    },
-    { id: 2, name: 'Filter', Filter: '' },
-    { id: 3, name: 'Gateway', Gateway: '' },
-  ]);
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    const index = event.target.id;
-    setNetworkSetting((PrevNetworkSetting) => {
-      const updateSetting = PrevNetworkSetting.map((item) => {
-        if (index === item.name) {
-          item[[name]] = value;
-        }
-
-        return item;
-      });
-
-      return updateSetting;
-    });
-  };
-  console.log(networkSetting);
+export default function SettingPage({
+  open,
+  handleClose,
+  networkSetting,
+  handleChange,
+  error,
+  handleSave,
+}) {
+  console.log("networking",networkSetting);
   return (
     <div>
       <Dialog
@@ -72,16 +52,17 @@ export default function SettingPage({ open, handleClose }) {
               <CardSettingPage
                 networkSetting={value}
                 handleChange={handleChange}
+                textError={error}
               />
             );
           })}
-          <DialogActions classes={{root:'dialogAction'}}>
-            <Button onClick={handleSave} classes={{root:'saveBtn'}}>
+          <DialogActions classes={{ root: 'dialogAction' }}>
+            <Button onClick={handleSave} classes={{ root: 'saveBtn' }}>
               Save Changes
             </Button>
           </DialogActions>
         </DialogContent>
-        <div className='empty'></div>
+        <div className="empty"></div>
       </Dialog>
     </div>
   );
