@@ -10,7 +10,7 @@ const Form = () => {
       <Grid container item xs={12} justify="center">
         <Grid container item justify="center">
           <Selection />
-          <StartBtn />
+          <StartBtn btnName="START" />
         </Grid>
         <Grid item container justify="center">
           <Link

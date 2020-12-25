@@ -34,10 +34,23 @@
   padding-bottom: 30px;
 }
 
+:root {
+  --swiper-theme-color: #3bb7e3;
+}
+.swiper-pagination-bullet {
+  width: 22px;
+  height: 22px;
+}
+.swiper-container-horizontal
+  > .swiper-pagination-bullets
+  .swiper-pagination-bullet {
+  margin: 10px;
+}
 .swiper-wrapper {
   padding-inline-start: 0;
 }
 #subText {
   padding-top: 10px;
   font-size: 20px;
+  margin-bottom: 50px;
 }

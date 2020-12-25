@@ -38,11 +38,12 @@ const LandingPage = () => {
           alignItems="center"
           id="section1"
         >
-          <div
+         {/* <div
             id="logoContainer"
             style={{ width: '34%', margin: '0 auto' }}
             ref={logoContainer}
-          ></div>
+         ></div>*/}
+         <img src={logo} alt='logo'/>
         </Grid>
         <Grid
           container
