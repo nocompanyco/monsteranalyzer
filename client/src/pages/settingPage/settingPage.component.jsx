@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -10,7 +9,6 @@ import {
 } from '@material-ui/core';
 import CardSettingPage from '../../components/card/card.component';
 import './settingPage.styles.css';
-import useStyles from '../landingPage/landingPage.styles';
 
 // this is Fade in for the Dialog
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -27,7 +25,7 @@ export default function SettingPage({
   error,
   handleSave,
 }) {
-  console.log("networking",networkSetting);
+  console.log('networking', networkSetting);
   return (
     <div>
       <Dialog
@@ -47,9 +45,10 @@ export default function SettingPage({
           {'Customize Network Setting'}
         </DialogTitle>
         <DialogContent classes={{ root: 'dialogContent' }}>
-          {networkSetting.map((value) => {
+          {networkSetting.map((value, index) => {
             return (
               <CardSettingPage
+                key={index}
                 networkSetting={value}
                 handleChange={handleChange}
                 textError={error}
@@ -57,7 +56,11 @@ export default function SettingPage({
             );
           })}
           <DialogActions classes={{ root: 'dialogAction' }}>
-            <Button onClick={handleSave} classes={{ root: 'saveBtn' }}>
+            <Button
+              onClick={handleSave}
+              variant="contained"
+              classes={{ root: 'saveBtn' }}
+            >
               Save Changes
             </Button>
           </DialogActions>

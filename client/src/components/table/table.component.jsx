@@ -39,7 +39,7 @@ const rows = [
   createData('Gateway', '192.168.1.1'),
 ];
 
-export default function DataTable({ hidden, handleClick }) {
+export default function DataTable({ hidden, handleClick, networkSetting }) {
   const classes = useStyles();
 
   return (
@@ -58,12 +58,12 @@ export default function DataTable({ hidden, handleClick }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
+          {networkSetting.map((item) => (
+            <StyledTableRow key={item.name}>
               <StyledTableCell component="th" scope="row">
-                {row.name}
+                {item.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.data}</StyledTableCell>
+              <StyledTableCell align="right">{item.data}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

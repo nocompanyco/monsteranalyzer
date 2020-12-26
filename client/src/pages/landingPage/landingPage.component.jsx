@@ -9,7 +9,6 @@ import firstpageData from './firstpageData.json';
 import SettingPage from '../settingPage/settingPage.component';
 import MuiAlert from '@material-ui/lab/Alert';
 
-
 // cusomize the alert
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -43,10 +42,10 @@ const LandingPage = () => {
     {
       id: 1,
       name: 'Network_Interface',
-      Network_Interface: '',
+      data: '',
     },
-    { id: 2, name: 'Filter', Filter: '' },
-    { id: 3, name: 'Gateway', Gateway: '' },
+    { id: 2, name: 'Filter', data: '' },
+    { id: 3, name: 'Gateway', data: '' },
   ]);
 
   const [hidden, setHidden] = useState(false);
@@ -57,9 +56,9 @@ const LandingPage = () => {
 
     if (
       [
-        networkSetting[0].Network_Interface,
-        networkSetting[1].Filter.length,
-        networkSetting[2].Gateway.length,
+        networkSetting[0].data,
+        networkSetting[1].data,
+        networkSetting[2].data,
       ].some((element) => element === '')
     )
       return setError(!error);
@@ -79,12 +78,12 @@ const LandingPage = () => {
   // when the user fill the fields of the customized setting page
   const handleChange = (event) => {
     event.preventDefault();
-    const { name, value } = event.target;
+    const { value } = event.target;
     const index = event.target.id;
     setNetworkSetting((PrevNetworkSetting) => {
       const updateSetting = PrevNetworkSetting.map((item) => {
         if (index === item.name) {
-          item[[name]] = value;
+          item.data = value;
         }
 
         return item;
@@ -130,8 +129,11 @@ const LandingPage = () => {
           <Grid item xs={12}>
             <SwiperText />
           </Grid>
-          <Form handleClick={handleClick} hidden={hidden} />
-          
+          <Form
+            handleClick={handleClick}
+            hidden={hidden}
+            networkSetting={networkSetting}
+          />
           <SettingPage
             open={open}
             handleClose={handleClose}
@@ -144,8 +146,9 @@ const LandingPage = () => {
       </Grid>
       <Snackbar
         open={openAlert}
-        autoHideDuration={6000}
+        autoHideDuration={1000}
         onClose={handleAlertClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         <Alert onClose={handleAlertClose} severity="success">
           The data has been saved!
