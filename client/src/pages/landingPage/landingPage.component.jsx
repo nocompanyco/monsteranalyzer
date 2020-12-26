@@ -9,6 +9,7 @@ import firstpageData from './firstpageData.json';
 import SettingPage from '../settingPage/settingPage.component';
 import MuiAlert from '@material-ui/lab/Alert';
 
+
 // cusomize the alert
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -28,7 +29,7 @@ const LandingPage = () => {
   }, []);
 
   const [open, setOpen] = React.useState(false);
-  // open & close the Dialog page
+  // open & close the Dialog customized Setting page
   const handleClose = () => {
     setOpen(false);
   };
@@ -130,6 +131,7 @@ const LandingPage = () => {
             <SwiperText />
           </Grid>
           <Form handleClick={handleClick} hidden={hidden} />
+          
           <SettingPage
             open={open}
             handleClose={handleClose}

@@ -1,27 +1,32 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment } from 'react';
+import { Button, Grid } from '@material-ui/core';
 import Selection from '../selection/selection.component';
 import StartBtn from '../startBtn/startBtn.compoenet';
-import { Button, Grid, Link } from '@material-ui/core';
-import SettingPage from '../../pages/settingPage/settingPage.component';
+import DataTable from '../table/table.component';
+import './form.styles.css';
 
-const Form = ({ handleClick , hidden}) => {
+const Form = ({ handleClick, hidden }) => {
   return (
     <Fragment>
       <Grid container item xs={12} justify="center">
-        <Grid container item justify="center">
-          <Selection hidden={hidden}/>
-          <StartBtn />
+        <Grid
+          container
+          item
+          justify="center"
+          alignItems={hidden ? 'center' : null}
+        >
+          <Selection hidden={hidden} />
+          <DataTable hidden={hidden} handleClick={handleClick}/>
+          <StartBtn  hidden={hidden}/>
         </Grid>
         <Grid item container justify="center">
           <Button
             onClick={handleClick}
             variant="contained"
-            style={{
-              color: '#3BB7E3',
-              marginLeft: 100,
-            }}
+            className="customizeBtn"
+            style={{ color: '#3BB7E3', display: hidden ? 'none' : null }}
           >
-            {'Custom Settings'}
+            {'Customize Settings'}
           </Button>
         </Grid>
       </Grid>
