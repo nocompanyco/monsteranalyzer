@@ -22,7 +22,7 @@ export default function Header() {
           <div className={classes.container}>
             <IconButton
               id="one"
-              edge="false"
+              edge={false}
               className={classes.menuButton}
               color="inherit"
               aria-label="back"
