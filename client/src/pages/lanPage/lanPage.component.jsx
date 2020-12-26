@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import Header from '../../components/lan-header/lan-header.component';
 
 export default function LanPage() {
-  return <h1>lanpage</h1>;
+  return (
+    <Fragment>
+      <Header />
+    </Fragment>
+  );
 }
