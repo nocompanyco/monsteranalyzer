@@ -8,6 +8,7 @@ import SwiperCore, {
 } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import slides from './slides-data';
 
 // Import Swiper styles
 import 'swiper/swiper.scss';
@@ -17,29 +18,6 @@ import './swiper.styles.css';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 const SwiperText = () => {
-  const slides = [
-    {
-      id: 1,
-      text: 'Welcome To Monster Analyzer',
-      subText: 'Anaylze your Network',
-    },
-    {
-      id: 2,
-      text: 'Select Your Network \n',
-      subText: 'Set Your Network to get the required information',
-    },
-    {
-      id: 3,
-      text: 'Customize Your Network \n',
-      subText: 'Edit your network to get the proper reports',
-    },
-    {
-      id: 4,
-      text: 'Find your hosts \n',
-      subText:
-        'Find information on hosts, computers, phones found on your local network',
-    },
-  ];
   return (
     <Swiper
       spaceBetween={0}
@@ -50,7 +28,6 @@ const SwiperText = () => {
         disableOnInteraction: false,
       }}
       pagination={{ clickable: true }}
-      
     >
       {slides.map((slide) => {
         return (

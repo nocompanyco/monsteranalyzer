@@ -16,6 +16,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 DialogContent.muiName = 'IconMenu';
+
 // this is to open Dialog for SettingPage
 export default function SettingPage({
   open,
@@ -25,7 +26,6 @@ export default function SettingPage({
   error,
   handleSave,
 }) {
-  console.log('networking', networkSetting);
   return (
     <div>
       <Dialog

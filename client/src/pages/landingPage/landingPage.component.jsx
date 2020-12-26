@@ -1,18 +1,13 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import useStyles from './landingPage.styles.jsx';
-import { Grid, Snackbar } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import logo from '../../assets/logo.png';
 import SwiperText from '../../components/swiper/swiper.component.jsx';
 import Form from '../../components/form/form.component';
 import lottie from 'lottie-web';
 import firstpageData from './firstpageData.json';
 import SettingPage from '../settingPage/settingPage.component';
-import MuiAlert from '@material-ui/lab/Alert';
-
-// cusomize the alert
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
+import SuccessAlert from '../../components/success-alert/success-alert.component';
 
 const LandingPage = () => {
   const classes = useStyles();
@@ -34,7 +29,7 @@ const LandingPage = () => {
   };
   const handleClick = (event) => {
     event.preventDefault();
-    setOpen(true);
+   return setOpen(true);
   };
   // error of the fileds and the input of the fields
   const [error, setError] = useState(false);
@@ -67,6 +62,7 @@ const LandingPage = () => {
     return setOpenAlert(true);
   };
 
+  // for sucess alert after save btn
   const [openAlert, setOpenAlert] = React.useState(false);
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -92,7 +88,6 @@ const LandingPage = () => {
       return updateSetting;
     });
   };
-  console.log(networkSetting, error);
   return (
     <Fragment>
       <Grid
@@ -144,16 +139,7 @@ const LandingPage = () => {
           />
         </Grid>
       </Grid>
-      <Snackbar
-        open={openAlert}
-        autoHideDuration={1000}
-        onClose={handleAlertClose}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      >
-        <Alert onClose={handleAlertClose} severity="success">
-          The data has been saved!
-        </Alert>
-      </Snackbar>
+      <SuccessAlert openAlert={openAlert} handleAlertClose={handleAlertClose} />
     </Fragment>
   );
 };

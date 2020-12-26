@@ -6,6 +6,7 @@ import DataTable from '../table/table.component';
 import './form.styles.css';
 
 const Form = ({ handleClick, hidden, networkSetting }) => {
+  console.log(handleClick)
   return (
     <Fragment>
       <Grid container item xs={12} justify="center">
