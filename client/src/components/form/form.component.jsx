@@ -5,8 +5,7 @@ import StartBtn from '../startBtn/startBtn.compoenet';
 import DataTable from '../table/table.component';
 import './form.styles.css';
 
-const Form = ({ handleClick, hidden, networkSetting }) => {
-  console.log(handleClick)
+const Form = ({ handleClick, hidden, networkSetting, handleStart }) => {
   return (
     <Fragment>
       <Grid container item xs={12} justify="center">
@@ -17,8 +16,12 @@ const Form = ({ handleClick, hidden, networkSetting }) => {
           alignItems={hidden ? 'center' : null}
         >
           <Selection hidden={hidden} />
-          <DataTable hidden={hidden} handleClick={handleClick} networkSetting={networkSetting} />
-          <StartBtn hidden={hidden} />
+          <DataTable
+            hidden={hidden}
+            handleClick={handleClick}
+            networkSetting={networkSetting}
+          />
+          <StartBtn hidden={hidden} handleStart={handleStart} />
         </Grid>
         <Grid item container justify="center">
           <Button

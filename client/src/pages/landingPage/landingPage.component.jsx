@@ -9,7 +9,7 @@ import firstpageData from './firstpageData.json';
 import SettingPage from '../settingPage/settingPage.component';
 import SuccessAlert from '../../components/success-alert/success-alert.component';
 
-const LandingPage = () => {
+const LandingPage = (props) => {
   const classes = useStyles();
   const logoContainer = useRef(null);
   useEffect(() => {
@@ -29,7 +29,7 @@ const LandingPage = () => {
   };
   const handleClick = (event) => {
     event.preventDefault();
-   return setOpen(true);
+    return setOpen(true);
   };
   // error of the fileds and the input of the fields
   const [error, setError] = useState(false);
@@ -88,6 +88,11 @@ const LandingPage = () => {
       return updateSetting;
     });
   };
+  const handleStart = (event) => {
+    event.preventDefault();
+    console.log('clicked');
+    return props.history.push('/lan');
+  };
   return (
     <Fragment>
       <Grid
@@ -128,6 +133,7 @@ const LandingPage = () => {
             handleClick={handleClick}
             hidden={hidden}
             networkSetting={networkSetting}
+            handleStart={handleStart}
           />
           <SettingPage
             open={open}
