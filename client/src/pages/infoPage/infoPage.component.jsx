@@ -1,13 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment ,useState} from 'react';
 import Header from '../../components/pages-header/pages-header.component';
-import LanBody from '../../components/lan-body/lan-body.component';
+import InfoBody from '../../components/info-body/info-body.component';
 
-export default function LanPage(props) {
+export default function InfoPage(props) {
   const { history } = props;
+ 
   return (
     <Fragment>
       <Header history={history} />
-      <LanBody />
+      <InfoBody />
     </Fragment>
   );
 }
