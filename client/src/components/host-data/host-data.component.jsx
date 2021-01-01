@@ -4,7 +4,7 @@ import './host-data.styles.css';
 export default function HostData({ hostName, hostAddress }) {
   return (
     <Fragment>
-      <div className="container">
+      <div className="hostDatacontainer">
         <div className="card">
           <Typography style={{ color: '#32507E', marginRight: 173 }}>
             {hostName}

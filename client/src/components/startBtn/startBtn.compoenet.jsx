@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './startBtn.styles';
 
-const StartBtn = ({ hidden, handleStart,btnName }) => {
+const StartBtn = ({ hidden, handleStart }) => {
   const classes = useStyles();
   return (
     <Button
@@ -14,7 +14,7 @@ const StartBtn = ({ hidden, handleStart,btnName }) => {
       style={{ marginLeft: hidden ? 20 : null }}
       onClick={handleStart}
     >
-      {btnName}
+      Start
     </Button>
   );
 };

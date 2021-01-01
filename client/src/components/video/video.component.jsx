@@ -14,7 +14,7 @@ const Video = (props) => {
   const src = getVideoSrc(window.innerWidth);
   const onLoadedData = () => {
     setIsVideoLoaded(true);
-    return 'this.play()'
+    return 'this.play()';
   };
   return (
     <div className="container">
@@ -30,7 +30,7 @@ const Video = (props) => {
         onLoadedData={onLoadedData}
         style={{ display: isVideoLoaded ? 'unset' : 'none' }}
         className="video"
-        autoPictureInPicture="true"
+        autopictureinpicture="true"
       />
     </div>
   );
