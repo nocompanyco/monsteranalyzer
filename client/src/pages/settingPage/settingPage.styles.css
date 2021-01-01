@@ -1,0 +1,53 @@
+.dialogContainer {
+  width: 921px;
+  height: 693px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #dddfd4ed !important;
+}
+
+.dialogContent {
+  /* margin: 1px -1px 0px 5px; */
+  box-shadow: 10px 10px 8px #888888;
+  border: 0px solid gray;
+  width: 834px;
+  padding-top: 50px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dialogTitle {
+  text-align: center;
+  font-size: 30px;
+}
+
+.dialogAction {
+  display: flex;
+  align-items: center;
+  justify-content: center !important;
+}
+
+.saveBtn {
+  background: #3bb7e3 !important;
+  border-radius: 4px !important;
+  width: 298px;
+  height: 84px;
+  font-size: 29px !important;
+  line-height: 34px !important;
+  color: #ffffff !important;
+}
+
+.saveBtn:hover {
+  background-color: white !important;
+  color: #3bb7e3 !important;
+  border: 2px solid #3bb7e3 !important;
+}
+
+.empty {
+  width: 300px;
+  height: 64px;
+}
