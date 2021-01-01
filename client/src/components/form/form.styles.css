@@ -1,0 +1,9 @@
+.customizeBtn {
+  background-color: white !important;
+  box-shadow: none !important;
+  margin-left: 100px !important;
+}
+
+.customizeBtn:active {
+  text-decoration: underline !important;
+}

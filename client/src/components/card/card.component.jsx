@@ -1,25 +1,28 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
+import{ Card,CardContent,TextField} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import styles from './card.styles'
+import styles from './card.styles';
 
 class CardSettingPage extends React.Component {
   render() {
-    const { networkSetting, handleChange, classes} = this.props;
-    console.log(networkSetting);
+    const { networkSetting, handleChange, classes, textError } = this.props;
     return (
       <Card className={classes.cardContainer}>
         <CardContent className={classes.Cardcontent}>
           {networkSetting.name}
           <TextField
+            error={textError ? true : false}
             id={networkSetting.name}
             label={'Please Enter your data here'}
             variant="outlined"
             onChange={handleChange}
+            required
             name={networkSetting.name}
-            className={networkSetting.name === 'Network_Interface' ? classes.textField : classes.textFieldSmall  }
+            className={
+              networkSetting.name === 'Network_Interface'
+                ? classes.textField
+                : classes.textFieldSmall
+            }
           />
         </CardContent>
       </Card>

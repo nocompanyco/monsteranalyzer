@@ -16,27 +16,29 @@ class Selection extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, hidden } = this.props;
     return (
-      <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel id="demo-simple-select-outlined-label">
-          Select Your Network
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.netwrok}
-          onChange={this.handleChange}
-          label="Network"
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={'ten'}>Ten</MenuItem>
-          <MenuItem value={'twenty'}>Twenty</MenuItem>
-          <MenuItem value={'thirty'}>Thirty</MenuItem>
-        </Select>
-      </FormControl>
+      <div style={{ display: hidden ? 'none' : 'null' }}>
+        <FormControl variant="outlined" className={classes.formControl}>
+          <InputLabel id="demo-simple-select-outlined-label">
+            Select Your Network
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={this.state.netwrok}
+            onChange={this.handleChange}
+            label="Network"
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value={'ten'}>Ten</MenuItem>
+            <MenuItem value={'twenty'}>Twenty</MenuItem>
+            <MenuItem value={'thirty'}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
     );
   }
 }

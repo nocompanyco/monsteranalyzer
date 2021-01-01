@@ -42,9 +42,8 @@
 }
 
 .saveBtn:hover {
-  background-color: white !important;
-  color: #3bb7e3 !important;
-  border: 2px solid #3bb7e3 !important;
+  background-color: #3f51b5 !important;
+  color: #f6f6f6 !important;
 }
 
 .empty {

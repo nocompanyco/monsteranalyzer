@@ -3,15 +3,15 @@ import { Button } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './startBtn.styles';
 
-const StartBtn = ({ btnName }) => {
+const StartBtn = ({ hidden }) => {
   const classes = useStyles();
   return (
     <Button
       variant="contained"
       color="primary"
       className={classes.button}
-      size="large"
-      endIcon={btnName === 'START' ? <Icon>send</Icon> : null}
+      endIcon={<Icon>send</Icon>}
+      style={{ marginLeft: hidden ? 20 : null }}
     >
       {btnName}
     </Button>

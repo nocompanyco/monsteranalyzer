@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -16,38 +16,16 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 DialogContent.muiName = 'IconMenu';
+
 // this is to open Dialog for SettingPage
-export default function SettingPage({ open, handleClose }) {
-  const handleSave = (event) => {
-    event.preventDefault();
-  };
-  const [networkSetting, setNetworkSetting] = useState([
-    {
-      id: 1,
-      name: 'Network_Interface',
-      Network_Interface: ''
-    },
-    { id: 2, name: 'Filter', Filter: '' },
-    { id: 3, name: 'Gateway', Gateway: '' },
-  ]);
-
-  const handleChange = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    const index = event.target.id;
-    setNetworkSetting((PrevNetworkSetting) => {
-      const updateSetting = PrevNetworkSetting.map((item) => {
-        if (index === item.name) {
-          item[[name]] = value;
-        }
-
-        return item;
-      });
-
-      return updateSetting;
-    });
-  };
-  console.log(networkSetting);
+export default function SettingPage({
+  open,
+  handleClose,
+  networkSetting,
+  handleChange,
+  error,
+  handleSave,
+}) {
   return (
     <div>
       <Dialog
@@ -67,21 +45,27 @@ export default function SettingPage({ open, handleClose }) {
           {'Customize Network Setting'}
         </DialogTitle>
         <DialogContent classes={{ root: 'dialogContent' }}>
-          {networkSetting.map((value) => {
+          {networkSetting.map((value, index) => {
             return (
               <CardSettingPage
+                key={index}
                 networkSetting={value}
                 handleChange={handleChange}
+                textError={error}
               />
             );
           })}
-          <DialogActions classes={{root:'dialogAction'}}>
-            <Button onClick={handleSave} classes={{root:'saveBtn'}}>
+          <DialogActions classes={{ root: 'dialogAction' }}>
+            <Button
+              onClick={handleSave}
+              variant="contained"
+              classes={{ root: 'saveBtn' }}
+            >
               Save Changes
             </Button>
           </DialogActions>
         </DialogContent>
-        <div className='empty'></div>
+        <div className="empty"></div>
       </Dialog>
     </div>
   );
