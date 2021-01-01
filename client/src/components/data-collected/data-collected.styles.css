@@ -6,8 +6,15 @@
   width: 100%;
 }
 
+
 .textcontainer {
   width: 100%;
+}
+
+.aboutTitle {
+  color: #000000;
+  font-size: 25px !important;
+  font-weight: 400 !important;
 }
 
 .title {
@@ -16,5 +23,5 @@
 }
 
 .data {
-color: #32507e;
+  color: #32507e;
 }

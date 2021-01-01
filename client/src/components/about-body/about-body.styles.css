@@ -1,0 +1,60 @@
+.containerAbout {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: inherit;
+  margin: 40px 0px 10px 456px;
+}
+
+.section2 {
+  width: 69%;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border: 1px solid #dddfd4;
+}
+
+.badge {
+  background-color: #3bb7e3;
+  color: white;
+  font-size: 22px !important;
+  width: 182px;
+  height: 40px;
+  text-align: center;
+  border-radius: 4px;
+  padding: 5px;
+  border: none;
+  text-decoration: unset;
+}
+
+.logoName {
+  font-family: Harmattan !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 40px !important;
+  line-height: 68px !important;
+}
+
+.textContainer {
+  margin-left: 10px;
+}
+
+/* .text {
+  font-family: Harmattan;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 68px;
+  display: flex;
+  align-items: center;
+} */
