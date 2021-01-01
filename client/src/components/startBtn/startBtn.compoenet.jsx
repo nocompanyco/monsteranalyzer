@@ -13,7 +13,7 @@ const StartBtn = ({ hidden }) => {
       endIcon={<Icon>send</Icon>}
       style={{ marginLeft: hidden ? 20 : null }}
     >
-      Start
+      {btnName}
     </Button>
   );
 };

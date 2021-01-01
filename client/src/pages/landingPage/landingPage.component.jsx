@@ -12,6 +12,10 @@ import SuccessAlert from '../../components/success-alert/success-alert.component
 const LandingPage = () => {
   const classes = useStyles();
   const logoContainer = useRef(null);
+  const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
+  const onLoadedData = () => {
+    setIsVideoLoaded(true);
+  };
   useEffect(() => {
     lottie.loadAnimation({
       container: logoContainer.current, // the dom element that will contain the animation
@@ -105,11 +109,12 @@ const LandingPage = () => {
           alignItems="center"
           id="section1"
         >
-          <div
+          {/* <div
             id="logoContainer"
             style={{ width: '34%', margin: '0 auto' }}
             ref={logoContainer}
-          ></div>
+         ></div>*/}
+          <Video />
         </Grid>
         <Grid
           container

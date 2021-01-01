@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
     width: '175px',
     height: '56px',
     backgroundColor: '#3BB7E3',
+    fontSize: 22,
   },
 }));
 
