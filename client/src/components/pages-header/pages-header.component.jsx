@@ -5,7 +5,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import InfoIcon from '@material-ui/icons/Info';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import useStyles from './lan-header.styles';
+import useStyles from './pages-header.styles';
 
 export default function Header({ history }) {
   const classes = useStyles();
@@ -87,7 +87,7 @@ export default function Header({ history }) {
               to="/info"
               onClick={() => handleClick(3)}
             >
-              <InfoIcon
+              <EventNoteIcon
                 className={classes.icon}
                 style={{
                   color:
@@ -116,7 +116,7 @@ export default function Header({ history }) {
               to="/about"
               onClick={() => handleClick(4)}
             >
-              <EventNoteIcon
+              <InfoIcon
                 className={classes.icon}
                 style={{
                   color:

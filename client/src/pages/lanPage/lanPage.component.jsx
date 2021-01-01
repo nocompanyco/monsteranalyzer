@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Header from '../../components/lan-header/lan-header.component';
+import Header from '../../components/pages-header/pages-header.component';
 import LanBody from '../../components/lan-body/lan-body.component';
 
 export default function LanPage(props) {

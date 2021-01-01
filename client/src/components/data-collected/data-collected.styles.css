@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.textcontainer {
+  width: 100%;
+}
+
+.title {
+  color: #000000;
+  opacity: 54%;
+}
+
+.data {
+color: #32507e;
+}
