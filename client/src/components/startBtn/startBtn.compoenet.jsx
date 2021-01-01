@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './startBtn.styles';
 
-const StartBtn = ({ hidden, handleStart }) => {
+const StartBtn = ({ hidden, handleStart,btnName }) => {
   const classes = useStyles();
   return (
     <Button
