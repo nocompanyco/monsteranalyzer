@@ -3,16 +3,17 @@ import { Button } from '@material-ui/core';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './startBtn.styles';
 
-const StartBtn = () => {
+const StartBtn = ({ btnName }) => {
   const classes = useStyles();
   return (
     <Button
       variant="contained"
       color="primary"
       className={classes.button}
-      endIcon={<Icon>send</Icon>}
+      size="large"
+      endIcon={btnName === 'START' ? <Icon>send</Icon> : null}
     >
-      Start
+      {btnName}
     </Button>
   );
 };
