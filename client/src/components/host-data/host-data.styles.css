@@ -1,24 +1,32 @@
 .container {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .card {
-  position: absolute;
   width: 1146px;
   height: 104px;
-  left: 128px;
-  top: 212px;
   background-color: #dddfd4;
   display: flex;
   align-items: center;
   flex-direction: row;
   justify-content: space-evenly;
+  margin-top: 30px;
 }
 
-.stopbtn {
-  border-radius: 50%;
-  width: 130px;
-  height: 130px;
-  background-color: #3bb7e3;
-  font-size: 30px;
+.stopBtn {
+  border-radius: 50% !important;
+  width: 110px !important;
+  height: 110px !important;
+  background-color: #3bb7e3 !important;
+  font-size: 30px !important;
+  margin-top: 30px !important;
+  text-align: center;
+  align-self: center;
+}
+
+.stopBtn:active {
+  background-color: #3f51b5 !important;
 }

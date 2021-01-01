@@ -7,9 +7,10 @@ import InfoIcon from '@material-ui/icons/Info';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import useStyles from './lan-header.styles';
 
-export default function Header() {
+export default function Header({ history }) {
   const classes = useStyles();
   const [clicked, setClicked] = useState(null);
+  const pathName = history.location.pathname;
 
   const handleClick = (id) => {
     return setClicked(id);
@@ -32,7 +33,10 @@ export default function Header() {
             >
               <ArrowBackIosIcon
                 className={classes.icon}
-                style={{ color: clicked === 1 ? '#3BB7E3' : '#7C7C7D ' }}
+                style={{
+                  color:
+                    clicked === 1 || pathName === '/' ? '#3BB7E3' : '#7C7C7D ',
+                }}
               />
             </IconButton>
             <Typography
@@ -56,7 +60,12 @@ export default function Header() {
             >
               <AccountTreeIcon
                 className={classes.icon}
-                style={{ color: clicked === 2 ? '#3BB7E3' : '#7C7C7D ' }}
+                style={{
+                  color:
+                    clicked === 2 || pathName === '/lan'
+                      ? '#3BB7E3'
+                      : '#7C7C7D ',
+                }}
               />
             </IconButton>
             <Typography
@@ -80,7 +89,12 @@ export default function Header() {
             >
               <InfoIcon
                 className={classes.icon}
-                style={{ color: clicked === 3 ? '#3BB7E3' : '#7C7C7D ' }}
+                style={{
+                  color:
+                    clicked === 3 || pathName === '/info'
+                      ? '#3BB7E3'
+                      : '#7C7C7D ',
+                }}
               />
             </IconButton>
             <Typography
@@ -104,7 +118,12 @@ export default function Header() {
             >
               <EventNoteIcon
                 className={classes.icon}
-                style={{ color: clicked === 4 ? '#3BB7E3' : '#7C7C7D ' }}
+                style={{
+                  color:
+                    clicked === 4 || pathName === '/about'
+                      ? '#3BB7E3'
+                      : '#7C7C7D ',
+                }}
               />
             </IconButton>
             <Typography

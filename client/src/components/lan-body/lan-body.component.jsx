@@ -5,6 +5,8 @@ import HostData from '../host-data/host-data.component';
 
 export default function LanBody() {
   const classes = useStyles();
+  const hostName='testwifi.here'
+  const hostAddress ='192.162.02.1'
   return (
     <div className={classes.container}>
       <div className={classes.top}>
@@ -23,7 +25,7 @@ export default function LanBody() {
         <Typography style={{ fontSize: 30 }}>Host IP Address</Typography>
       </div>
       <div className={classes.data}>
-        <HostData />
+        <HostData hostName={hostName} hostAddress={hostAddress}/>
         
       </div>
       
