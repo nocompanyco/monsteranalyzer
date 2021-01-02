@@ -8,19 +8,24 @@ function createWindow() {
     height: 680,
     webPreferences: {
       nodeIntegration: true,
-      worldSafeExecuteJavaScript:true,
-      contextIsolation:true
+      worldSafeExecuteJavaScript: true,
+      contextIsolation: true,
     },
   });
 
   win.loadURL(
     isDev
       ? 'http://localhost:3000'
-      : `file://${path.join(_direname, '../build/index.html')}`
+      : `file://${path.join(__dirname, '../build/index.html')}`
   );
+  
   win.removeMenu();
   win.on('closed', () => (win = null));
 }
+// for auto reload after anychanging 
+require('electron-reload')(__dirname, {
+  electron: path.join('../node_modules', '.bin', 'electron'),
+});
 
 app.whenReady().then(createWindow);
 
