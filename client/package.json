@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "author": "No Company",
   "build": {
-    "appId": "monest-analyzer.com"
+    "appId": "monest-analyzer.com",
+    "win" : {
+      "icon":"build/assets/win/logo.ico"
+    }
     },
   "homepage": "./",
   "description": "Monster Analyzer which provide information on local networks",
