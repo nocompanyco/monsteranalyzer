@@ -8,51 +8,65 @@ const {
 } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
-let win, tray, settingWin;
 
+let mainWindow, tray, settingWin;
+
+// creating the main waindow
 function createWindow() {
-  win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 680,
     fullscreenable: 'true',
     icon: path.join(__dirname, 'assets/png/logo.png'),
     webPreferences: {
       nodeIntegration: true,
-      worldSafeExecuteJavaScript: true,
-      contextIsolation: true,
-      enableRemoteModule: true
+      preload: `${__dirname}/preload.js`,
     },
   });
 
-  win.loadURL(
+  mainWindow.loadURL(
     isDev
       ? 'http://localhost:3000'
       : `file://${path.join(__dirname, '../build/index.html')}`
   );
 
-  win.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
-  win.removeMenu();
-  win.on('closed', () => (win = null));
+  mainWindow.removeMenu();
+  mainWindow.on('closed', () => (mainWindow = null));
 }
 
-//create new window for setting
+//  // Don't show until we are ready and loaded
+//  mainWindow.once('ready-to-show', () => {
+//   mainWindow.hide();
+// });
+
+//create setting window
 function createSettingWindow() {
-  settingWin = new BrowserWindow({
-    width: 400,
-    height: 300,
-    title: 'Customize Setting',
+  return new Promise((resolve, reject) => {
+    settingWin = new BrowserWindow({
+      width: 700,
+      height: 650,
+      title: 'Customize Setting',
+      parent: mainWindow,
+      webPreferences: {
+        nodeIntegration: true,
+      },
+    });
+
+    settingWin.loadURL(
+      isDev
+        ? 'http://localhost:3000#/setting'
+        : `file://${path.join(__dirname, '../build/index.html#/setting')}`
+    );
+    settingWin.removeMenu();
+    settingWin.webContents.openDevTools();
+    settingWin.on('close', () => (settingWin = null));
+    settingWin.webContents.on('did-finish-load', () => {
+      resolve();
+    });
   });
-
-  settingWin.loadURL(
-    isDev
-      ? 'http://localhost:3000/setting'
-      : `file://${path.join(__dirname, '../build/index.html#/setting')}`
-  );
-
-  settingWin.on('close', () => (settingWin = null));
 }
-
 
 // for auto reload after anychanging
 require('electron-reload')(__dirname, {
@@ -69,17 +83,39 @@ const createTray = () => {
 };
 
 //togglewindow function
-
 const toggleWindow = () => {
-  win.isVisible() ? win.hide() : win.show();
+  mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
 };
+
+//*** shortcut to refresh the page//
+const createRefresh = () => {
+  globalShortcut.register('f5', function () {
+    console.log('f5 is pressed');
+    mainWindow.reload();
+    settingWin.reload();
+  });
+  globalShortcut.register('CommandOrControl+R', function () {
+    console.log('CommandOrControl+R is pressed');
+    mainWindow.reload();
+    settingWin.reload();
+  });
+  globalShortcut.register('Control+Shift+I', function () {
+    console.log('Control+Shift+i is pressed');
+    mainWindow.webContents.openDevTools();
+    settingWin.webContents.openDevTools();
+  });
+};
+
+// listeining to React requests from landingpage
+ipcMain.on('SETTINGBTN-CILICKED', (event, arg) => {
+  createSettingWindow().then(settingWin.webContents.send('message-1', arg));
+});
 
 // when ready call the functions
 app.whenReady().then(() => {
   createTray();
   createWindow();
   createRefresh();
-  createSettingWindow() 
 });
 
 app.on('window-all-closed', () => {
@@ -93,19 +129,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-//*** shortcut to refresh the page//
-const createRefresh = () => {
-  globalShortcut.register('f5', function () {
-    console.log('f5 is pressed');
-    win.reload();
-  });
-  globalShortcut.register('CommandOrControl+R', function () {
-    console.log('CommandOrControl+R is pressed');
-    win.reload();
-  });
-  globalShortcut.register('Control+Shift+I', function () {
-    console.log('Control+Shift+i is pressed');
-    win.webContents.openDevTools();
-  });
-};
