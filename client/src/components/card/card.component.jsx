@@ -9,7 +9,9 @@ class CardSettingPage extends React.Component {
     return (
       <Card className={classes.cardContainer}>
         <CardContent className={classes.Cardcontent}>
+        <div className={classes.nameText}>
           {networkSetting.name}
+          </div>
           <TextField
             error={textError ? true : false}
             id={networkSetting.name}
