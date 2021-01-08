@@ -5,13 +5,13 @@
   "build": {
     "appId": "monest-analyzer.com",
     "win": {
-      "icon": "./public/assets/win/logo.ico"
+      "icon": "./public/assets/png/logo.png"
     },
     "copyright": "Copyright © 2020 ${author}",
-  "mac": {
-    "icon": "./public/assets/mac/logo.icns",     
-    "category": "public.app-category.utilities"
-  }
+    "mac": {
+      "icon": "./public/assets/mac/logo.icns",
+      "category": "public.app-category.utilities"
+    }
   },
   "homepage": "./",
   "description": "Monster Analyzer which provide information on local networks",

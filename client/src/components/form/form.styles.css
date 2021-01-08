@@ -1,7 +1,26 @@
+@media screen and (max-width: 900px) {
+  .customizeBtn {
+    font-size: 13px !important;
+    margin-left: 68px !important;
+  }
+}
+
+@media screen and (max-width: 624px) {
+  .customizeBtn {
+    margin-left: 0px !important;
+    margin: 10px 14px 0px 0px !important;
+  }
+}
+@media screen and (min-width: 900px) {
+  .customizeBtn {
+    margin-left: 82px !important;
+  }
+}
+
 .customizeBtn {
   background-color: white !important;
   box-shadow: none !important;
-  margin-left: 100px !important;
+  
 }
 
 .customizeBtn:active {

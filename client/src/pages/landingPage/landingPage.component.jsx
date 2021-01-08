@@ -8,7 +8,8 @@ import lottie from 'lottie-web';
 import firstpageData from './firstpageData.json';
 import SettingPage from '../settingPage/settingPage.component';
 import SuccessAlert from '../../components/success-alert/success-alert.component';
-import Video from '../../components/video/video.component'
+import Video from '../../components/video/video.component';
+
 
 const LandingPage = (props) => {
   const classes = useStyles();
@@ -32,6 +33,9 @@ const LandingPage = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
+  
+  // click of the cutomize setting to open dialog box
+
   const handleClick = (event) => {
     event.preventDefault();
     return setOpen(true);

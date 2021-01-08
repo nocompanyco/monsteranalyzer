@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
     height: '56px',
     backgroundColor: '#3BB7E3',
     fontSize: 22,
+    [theme.breakpoints.down('624')]: {
+      marginTop: 28,
+    },
   },
 }));
 
