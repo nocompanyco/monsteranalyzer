@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Dialog,
@@ -9,7 +9,8 @@ import {
 } from '@material-ui/core';
 import CardSettingPage from '../../components/card/card.component';
 import './settingPage.styles.css';
-import SuccessAlert from '../../components/success-alert/success-alert.component';
+
+const { ipcRenderer } = window.require('electron');
 
 // this is Fade in for the Dialog
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -20,11 +21,10 @@ DialogContent.muiName = 'IconMenu';
 
 // this is to open Dialog for SettingPage
 export default function SettingPage() {
-
   // error of the fileds and the input of the fields
   const [error, setError] = useState(false);
   const [open, setOpen] = React.useState(false);
-  const [hidden, setHidden] = useState(false);
+  
   const [networkSetting, setNetworkSetting] = useState([
     {
       id: 1,
@@ -35,13 +35,14 @@ export default function SettingPage() {
     { id: 3, name: 'Gateway', data: '' },
   ]);
 
+  // open the dialog when page rendered
   useEffect(() => {
-   setOpen(true)
+    setOpen(true);
   }, []);
 
   // open & close the Dialog customized Setting page
   const handleClose = () => {
-    setOpen(false);
+    ipcRenderer.send('DIALOG-CLOSED', 'Closed');
   };
 
   // when the user press SaveChanges of customized setting
@@ -54,11 +55,12 @@ export default function SettingPage() {
         networkSetting[1].data,
         networkSetting[2].data,
       ].some((element) => element === '')
-    )
+    ) {
       return setError(!error);
-    setHidden(true);
+    }
+
+    ipcRenderer.send('Network-Setting', { networkSetting, hidden:true });
     handleClose();
-    return setOpenAlert(true);
   };
 
   // when the user fill the fields of the customized setting page
@@ -78,17 +80,6 @@ export default function SettingPage() {
       return updateSetting;
     });
   };
-
-   // for sucess alert after save btn
-   const [openAlert, setOpenAlert] = React.useState(false);
-   const handleAlertClose = (event, reason) => {
-     if (reason === 'clickaway') {
-       return;
-     }
-     setOpenAlert(false);
-   };
-
-
 
   return (
     <div>
@@ -131,7 +122,6 @@ export default function SettingPage() {
         </DialogContent>
         <div className="empty"></div>
       </Dialog>
-      <SuccessAlert openAlert={openAlert} handleAlertClose={handleAlertClose} />
     </div>
   );
 }
