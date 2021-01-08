@@ -1,6 +1,21 @@
 {
-  "name": "client",
+  "name": "monster-analyzer",
   "version": "0.1.0",
+  "author": "No Company",
+  "build": {
+    "appId": "monest-analyzer.com",
+    "win": {
+      "icon": "./public/assets/png/logo.png"
+    },
+    "copyright": "Copyright © 2020 ${author}",
+    "mac": {
+      "icon": "./public/assets/mac/logo.icns",
+      "category": "public.app-category.utilities"
+    }
+  },
+  "homepage": "./",
+  "description": "Monster Analyzer which provide information on local networks",
+  "main": "public/electron.js",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.2",
@@ -9,6 +24,8 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "cross-env": "^7.0.3",
+    "electron-is-dev": "^1.2.0",
     "lottie-web": "^5.7.5",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
@@ -19,10 +36,14 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "react-start": "react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "npm run react-build && electron-builder --publish=always",
+    "build": "npm run react-build && npm run electron-build",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": [
@@ -41,5 +62,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "electron": "^11.1.1",
+    "electron-builder": "^22.9.1",
+    "electron-reload": "^1.5.0",
+    "wait-on": "^5.2.1"
   }
 }

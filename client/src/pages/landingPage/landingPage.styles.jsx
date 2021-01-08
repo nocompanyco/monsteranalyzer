@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
   section1: {
     backgroundColor: '#c4c4c46b',
     height: 444,
+    [theme.breakpoints.down('md')]: {
+    height: 269,
+    },
   },
   section2: {
     height: 'fit-content',
@@ -18,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   form: {
     marginLeft: 248,
   },
-  videoContainer :{
+  videoContainer: {
     position: 'relative',
     overflow: 'hidden',
     width: '100%',
@@ -30,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     top: 0,
     left: 0,
-  }
+  },
 }));
 
 export default useStyles;
