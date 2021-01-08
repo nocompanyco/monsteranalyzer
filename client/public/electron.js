@@ -74,6 +74,7 @@ const toggleWindow = () => {
   win.isVisible() ? win.hide() : win.show();
 };
 
+// when ready call the functions
 app.whenReady().then(() => {
   createTray();
   createWindow();
