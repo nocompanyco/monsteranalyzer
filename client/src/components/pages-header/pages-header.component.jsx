@@ -17,8 +17,8 @@ export default function Header({ history }) {
   };
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+    <div id="pagesHeader" className={classes.root}>
+      <AppBar className={classes.AppBar} position="static">
         <Toolbar className={classes.toolbar}>
           <div className={classes.container}>
             <IconButton
@@ -32,7 +32,7 @@ export default function Header({ history }) {
               onClick={() => handleClick(1)}
             >
               <ArrowBackIosIcon
-                className={classes.icon}
+                className={classes.backIcon}
                 style={{
                   color:
                     clicked === 1 || pathName === '/' ? '#3BB7E3' : '#7C7C7D ',
@@ -42,7 +42,11 @@ export default function Header({ history }) {
             <Typography
               align="center"
               variant="button"
-              className={classes.text}
+              className={classes.backText}
+              style={{
+                color:
+                  clicked === 1 || pathName === '/' ? '#3BB7E3' : '#7C7C7D ',
+              }}
             >
               Back
             </Typography>
@@ -59,6 +63,7 @@ export default function Header({ history }) {
               onClick={() => handleClick(2)}
             >
               <AccountTreeIcon
+                align="true"
                 className={classes.icon}
                 style={{
                   color:
@@ -71,7 +76,12 @@ export default function Header({ history }) {
             <Typography
               align="center"
               variant="button"
-              style={{ marginRight: 24, color: '#7C7C7D' }}
+              className={classes.lanText}
+              style={{
+                color:
+                  clicked === 2 || pathName === '/lan' ? '#3BB7E3' : '#7C7C7D ',
+                marginRight: 24,
+              }}
             >
               Lan
             </Typography>
@@ -100,7 +110,14 @@ export default function Header({ history }) {
             <Typography
               align="center"
               variant="button"
-              style={{ marginRight: 24, color: '#7C7C7D' }}
+              className={classes.infoText}
+              style={{
+                color:
+                  clicked === 3 || pathName === '/info'
+                    ? '#3BB7E3'
+                    : '#7C7C7D ',
+                marginRight: 24,
+              }}
             >
               Info
             </Typography>
@@ -129,7 +146,14 @@ export default function Header({ history }) {
             <Typography
               align="center"
               variant="button"
-              style={{ marginRight: 38, color: '#7C7C7D' }}
+              className={classes.aboutText}
+              style={{
+                color:
+                  clicked === 4 || pathName === '/about'
+                    ? '#3BB7E3'
+                    : '#7C7C7D ',
+                marginRight: 38,
+              }}
             >
               About
             </Typography>

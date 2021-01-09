@@ -5,7 +5,7 @@ import LanBody from '../../components/lan-body/lan-body.component';
 export default function LanPage(props) {
   const { history } = props;
   return (
-    <Fragment>
+    <Fragment key='lanPage'>
       <Header history={history} />
       <LanBody />
     </Fragment>

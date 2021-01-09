@@ -1,7 +1,9 @@
 import React, { Fragment } from 'react';
 import { Typography, Button } from '@material-ui/core';
 import './host-data.styles.css';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 export default function HostData({ hostName, hostAddress }) {
+  const matches = useMediaQuery('(max-width:910px)');
   return (
     <Fragment>
       <div className="hostDatacontainer">
@@ -18,7 +20,7 @@ export default function HostData({ hostName, hostAddress }) {
           <Typography style={{ marginRight: 31 }}>{hostAddress}</Typography>
         </div>
         <div>
-          <Button variant="contained" color="primary" className="stopBtn">
+          <Button variant="contained" color="primary" className={matches ? 'responsiveBtn' : 'stopBtn'}>
             Stop
           </Button>
         </div>
