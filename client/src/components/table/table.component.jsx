@@ -24,7 +24,7 @@ export default function DataTable({ hidden, handleClick, networkSetting }) {
         <TableHead>
           <TableRow>
             <StyledTableCell>Your Customized Network Setting</StyledTableCell>
-            <StyledTableCell align="right">
+            <StyledTableCell align="center">
               <SettingIconBtn handleClick={handleClick} />
             </StyledTableCell>
           </TableRow>
@@ -35,7 +35,7 @@ export default function DataTable({ hidden, handleClick, networkSetting }) {
               <StyledTableCell component="th" scope="row">
                 {item.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{item.data}</StyledTableCell>
+              <StyledTableCell align="center" className={classes.dataCell}>{item.data}</StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

@@ -78,7 +78,7 @@ const LandingPage = (props) => {
           container
           item
           xs={12}
-          className={classes.section1}
+          className={hidden? classes.section1Customized: classes.section1}
           justify="center"
           alignItems="center"
           id="section1"
@@ -101,7 +101,7 @@ const LandingPage = (props) => {
           id="section2"
         >
           <Grid item xs={12}>
-            <SwiperText />
+            <SwiperText hidden={hidden} />
           </Grid>
           <Form
             handleClick={handleClick}

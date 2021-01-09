@@ -6,10 +6,25 @@ const useStyles = makeStyles((theme) => ({
   },
   section1: {
     backgroundColor: '#c4c4c46b',
-    height: 444,
-    [theme.breakpoints.down('md')]: {
-    height: 269,
+    // height: '444 !important',
+    // [theme.breakpoints.only('900')]: {
+    //   height: '400px !important',
+    // },
+    [theme.breakpoints.down('1080')]: {
+      height: '290px !important',
     },
+    [theme.breakpoints.between('1080', '1363')]: {
+      height: '350px !important',
+    },
+    [theme.breakpoints.between('1363', '1531')]: {
+      height: '420px !important',
+    },
+    [theme.breakpoints.up('1531')]: {
+      height: '492px !important',
+    },
+  },
+  section1Customized: {
+    height: '237px !important',
   },
   section2: {
     height: 'fit-content',
