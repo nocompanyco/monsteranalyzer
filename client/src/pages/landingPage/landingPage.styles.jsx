@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
       height: '248px !important',
     },
     [theme.breakpoints.between('889','1080')]: {
-      height: '290px !important',
+      height: '260px !important',
     },
     [theme.breakpoints.between('1080', '1363')]: {
       height: '350px !important',
