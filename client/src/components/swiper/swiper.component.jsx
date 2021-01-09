@@ -17,7 +17,7 @@ import './swiper.styles.css';
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
-const SwiperText = () => {
+const SwiperText = ({hidden}) => {
   return (
     <Swiper
       spaceBetween={0}
@@ -31,7 +31,7 @@ const SwiperText = () => {
     >
       {slides.map((slide) => {
         return (
-          <SwiperSlide key={slide.id}>
+          <SwiperSlide key={slide.id} className={hidden? 'SwiperSlideCustomized': null}>
             {slide.text}
             <span id="subText">{slide.subText}</span>
           </SwiperSlide>
