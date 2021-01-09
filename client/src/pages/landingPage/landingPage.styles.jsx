@@ -25,6 +25,21 @@ const useStyles = makeStyles((theme) => ({
   },
   section1Customized: {
     height: '237px !important',
+    [theme.breakpoints.down('690')]: {
+      height: '248px !important',
+    },
+    [theme.breakpoints.between('889','1080')]: {
+      height: '290px !important',
+    },
+    [theme.breakpoints.between('1080', '1363')]: {
+      height: '350px !important',
+    },
+    [theme.breakpoints.between('1363', '1531')]: {
+      height: '420px !important',
+    },
+    [theme.breakpoints.up('1531')]: {
+      height: '492px !important',
+    },
   },
   section2: {
     height: 'fit-content',
