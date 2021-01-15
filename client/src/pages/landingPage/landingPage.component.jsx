@@ -6,7 +6,8 @@ import SwiperText from '../../components/swiper/swiper.component.jsx';
 import Form from '../../components/form/form.component';
 import lottie from 'lottie-web';
 import firstpageData from './firstpageData.json';
-import SettingPage from '../settingPage/settingPage.component';
+
+import SuccessAlert from '../../components/success-alert/success-alert.component';
 
 import Video from '../../components/video/video.component';
 const { ipcRenderer } = window.require('electron');
@@ -18,6 +19,12 @@ const LandingPage = (props) => {
   const onLoadedData = () => {
     setIsVideoLoaded(true);
   };
+
+  const [networkSetting, setNetworkSetting] = useState([]);
+
+  const [hidden, setHidden] = useState(false);
+
+  // for animation
   useEffect(() => {
     lottie.loadAnimation({
       container: logoContainer.current, // the dom element that will contain the animation
@@ -28,23 +35,31 @@ const LandingPage = (props) => {
     });
   }, []);
 
+  // for getting the info from settingPage
+  useEffect(() => {
+    ipcRenderer.on('NetWork-Setting-Values', (event, arg) => {
+      if (!arg) {
+        console.log('didnt get the info');
+      }
+      setOpenAlert(true);
+      setNetworkSetting(arg.networkSetting);
+      setHidden(arg.hidden);
+    });
+  });
   // click of the cutomize setting to open dialog box
   const handleClick = (event) => {
     event.preventDefault();
-    ipcRenderer.send('SETTINGBTN-CILICKED','Clicked')
+    ipcRenderer.send('SETTINGBTN-CILICKED', 'Clicked');
   };
-  
-  const [networkSetting, setNetworkSetting] = useState([
-    {
-      id: 1,
-      name: 'Network_Interface',
-      data: '',
-    },
-    { id: 2, name: 'Filter', data: '' },
-    { id: 3, name: 'Gateway', data: '' },
-  ]);
 
-  const [hidden, setHidden] = useState(false);
+  // for sucess alert after save btn
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
+  };
 
   const handleStart = (event) => {
     event.preventDefault();
@@ -63,7 +78,7 @@ const LandingPage = (props) => {
           container
           item
           xs={12}
-          className={classes.section1}
+          className={hidden? classes.section1Customized: classes.section1}
           justify="center"
           alignItems="center"
           id="section1"
@@ -86,7 +101,7 @@ const LandingPage = (props) => {
           id="section2"
         >
           <Grid item xs={12}>
-            <SwiperText />
+            <SwiperText hidden={hidden} />
           </Grid>
           <Form
             handleClick={handleClick}
@@ -94,7 +109,7 @@ const LandingPage = (props) => {
             networkSetting={networkSetting}
             handleStart={handleStart}
           />
-         {/* <SettingPage
+          {/* <SettingPage
             open={open}
             handleClose={handleClose}
             networkSetting={networkSetting}
@@ -104,6 +119,7 @@ const LandingPage = (props) => {
          />*/}
         </Grid>
       </Grid>
+      <SuccessAlert openAlert={openAlert} handleAlertClose={handleAlertClose} />
     </Fragment>
   );
 };

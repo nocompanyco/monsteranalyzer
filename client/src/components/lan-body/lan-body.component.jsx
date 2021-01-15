@@ -1,14 +1,14 @@
 import React from 'react';
 import useStyles from './lan-body.styles';
-import { Divider, Typography,Button } from '@material-ui/core';
+import { Divider, Typography, Button } from '@material-ui/core';
 import HostData from '../host-data/host-data.component';
 
 export default function LanBody() {
   const classes = useStyles();
-  const hostName='testwifi.here'
-  const hostAddress ='192.162.02.1'
+  const hostName = 'testwifi.here';
+  const hostAddress = '192.162.02.1';
   return (
-    <div className={classes.container}>
+    <div id="lanBody" className={classes.container}>
       <div className={classes.top}>
         <Typography className={classes.text} style={{ marginLeft: 20 }}>
           Current IP Address:196.10.10.102
@@ -19,16 +19,19 @@ export default function LanBody() {
       </div>
       <Divider light />
       <div className={classes.table}>
-        <Typography style={{ color: '#32507E', fontSize: 30 }}>
+        <Typography
+          style={{ color: '#32507E', fontSize: 30 }}
+          className={classes.ipText}
+        >
           Host Name
         </Typography>
-        <Typography style={{ fontSize: 30 }}>Host IP Address</Typography>
+        <Typography style={{ fontSize: 30 }} className={classes.ipText}>
+          Host IP Address
+        </Typography>
       </div>
       <div className={classes.data}>
-        <HostData hostName={hostName} hostAddress={hostAddress}/>
-        
+        <HostData hostName={hostName} hostAddress={hostAddress} />
       </div>
-      
     </div>
   );
 }

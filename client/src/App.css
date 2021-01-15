@@ -4,3 +4,9 @@
   margin:0;
 }
 
+#root{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+

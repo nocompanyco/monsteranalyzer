@@ -10,15 +10,19 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  dataCell:{
+    color:'#32507E'
+  }
 });
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#F5F5F5',
     color: '#3BB7E3',
-    fontSize: 15,
+    fontSize: 20,
   },
   body: {
     fontSize: 14,
+    fontWeight:'bold'
   },
 }))(TableCell);
 

@@ -116,6 +116,18 @@ ipcMain.on('Selection-NetWork-Setting', (event, arg) => {
   event.reply('Selection-NetWork-Setting-Reply', net)
 });
 
+//listening to close the settingWindow 
+ipcMain.on('DIALOG-CLOSED',(event,arg)=>{
+settingWin.hide()
+})
+
+//listening to get the networksetting info and send it to mainwindow 
+ipcMain.on('Network-Setting',(event,arg)=>{
+  console.log(arg)
+  mainWindow.webContents.send('NetWork-Setting-Values',arg)
+  })
+
+
 // when ready call the functions
 app.whenReady().then(() => {
   createTray();

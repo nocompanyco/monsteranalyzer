@@ -1,0 +1,5 @@
+.lanConatiner {
+  display: flex;
+  flex-direction: column;
+
+}

@@ -1,3 +1,17 @@
+@media screen and (max-width: 1080px) {
+  .section1 {
+    margin: unset !important;
+    margin-top: 20px !important;
+  }
+  .section2{
+    width: 90% !important;
+    margin-top: 10px;
+  }
+  .logoAbout{
+    margin-left: 120px;
+  }
+}
+
 .containerAbout {
   width: 100%;
   display: flex;
