@@ -15,7 +15,7 @@ export default function InfoBody({ id, header, descrption }) {
   //simpale collapse panel
   //datacollected its component to show only the data
   return (
-    <div className={classes.root}>
+    <div  id='lan-body' className={classes.root}>
       <Accordion classes={{ root: classes.paper }} defaultExpanded={true}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

@@ -1,3 +1,20 @@
+@media screen and (max-width: 1080px) {
+  .card {
+    height: 74px !important;
+    justify-content: space-around !important;
+    margin-top: 8px !important;
+  }
+}
+
+@media screen and (max-width: 1080px) {
+  .stopBtn {
+    width: 80px !important;
+    height: 80px !important;
+    font-size: 21px !important;
+    margin-top: 6px !important;
+  }
+}
+
 .hostDatacontainer {
   display: flex;
   flex-direction: column;
@@ -6,7 +23,7 @@
 }
 
 .card {
-  width: 1146px;
+  width: 87%;
   height: 104px;
   background-color: #dddfd4;
   display: flex;
@@ -22,11 +39,27 @@
   height: 110px !important;
   background-color: #3bb7e3 !important;
   font-size: 30px !important;
-  margin-top: 30px !important;
   text-align: center;
   align-self: center;
 }
 
 .stopBtn:active {
+  background-color: #3f51b5 !important;
+}
+
+.marginBtn {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+.responsiveBtn {
+  width: 80px !important;
+  height: 80px !important;
+  font-size: 21px !important;
+  border-radius: 50% !important;
+  background-color: #3bb7e3 !important;
+  text-align: center;
+  align-self: center;
+}
+.responsiveBtn:active {
   background-color: #3f51b5 !important;
 }
