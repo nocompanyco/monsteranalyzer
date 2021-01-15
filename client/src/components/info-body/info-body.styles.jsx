@@ -5,13 +5,13 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    marginTop: 50,
+    marginTop: 20,
     alignItems: 'center',
   },
   paper: {
     width: '64%',
     backgroundColor: '#DDDFD4',
-    marginTop: 150,
+    marginTop: 50,
   },
 
   heading: {

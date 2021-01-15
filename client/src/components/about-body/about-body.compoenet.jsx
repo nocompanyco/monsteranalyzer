@@ -10,7 +10,7 @@ export default function AboutBody() {
     <Fragment>
       <div className="containerAbout">
         <div className="section1">
-          <div>
+          <div className='logoAbout'>
             <img alt="logo" src={logo} />
           </div>
           <div className="textContainer">
