@@ -8,7 +8,7 @@ import infoPage from './pages/infoPage/infoPage.component';
 import AboutPage from './pages/aboutPage/aboutPage.component';
 import SettingPage from './pages/settingPage/settingPage.component.jsx';
 
-export const AppContext = createContext();
+export var AppContext = createContext();
 function App() {
   const { ipcRenderer } = window.require('electron');
   let [networkOptions, setNetworkOptions] = useState({});
@@ -17,10 +17,10 @@ function App() {
     ipcRenderer.sendSync('Selection-NetWork-Setting');
     ipcRenderer.on('Selection-NetWork-Setting-Reply', (event, arg) => {
       console.log('Selection-NetWork-Setting-Reply', arg);
-      setNetworkOptions({ ...networkOptions, net: arg});
+      setNetworkOptions({ ...networkOptions, net: arg });
     });
   }, []);
-console.log('after the useffect',networkOptions)
+  console.log('after the useffect', networkOptions);
   return (
     <Fragment>
       <AppContext.Provider value={{ networkOptions }}>

@@ -1,58 +1,49 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import { AppContext } from '../../App.js';
 
-import Styles from './selection.styles';
+import useStyles from './selection.styles';
+import { compose } from 'async';
 
-class Selection extends React.Component {
-  state = { network: '' };
+function Selection(props) {
+  const [state, setState] = useState({ network: '' });
+  const { networkOptions } = useContext(AppContext);
+  const { net } = networkOptions;
+  console.log('netowrk from app inside the selection', net);
+  useEffect(()=>{
+    console.log('use the effect inside the selection')
+    Object.keys(net).forEach((key) => console.log(key));
+  })
+  const { hidden } = props;
+  const classes = useStyles();
 
-  componentDidMount(){
-    let value = this.context;
-    console.log('value inside the mount', value)
-  }
-
-  handleChange = (event) => {
+  const handleChange = (event) => {
     const { name } = event.target;
-    this.setState({
-      ...this.state,
+    setState({
+      ...state,
       [name]: event.target.value,
     });
   };
 
-  render() {
-    const { classes, hidden } = this.props;
-    return (
-      <AppContext.Consumer>
-        {({ networkOptions }) => (
-          <div style={{ display: hidden ? 'none' : 'null' }}>
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel id="demo-simple-select-outlined-label">
-                Select Your Network
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-outlined-label"
-                id="demo-simple-select-outlined"
-                value={this.state.netwrok}
-                onChange={this.handleChange}
-                label="Network"
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={'ten'}>Ten</MenuItem>
-                <MenuItem value={'twenty'}>Twenty</MenuItem>
-                <MenuItem value={'thirty'}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        )}
-      </AppContext.Consumer>
-    );
-  }
+  return (
+    <div style={{ display: hidden ? 'none' : 'null' }}>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined-label">
+          Select Your Network
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={state.netwrok}
+          onChange={handleChange}
+          label="Network"
+        >
+          <MenuItem value={'ten'}>Ten</MenuItem>
+    
+        </Select>
+      </FormControl>
+    </div>
+  );
 }
 
-Selection.contextType = AppContext
-
-export default withStyles(Styles)(Selection);
+export default Selection;
