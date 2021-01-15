@@ -44,3 +44,8 @@ Example from within node on console (change 192.168.178 to your network prefix. 
 
 Get the output from scan() into Lan list
 
+## scan() restart
+ability for user to restart the scan which clears the current lan list and starts a new scan
+
+## resolve IP address to names
+using nettoosl.names()
