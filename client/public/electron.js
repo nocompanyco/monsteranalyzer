@@ -110,6 +110,7 @@ const createRefresh = () => {
 ipcMain.on('SETTINGBTN-CILICKED', (event, arg) => {
   createSettingWindow().then(settingWin.webContents.send('message-1', arg));
 });
+
 ipcMain.on('Selection-NetWork-Setting', (event, arg) => {
   const net = require('os').networkInterfaces();
   console.log('ipc server',net);

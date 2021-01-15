@@ -1,4 +1,5 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect,useContext, useRef, useState } from 'react';
+import {AppContext} from '../../App.js'
 import useStyles from './landingPage.styles.jsx';
 import { Grid } from '@material-ui/core';
 import logo from '../../assets/logo.png';
@@ -14,6 +15,8 @@ const { ipcRenderer } = window.require('electron');
 
 const LandingPage = (props) => {
   const classes = useStyles();
+  const {networkOptions} = useContext(AppContext)
+  console.log('netowrk from app', networkOptions)
   const logoContainer = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   const onLoadedData = () => {
