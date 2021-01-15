@@ -1,5 +1,11 @@
-import React, { Fragment, useEffect,useContext, useRef, useState } from 'react';
-import {AppContext} from '../../App.js'
+import React, {
+  Fragment,
+  useEffect,
+  useContext,
+  useRef,
+  useState,
+} from 'react';
+import { AppContext } from '../../App.js';
 import useStyles from './landingPage.styles.jsx';
 import { Grid } from '@material-ui/core';
 import logo from '../../assets/logo.png';
@@ -15,8 +21,8 @@ const { ipcRenderer } = window.require('electron');
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  const {networkOptions} = useContext(AppContext)
-  console.log('netowrk from app', networkOptions)
+  const { networkOptions, loading } = useContext(AppContext);
+  console.log('netowrk from app', networkOptions);
   const logoContainer = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   const onLoadedData = () => {
@@ -71,48 +77,51 @@ const LandingPage = (props) => {
   };
   return (
     <Fragment>
-      <Grid
-        container
-        justify="space-between"
-        id="WholeConatiner"
-        className={classes.container}
-      >
+      {loading ? (
+        <h1>hello</h1>
+      ) : (
         <Grid
           container
-          item
-          xs={12}
-          className={hidden? classes.section1Customized: classes.section1}
-          justify="center"
-          alignItems="center"
-          id="section1"
+          justify="space-between"
+          id="WholeConatiner"
+          className={classes.container}
         >
-          {/* <div
+          <Grid
+            container
+            item
+            xs={12}
+            className={hidden ? classes.section1Customized : classes.section1}
+            justify="center"
+            alignItems="center"
+            id="section1"
+          >
+            {/* <div
             id="logoContainer"
             style={{ width: '34%', margin: '0 auto' }}
             ref={logoContainer}
          ></div>*/}
-          <Video />
-        </Grid>
-        <Grid
-          container
-          item
-          justify="space-between"
-          alignItems="center"
-          xs={12}
-          className={classes.section2}
-          direction="row"
-          id="section2"
-        >
-          <Grid item xs={12}>
-            <SwiperText hidden={hidden} />
+            <Video />
           </Grid>
-          <Form
-            handleClick={handleClick}
-            hidden={hidden}
-            networkSetting={networkSetting}
-            handleStart={handleStart}
-          />
-          {/* <SettingPage
+          <Grid
+            container
+            item
+            justify="space-between"
+            alignItems="center"
+            xs={12}
+            className={classes.section2}
+            direction="row"
+            id="section2"
+          >
+            <Grid item xs={12}>
+              <SwiperText hidden={hidden} />
+            </Grid>
+            <Form
+              handleClick={handleClick}
+              hidden={hidden}
+              networkSetting={networkSetting}
+              handleStart={handleStart}
+            />
+            {/* <SettingPage
             open={open}
             handleClose={handleClose}
             networkSetting={networkSetting}
@@ -120,8 +129,9 @@ const LandingPage = (props) => {
             error={error}
             handleSave={handleSave}
          />*/}
+          </Grid>
         </Grid>
-      </Grid>
+      )}
       <SuccessAlert openAlert={openAlert} handleAlertClose={handleAlertClose} />
     </Fragment>
   );

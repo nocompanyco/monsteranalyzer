@@ -12,18 +12,20 @@ export var AppContext = createContext();
 function App() {
   const { ipcRenderer } = window.require('electron');
   let [networkOptions, setNetworkOptions] = useState({});
+  let [loading, setLoading] = useState(true);
 
   useEffect(() => {
     ipcRenderer.sendSync('Selection-NetWork-Setting');
     ipcRenderer.on('Selection-NetWork-Setting-Reply', (event, arg) => {
+      setLoading(false);
       console.log('Selection-NetWork-Setting-Reply', arg);
-      setNetworkOptions({ ...networkOptions, net: arg });
+      setNetworkOptions({ arg });
     });
   }, []);
   console.log('after the useffect', networkOptions);
   return (
     <Fragment>
-      <AppContext.Provider value={{ networkOptions }}>
+      <AppContext.Provider value={{ networkOptions, loading, setLoading }}>
         <Router>
           <Switch>
             <Route path="/" exact component={LandingPage} />
