@@ -34,7 +34,9 @@ Create start IP and end IP based on prefix:
 
 Example from within node on console (change 192.168.178 to your network prefix. check `ip addr`):
 
+    nettools = require('./nettools')
     nettools.scan('192.168.178.1','192.168.178.254', [], console.log)
+Example output:
     {
     '08:96:d7:96:98:99': '192.168.178.1',
     '70:11:24:8d:2b:20': '192.168.178.38',
@@ -48,4 +50,20 @@ Get the output from scan() into Lan list
 ability for user to restart the scan which clears the current lan list and starts a new scan
 
 ## resolve IP address to names
-using nettoosl.names()
+using nettoosl.names([ipaddresses])
+
+    nettools = require('./nettools')
+    nettools.names(
+      ['192.168.178.1',
+       '192.168.178.38',
+       '192.168.178.46',
+       '192.168.178.32'], console.log)
+
+Example Output:
+
+    {
+    '192.168.178.1': 'fritz.box',
+    '192.168.178.38': 'purzel.fritz.box',
+    '192.168.178.46': 'zhimi-airpurifier-mc1-miio132082121.fritz.box',
+    '192.168.178.32': 'EPSOND2F695.fritz.box'
+    }
