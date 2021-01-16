@@ -3,12 +3,10 @@ import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 import useStyles from './selection.styles';
 
 function Selection(props) {
-  const [network, setNetwork] = useState('');
-  const { hidden } = props;
+  const { hidden, network, setNetwork } = props;
   const classes = useStyles();
 
   const networkOptions = JSON.parse(localStorage.getItem('networkData'));
-  
 
   let menuItems = () => {
     let selectOption = [];
@@ -24,12 +22,12 @@ function Selection(props) {
     });
     return selectOption;
   };
- 
+
   const handleChange = (event) => {
     setNetwork(event.target.value);
   };
 
-  console.log("inside the network",network);
+  console.log('inside the network', network);
 
   return (
     <div style={{ display: hidden ? 'none' : 'null' }}>

@@ -13,6 +13,8 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 export var AppContext = createContext();
 function App() {
   const { ipcRenderer } = window.require('electron');
+  
+  // getting the network setting from electron function 
   let [networkOptions, setNetworkOptions] = useState({});
   let [loading, setLoading] = useState(true);
 
@@ -41,6 +43,7 @@ function App() {
               visible={loading}
               secondaryColor="#C4C4C4"
               className="loader"
+              timeout={5000}
             />
           ) : (
             <Switch>

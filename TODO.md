@@ -17,7 +17,7 @@ result:
         ]
 
 Values of interest
-    oureth='wlan0'
+    oureth='wlan0'.0
     ourip = net[oureth][0].address
     //192.168.178.26
 Get prefix address:
