@@ -1,5 +1,11 @@
-import React, { Fragment, useEffect,useContext, useRef, useState } from 'react';
-import {AppContext} from '../../App.js'
+import React, {
+  Fragment,
+  useEffect,
+  useContext,
+  useRef,
+  useState,
+} from 'react';
+import { AppContext } from '../../App.js';
 import useStyles from './landingPage.styles.jsx';
 import { Grid } from '@material-ui/core';
 import logo from '../../assets/logo.png';
@@ -11,12 +17,13 @@ import firstpageData from './firstpageData.json';
 import SuccessAlert from '../../components/success-alert/success-alert.component';
 
 import Video from '../../components/video/video.component';
+
 const { ipcRenderer } = window.require('electron');
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  const {networkOptions} = useContext(AppContext)
-  console.log('netowrk from app', networkOptions)
+  // const { networkOptions, loading } = useContext(AppContext);
+
   const logoContainer = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   const onLoadedData = () => {
@@ -81,7 +88,7 @@ const LandingPage = (props) => {
           container
           item
           xs={12}
-          className={hidden? classes.section1Customized: classes.section1}
+          className={hidden ? classes.section1Customized : classes.section1}
           justify="center"
           alignItems="center"
           id="section1"

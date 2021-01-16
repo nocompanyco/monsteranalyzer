@@ -1,46 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import useStyles from './selection.styles';
 
-import Styles from './selection.styles';
+function Selection(props) {
+  const [network, setNetwork] = useState('');
+  const { hidden } = props;
+  const classes = useStyles();
 
-class Selection extends React.Component {
-  state = { network: '' };
+  const networkOptions = JSON.parse(localStorage.getItem('networkData'));
+  
 
-  handleChange = (event) => {
-    const { name } = event.target;
-    this.setState({
-      ...this.state,
-      [name]: event.target.value,
+  let menuItems = () => {
+    let selectOption = [];
+    Object.keys(networkOptions).forEach((devicename) => {
+      networkOptions[devicename].forEach((addrobj) => {
+        let deviceValue = devicename + '-' + addrobj.address;
+        return selectOption.push(
+          <MenuItem key={deviceValue} value={deviceValue}>
+            {deviceValue}
+          </MenuItem>
+        );
+      });
     });
+    return selectOption;
+  };
+ 
+  const handleChange = (event) => {
+    setNetwork(event.target.value);
   };
 
-  render() {
-    const { classes, hidden } = this.props;
-    return (
-      <div style={{ display: hidden ? 'none' : 'null' }}>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel id="demo-simple-select-outlined-label">
-            Select Your Network
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            value={this.state.netwrok}
-            onChange={this.handleChange}
-            label="Network"
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={'ten'}>Ten</MenuItem>
-            <MenuItem value={'twenty'}>Twenty</MenuItem>
-            <MenuItem value={'thirty'}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
-    );
-  }
+  console.log("inside the network",network);
+
+  return (
+    <div style={{ display: hidden ? 'none' : 'null' }}>
+      <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel id="demo-simple-select-outlined-label">
+          Select Your Network
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={network}
+          onChange={handleChange}
+          label="Network"
+        >
+          {menuItems()}
+        </Select>
+      </FormControl>
+    </div>
+  );
 }
 
-export default withStyles(Styles)(Selection);
+export default Selection;
