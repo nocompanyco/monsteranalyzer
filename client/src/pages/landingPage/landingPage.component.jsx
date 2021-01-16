@@ -17,12 +17,13 @@ import firstpageData from './firstpageData.json';
 import SuccessAlert from '../../components/success-alert/success-alert.component';
 
 import Video from '../../components/video/video.component';
+
 const { ipcRenderer } = window.require('electron');
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  const { networkOptions, loading } = useContext(AppContext);
-  console.log('netowrk from app', networkOptions);
+  // const { networkOptions, loading } = useContext(AppContext);
+
   const logoContainer = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   const onLoadedData = () => {
@@ -77,51 +78,48 @@ const LandingPage = (props) => {
   };
   return (
     <Fragment>
-      {loading ? (
-        <h1>hello</h1>
-      ) : (
+      <Grid
+        container
+        justify="space-between"
+        id="WholeConatiner"
+        className={classes.container}
+      >
         <Grid
           container
-          justify="space-between"
-          id="WholeConatiner"
-          className={classes.container}
+          item
+          xs={12}
+          className={hidden ? classes.section1Customized : classes.section1}
+          justify="center"
+          alignItems="center"
+          id="section1"
         >
-          <Grid
-            container
-            item
-            xs={12}
-            className={hidden ? classes.section1Customized : classes.section1}
-            justify="center"
-            alignItems="center"
-            id="section1"
-          >
-            {/* <div
+          {/* <div
             id="logoContainer"
             style={{ width: '34%', margin: '0 auto' }}
             ref={logoContainer}
          ></div>*/}
-            <Video />
+          <Video />
+        </Grid>
+        <Grid
+          container
+          item
+          justify="space-between"
+          alignItems="center"
+          xs={12}
+          className={classes.section2}
+          direction="row"
+          id="section2"
+        >
+          <Grid item xs={12}>
+            <SwiperText hidden={hidden} />
           </Grid>
-          <Grid
-            container
-            item
-            justify="space-between"
-            alignItems="center"
-            xs={12}
-            className={classes.section2}
-            direction="row"
-            id="section2"
-          >
-            <Grid item xs={12}>
-              <SwiperText hidden={hidden} />
-            </Grid>
-            <Form
-              handleClick={handleClick}
-              hidden={hidden}
-              networkSetting={networkSetting}
-              handleStart={handleStart}
-            />
-            {/* <SettingPage
+          <Form
+            handleClick={handleClick}
+            hidden={hidden}
+            networkSetting={networkSetting}
+            handleStart={handleStart}
+          />
+          {/* <SettingPage
             open={open}
             handleClose={handleClose}
             networkSetting={networkSetting}
@@ -129,9 +127,8 @@ const LandingPage = (props) => {
             error={error}
             handleSave={handleSave}
          />*/}
-          </Grid>
         </Grid>
-      )}
+      </Grid>
       <SuccessAlert openAlert={openAlert} handleAlertClose={handleAlertClose} />
     </Fragment>
   );
