@@ -52,7 +52,8 @@ ability for user to restart the scan which clears the current lan list and start
 ## resolve IP address to names
 using nettoosl.names([ipaddresses])
 
-    nettools = require('./nettools')
+    node
+    nettools = require('./client/server/methods/nettools.js')
     nettools.names(
       ['192.168.178.1',
        '192.168.178.38',
