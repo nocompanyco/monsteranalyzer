@@ -86,7 +86,8 @@ const LandingPage = (props) => {
       return setOpenAlert(true);
     }
     ipcRenderer.send('STARTBTN-CLICKED', {
-      networkOptions: JSON.stringify(networkOptions),
+      // networkOptions: JSON.stringify(networkOptions),
+      network: JSON.stringify(network),
     });
     ipcRenderer.on('STARTBTN-CLICKED-Reply', (event, arg) => {
       if (!arg)

@@ -7,12 +7,16 @@ const getHostsDevices = (event, arg) => {
   console.log('rec the network option when clicked', arg);
 
   console.log('inside the getHostDevices');
-  let {networkOptions} = arg;
-   networkOptions = JSON.parse(networkOptions);
+  let {network} = arg;
+   network = JSON.parse(network);
 
-  console.log('the network after the json', networkOptions);
+  console.log('the network after the json', network);
 
-  let { start, end } = getIP(networkOptions, 1);
+  let [device,ourip] = network.split('-');
+  let prefix = ourip.split('.').slice(0, -1).join('.');
+  let start = prefix + '.1';
+  let end = prefix + '.254';
+
 
   // Find all devices within 192.168.0.1 to 192.168.0.25 range
 find(start+'-'+end).then(devices => {
@@ -24,12 +28,13 @@ find(start+'-'+end).then(devices => {
     { name: '...', ip: '192.168.0.22', mac: '...' }
   ]
   */
- console.log('hey devices', devices)
+  console.log('hey devices', devices)
+  event.reply('STARTBTN-CLICKED-Reply', devices);
+
 })
 
-  console.log(getIP(networkOptions, 1));
 
-  event.reply('STARTBTN-CLICKED-Reply', 'hello from the server');
+  // event.reply('STARTBTN-CLICKED-Reply', 'hello from the server');
 
   // const result = nettools.scan(start, end, [], (hostsobj) => hostobj);
 
