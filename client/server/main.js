@@ -124,9 +124,6 @@ ipcMain.on('Selection-NetWork-Setting', getNetworkSetting);
 ipcMain.on('STARTBTN-CLICKED', getHostsDevices);
 
 
-
-
-
 //listening to close the settingWindow
 ipcMain.on('DIALOG-CLOSED', (event, arg) => {
   settingWin.hide();
