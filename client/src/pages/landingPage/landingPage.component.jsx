@@ -53,7 +53,7 @@ const LandingPage = (props) => {
   useEffect(() => {
     ipcRenderer.on('NetWork-Setting-Values', (event, arg) => {
       if (!arg) {
-        console.log('didnt get the info');
+        console.log('didnt all the network information from the backend');
       }
       setOpenAlert(true);
       setNetworkSetting(arg.networkSetting);
@@ -85,10 +85,14 @@ const LandingPage = (props) => {
       setMessage('Please select on of the options before your start');
       return setOpenAlert(true);
     }
-    axios
-      .post('/', { networkOptions: JSON.stringify(networkOptions) })
-      .then(({ data }) => console.log(data))
-      .catch((error) => console.log(error));
+    ipcRenderer.send('STARTBTN-CLICKED', {
+      networkOptions: JSON.stringify(networkOptions),
+    });
+    ipcRenderer.on('STARTBTN-CLICKED-Reply', (event, arg) => {
+      if (!arg)
+        return console.log('didnt get the host devices from the nettools scan');
+      console.log(arg);
+    });
 
     // return props.history.push('/lan');
   };

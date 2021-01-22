@@ -8,6 +8,8 @@ const {
 } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const getHostsDevices = require('./controller/getHostsDevices/host-devices');
+const getNetworkSetting = require('./controller/getNetworkSetting');
 
 let mainWindow, tray, settingWin;
 
@@ -106,28 +108,35 @@ const createRefresh = () => {
   });
 };
 
+
 // listeining to React requests from landingpage
 ipcMain.on('SETTINGBTN-CILICKED', (event, arg) => {
   createSettingWindow().then(settingWin.webContents.send('message-1', arg));
 });
 
-ipcMain.on('Selection-NetWork-Setting', (event, arg) => {
-  const net = require('os').networkInterfaces();
-  console.log('ipc server',net);
-  event.reply('Selection-NetWork-Setting-Reply', net)
+
+
+
+// geting all the network
+ipcMain.on('Selection-NetWork-Setting', getNetworkSetting);
+
+// when the start btn Clicked
+ipcMain.on('STARTBTN-CLICKED', getHostsDevices);
+
+
+
+
+
+//listening to close the settingWindow
+ipcMain.on('DIALOG-CLOSED', (event, arg) => {
+  settingWin.hide();
 });
 
-//listening to close the settingWindow 
-ipcMain.on('DIALOG-CLOSED',(event,arg)=>{
-settingWin.hide()
-})
-
-//listening to get the networksetting info and send it to mainwindow 
-ipcMain.on('Network-Setting',(event,arg)=>{
-  console.log(arg)
-  mainWindow.webContents.send('NetWork-Setting-Values',arg)
-  })
-
+//listening to get the networksetting info and send it to mainwindow
+ipcMain.on('Network-Setting', (event, arg) => {
+  console.log(arg);
+  mainWindow.webContents.send('NetWork-Setting-Values', arg);
+});
 
 // when ready call the functions
 app.whenReady().then(() => {
