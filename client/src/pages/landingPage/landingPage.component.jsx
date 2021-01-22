@@ -1,11 +1,4 @@
-import React, {
-  Fragment,
-  useEffect,
-  useContext,
-  useRef,
-  useState,
-} from 'react';
-import { AppContext } from '../../App.js';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import useStyles from './landingPage.styles.jsx';
 import { Grid } from '@material-ui/core';
 import logo from '../../assets/logo.png';
@@ -13,18 +6,14 @@ import SwiperText from '../../components/swiper/swiper.component.jsx';
 import Form from '../../components/form/form.component';
 import lottie from 'lottie-web';
 import firstpageData from './firstpageData.json';
-
 import MultiAlert from '../../components/success-alert/success-alert.component';
-
 import Video from '../../components/video/video.component';
-import axios from 'axios';
+import Loader from '../../components/loader/loader.component';
 
 const { ipcRenderer } = window.require('electron');
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  const { networkOptions } = useContext(AppContext);
-
   const logoContainer = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   const onLoadedData = () => {
@@ -86,15 +75,12 @@ const LandingPage = (props) => {
       return setOpenAlert(true);
     }
     ipcRenderer.send('STARTBTN-CLICKED', {
-      networkOptions: JSON.stringify(networkOptions),
+      network: JSON.stringify(network),
     });
-    ipcRenderer.on('STARTBTN-CLICKED-Reply', (event, arg) => {
-      if (!arg)
-        return console.log('didnt get the host devices from the nettools scan');
-      console.log(arg);
+    return props.history.push({
+      pathname: '/lan',
+      data: network,
     });
-
-    // return props.history.push('/lan');
   };
   return (
     <Fragment>
