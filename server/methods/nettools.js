@@ -6,7 +6,7 @@ const multicastdns = require('multicast-dns');
 let mdnser; // <- initialized from mutlicast-dns on first query
 const mdnswait = 2000; // wait only this long for mdns response
 const arpwait = 10; // wait ms between trying each ip arp/ping
-DEBUG = false;
+DEBUG = true;
 
 
 
@@ -56,22 +56,25 @@ function scan(ipv4_start, ipv4_end, ipv4_filter, cb) {
             //  "I can be reached at <my_ip_address>"
             arp.getMAC(ip, (err, mac) => {
                 // console.log(`tried ${i}: ${ip}`)
-                if (!err && mac && mac.split(':').length === 6)
-                    exports.activehosts[mac] = ip;
+                if (!err && mac && mac.split(':').length === 6) {
+                    exports.activehosts[mac] = ip;            
+                }
                 else if (err) 
                     DEBUG && console.error(`${i}: ${ip}: error arp.getMAC:`,err);
                 else
                     DEBUG && console.error(`${i}: ${ip}: mac invalid arp.getMAC:`,mac);    
+
+                // if this is result for last ip in search, return results through callback
+                if (i == end && typeof cb === 'function') {
+                    if (Object.keys(exports.activehosts).length > 0)
+                            cb(exports.activehosts)
+                    else
+                            cb(null)
+                }
             });
         }
         if (i < end)
             setTimeout(() => _recursive_check(i+1), arpwait);
-        else if (i == end && typeof cb === 'function') {
-            if (Object.keys(exports.activehosts).length > 0)
-                    cb(exports.activehosts)
-            else
-                    cb(null)
-        }
     }
     // highly reduced version of function:
     // _recursive_check(start) => { apr.getMAC(start, (err,mac)=>{

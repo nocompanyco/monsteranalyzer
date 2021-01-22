@@ -67,3 +67,34 @@ Example Output:
     '192.168.178.46': 'zhimi-airpurifier-mc1-miio132082121.fritz.box',
     '192.168.178.32': 'EPSOND2F695.fritz.box'
     }
+
+## using local-devices lib
+```js
+const find     = require('local-devices');
+
+let { networkOptions, ourNetwork } = request.body;
+networkOptions = JSON.parse(networkOptions);
+
+ourNetwork = JSON.parse(ourNetwork); // e.g. wlan0-192.168.178.22
+let [ourdevice, ourip] = ourNetwork.split('-');
+let prefix = ourip.split('.').slice(0, -1).join('.');
+let start = prefix + '.1';
+let end = prefix + '.254';
+console.log('scan(start/end)',start,end)
+
+find(start+'-'+end).then(result => {
+console.log(typeof result);
+if (result === undefined && result === null) 
+    return response
+    .status(401)
+    .send('there is no hosts exist at this ip address ');
+else {
+    console.log('second result', result)
+    return setTimeout(() => {
+    response.status(200).send(result);
+    }, 6000);
+}
+
+})
+console.log('scan() called')
+```

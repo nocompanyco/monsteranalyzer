@@ -86,8 +86,11 @@ const LandingPage = (props) => {
       return setOpenAlert(true);
     }
     axios
-      .post('/', { networkOptions: JSON.stringify(networkOptions) })
-      .then(({ data }) => console.log(data))
+      .post('/', { networkOptions: JSON.stringify(networkOptions), ourNetwork: JSON.stringify(network) })
+      .then(({ data }) => {
+        console.log(data)
+        return props.history.push('/lan');
+      })
       .catch((error) => console.log(error));
 
     // return props.history.push('/lan');
