@@ -68,3 +68,59 @@ Example Output:
     '192.168.178.46': 'zhimi-airpurifier-mc1-miio132082121.fritz.box',
     '192.168.178.32': 'EPSOND2F695.fritz.box'
     }
+
+How names() works:
+
+1. Uses ``dns`` library ``reverse()`` function.
+   The function is provided the IP. This is an internal library to node (and thereby available in reactjs or electronjs): https://nodejs.org/api/dns.html -- the ``reverse()`` function sends a DNS request to your local router requesting the host name for the IP address.
+2. Uses ``multicast-dns`` library
+   https://www.npmjs.com/package/multicast-dns 
+   This library sends a broadcast request to the network asking hosts to give us their name. Not all hosts will respond to this. On my network only my printer responded
+
+Test:
+
+Get a list of IP's to try and resolve names
+
+```js
+    ips=['192.168.178.1',
+         '192.168.178.38',
+         '192.168.178.46',
+         '192.168.178.32']
+```
+
+Or you can create the ``ips`` array using local-devices:
+
+    ```js
+    hosts; 
+    localdevices=require('local-devices')
+    localdevices('192.168.178.1-192.168.178.254')
+        .then(data=>{hosts=data)})
+    ips=[]
+    hosts.forEach(entry=>{ips.push(entry.ip)})
+    ```
+
+Test ``dns`` library results:
+
+    ```js
+    dns=require('dns')
+    ips.forEach(ip=>{
+        dns.reverse(ip, console.log)
+    })
+    ```
+
+Test ``multicast-dns`` library:
+
+    ```js
+    multicastdns = require('multicast-dns');
+    mdnser = multicastdns();
+    mdnser.on('response',console.log)
+    ips.forEach(ip=>{
+        // turn 192.168.178.22 into 22.178.168.192
+        pi=ip.split('.').reverse().join('.')
+        // to send multicast query we have to 
+        // send 22.178.168.192.in-addr.arpa
+        query=pi+'.in-addr.arpa'
+        mdnser.query({ id: 0, questions: [{ name: query, type: 'ANY' }] })
+    })
+    ```
+
