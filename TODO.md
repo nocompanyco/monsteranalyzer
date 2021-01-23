@@ -63,10 +63,10 @@ using nettoosl.names([ipaddresses])
 Example Output:
 
     {
-    '192.168.1.1': 'fritz.box',
-    '192.168.1.22': 'pur.fritz.box',
-    '192.168.1.24': 'airpurif.fritz.box',
-    '192.168.1.28': 'EPSOND2F5.fritz.box'
+    '192.168.1.1': 'router.local',
+    '192.168.1.22': 'pur.local',
+    '192.168.1.24': 'airpurif.local',
+    '192.168.1.28': 'EPSOND2F5.local'
     }
 
 How names() works:
