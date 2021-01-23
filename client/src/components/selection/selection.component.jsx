@@ -6,8 +6,8 @@ function Selection(props) {
   const { hidden, network, setNetwork } = props;
   const classes = useStyles();
 
-  const networkOptions = JSON.parse(localStorage.getItem('networkData'));
-
+  const networkOptions = JSON.parse(sessionStorage.getItem('networkData'));
+  console.log(networkOptions);
   let menuItems = () => {
     let selectOption = [];
     Object.keys(networkOptions).forEach((devicename) => {
