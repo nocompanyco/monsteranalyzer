@@ -127,8 +127,8 @@ ipcMain.on('Fire-GetNetworkInterface-Function', getNetworkInterface);
 //   event.returnValue = 'pong'
 // })
 
-// when the start btn Clicked
-ipcMain.on('STARTBTN-CLICKED', getHostsDevices);
+// when the start btn Clicked to start scaning the network to get the hosts
+ipcMain.on('STARTSCAN-GET-HOSTS', getHostsDevices);
 
 //listening to close the settingWindow
 ipcMain.on('DIALOG-CLOSED', (event, arg) => {

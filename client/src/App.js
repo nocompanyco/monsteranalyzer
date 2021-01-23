@@ -19,6 +19,7 @@ function App() {
   let [networkInterface, setNetworkInterface] = useState({});
 
   let [isloading, setIsLoading] = useState(true);
+  
   //alert for no connections
   const alert = useAlert();
 

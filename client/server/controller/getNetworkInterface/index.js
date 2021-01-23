@@ -1,5 +1,4 @@
 module.exports = (event, arg) => {
-  console.log('hey inside the get function and recvie the listner ');
   const net = require('os').networkInterfaces();
   // console.log('getnetworkSettings net:',net)
   const filtered = {};
@@ -16,9 +15,5 @@ module.exports = (event, arg) => {
       }
     }
   }
-  console.log(filtered);
-
-  console.log(filtered);
-
   event.returnValue = filtered;
 };

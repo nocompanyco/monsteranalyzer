@@ -2,10 +2,9 @@
 const find = require('local-devices');
 
 const getHostsDevices = (event, arg) => {
+  // get the network selected on the selection
   let { network } = arg;
   network = JSON.parse(network);
-
-  console.log('the network after the json', network);
 
   let [device, ourip] = network.split('-');
   let prefix = ourip.split('.').slice(0, -1).join('.');
@@ -21,7 +20,7 @@ const getHostsDevices = (event, arg) => {
     { name: '...', ip: '192.168.0.22', mac: '...' }
   ]
   */
-    event.reply('STARTBTN-CLICKED-Reply', devices);
+    event.returnValue = devices;
   });
 };
 

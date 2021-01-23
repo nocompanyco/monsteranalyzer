@@ -8,7 +8,6 @@ import lottie from 'lottie-web';
 import firstpageData from './firstpageData.json';
 import MultiAlert from '../../components/success-alert/success-alert.component';
 import Video from '../../components/video/video.component';
-import Loader from '../../components/loader/loader.component';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -73,10 +72,7 @@ const LandingPage = (props) => {
       setMessage('Please select on of the options before your start');
       return setOpenAlert(true);
     }
-    ipcRenderer.send('STARTBTN-CLICKED', {
-      network: JSON.stringify(network),
-    });
-    sessionStorage.setItem('selectedOption',network);
+    sessionStorage.setItem('selectedOption', network);
     return props.history.push({
       pathname: '/lan',
       data: network,
