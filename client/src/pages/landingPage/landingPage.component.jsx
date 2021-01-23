@@ -68,7 +68,6 @@ const LandingPage = (props) => {
   // start button
   const handleStart = (event) => {
     event.preventDefault();
-    console.log('clicked', network);
     if (!network) {
       setseverity('error');
       setMessage('Please select on of the options before your start');
@@ -77,6 +76,7 @@ const LandingPage = (props) => {
     ipcRenderer.send('STARTBTN-CLICKED', {
       network: JSON.stringify(network),
     });
+    sessionStorage.setItem('selectedOption',network);
     return props.history.push({
       pathname: '/lan',
       data: network,

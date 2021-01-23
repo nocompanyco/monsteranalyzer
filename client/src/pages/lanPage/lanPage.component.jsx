@@ -7,17 +7,19 @@ import Loader from '../../components/loader/loader.component';
 const { ipcRenderer } = window.require('electron');
 
 export default function LanPage(props) {
-  const { history, location } = props;
-  const { data } = location;
-  console.log('data passed through landing page', data);
+  const { history } = props;
+
+  // get the netowrk interface selected by the user
+  const data = sessionStorage.getItem('selectedOption');
+
+
   //loading for getting the hosts name
-  const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
 
   // state that containes all the host devices
   const [state, setState] = useState([]);
 
   useEffect(() => {
-    setisLoading(true);
     ipcRenderer.on('STARTBTN-CLICKED-Reply', (event, arg) => {
       if (!arg)
         return console.log('didnt get the host devices from the nettools scan');
@@ -25,7 +27,8 @@ export default function LanPage(props) {
       setState(arg);
       setisLoading(false);
     });
-  }, []);
+  }, [state]);
+
   let [device, ourip] = data.split('-');
 
   return (
