@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from '../../components/pages-header/pages-header.component';
 import LanBody from '../../components/lan-body/lan-body.component';
 import './lanPage.styles.css';
@@ -26,24 +26,32 @@ export default function LanPage(props) {
     // call this function after each 5 seconds
     const timer = setInterval(() => {
       // send request to get the hosts devices from gethostsdevices function in electron
-      let hostsDevices = ipcRenderer.sendSync('STARTSCAN-GET-HOSTS', {
+      const hostsDevices = ipcRenderer.sendSync('STARTSCAN-GET-HOSTS', {
         network: JSON.stringify(data),
       });
-      if (!hostsDevices)
+      console.log('hostdevices from the backend', hostsDevices);
+      if (hostsDevices.length === 0) {
+        console.log(sessionStorage.getItem('hostsDevices'));
+        sessionStorage.removeItem('hostsDevices');
         return alert.show(
           'there is no hosts connected at your local network at this moment'
         );
+      }
       sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
-      console.log('inside the timer ', hostsDevices);
+      console.log('inside the timer hostdecises: ', hostsDevices);
       setState(hostsDevices);
       setisLoading(false);
+      for (const channel of ['STARTSCAN-GET-HOSTS'])
+        ipcRenderer.removeAllListeners(channel);
     }, 5000);
-
-    for (const channel of ['STARTSCAN-GET-HOSTS'])
-      ipcRenderer.removeAllListeners(channel);
 
     return () => clearInterval(timer);
   }, []);
+
+  const onhandleStop = (e) => {
+    console.log('clicked');
+    e.preventDefault();
+  };
 
   let [device, ourip] = data.split('-');
 
@@ -51,7 +59,7 @@ export default function LanPage(props) {
     <div id="lanPage" className="lanConatiner">
       <Loader isLoading={isLoading} />
       <Header history={history} />
-      <LanBody data={state} ipAdress={ourip} />
+      <LanBody data={state} ipAdress={ourip} onhandleStop={onhandleStop} />
     </div>
   );
 }
