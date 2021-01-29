@@ -19,11 +19,10 @@ function App() {
   let [networkInterface, setNetworkInterface] = useState({});
 
   let [isloading, setIsLoading] = useState(true);
-  
+
   //alert for no connections
   const alert = useAlert();
 
-  
   useEffect(() => {
     // communicat with electron to invoke the getnetworkinterface function
     const networkInterfaces = ipcRenderer.sendSync(
@@ -44,7 +43,7 @@ function App() {
     for (const channel of ['Fire-GetNetworkInterface-Function'])
       ipcRenderer.removeAllListeners(channel);
   }, [isloading]);
-  
+
   return (
     <Fragment>
       {isloading ? (

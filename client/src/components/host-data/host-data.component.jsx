@@ -6,6 +6,7 @@ import CardLan from '../cardLan/cardLan.component';
 
 export default function HostData({ data, onhandleStop }) {
   const matches = useMediaQuery('(max-width:1080px)');
+
   return (
     <Fragment>
       <div className="hostDatacontainer">

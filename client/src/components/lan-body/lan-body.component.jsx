@@ -5,7 +5,6 @@ import HostData from '../host-data/host-data.component';
 
 export default function LanBody({ data, ipAdress, onhandleStop }) {
   const classes = useStyles();
-
   return (
     <div id="lanBody" className={classes.container}>
       <div className={classes.top}>
