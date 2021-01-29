@@ -22,32 +22,56 @@ export default function LanPage(props) {
   // state that containes all the host devices
   const [state, setState] = useState([]);
 
+
+
+  // useEffect(() => {
+  //   // call this function after each 5 seconds
+  //   const hostsDevices = ipcRenderer.sendSync('STARTSCAN-GET-HOSTS', {
+  //     network: JSON.stringify(data),
+  //   });
+  //   console.log('hostdevices from the backend', hostsDevices);
+  //   if (hostsDevices.length === 0) {
+  //     console.log(sessionStorage.getItem('hostsDevices'));
+  //     sessionStorage.removeItem('hostsDevices');
+  //     return alert.show(
+  //       'there is no hosts connected at your local network at this moment'
+  //     );
+  //   }
+  //   sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
+  //   console.log('inside the timer hostdecises: ', hostsDevices);
+  //   setState(hostsDevices);
+  //   setisLoading(false);
+  //   for (const channel of ['STARTSCAN-GET-HOSTS'])
+  //     ipcRenderer.removeAllListeners(channel);
+  // },[state]);
   useEffect(() => {
-    // call this function after each 5 seconds
     const timer = setInterval(() => {
+      if (!scanEnabled) return;
       // send request to get the hosts devices from gethostsdevices function in electron
-      const hostsDevices = ipcRenderer.sendSync('STARTSCAN-GET-HOSTS', {
+      ipcRenderer.send('STARTSCAN-GET-HOSTS',{
         network: JSON.stringify(data),
       });
-      console.log('hostdevices from the backend', hostsDevices);
-      if (hostsDevices.length === 0) {
-        console.log(sessionStorage.getItem('hostsDevices'));
-        sessionStorage.removeItem('hostsDevices');
-        return alert.show(
-          'there is no hosts connected at your local network at this moment'
-        );
-      }
-      sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
-      console.log('inside the timer hostdecises: ', hostsDevices);
-      setState(hostsDevices);
-      setisLoading(false);
+      ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event,hostsDevices)=>{
+        console.log('STARTSCAN-GET-HOSTS-REPLY',hostsDevices);
+        console.log('hostdevices from the backend', hostsDevices);
+        if (hostsDevices.length === 0) {
+          console.log(sessionStorage.getItem('hostsDevices'));
+          sessionStorage.removeItem('hostsDevices');
+          return alert.show(
+            'there is no hosts connected at your local network at this moment'
+          );
+        }
+        sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
+        console.log('inside the timer hostdecises: ', hostsDevices);
+        setState(hostsDevices);
+        setisLoading(false);
+      });
       for (const channel of ['STARTSCAN-GET-HOSTS'])
         ipcRenderer.removeAllListeners(channel);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
-
+  },[])
   const onhandleStop = (e) => {
     console.log('clicked');
     e.preventDefault();
