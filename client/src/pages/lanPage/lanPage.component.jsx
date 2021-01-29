@@ -7,9 +7,6 @@ import { useAlert } from 'react-alert';
 
 const { ipcRenderer } = window.require('electron');
 
-require('events').EventEmitter.prototype._maxListeners = 120;
-require('events').defaultMaxListeners = 100;
-
 export default function LanPage(props) {
   const { history } = props;
 
@@ -28,34 +25,35 @@ export default function LanPage(props) {
   // toggle between the sart and the stop btn
   const [scanStop, setScanStop] = useState(false);
 
+  const getHostsAPI = () => {
+    ipcRenderer.send('STARTSCAN-GET-HOSTS', {
+      network: JSON.stringify(data),
+    });
+  };
+
   useEffect(() => {
     if (scanStop) {
       for (const channel of ['STARTSCAN-GET-HOSTS'])
         ipcRenderer.removeAllListeners(channel);
       return alert.show('operation has stopped');
     }
-
-    const timer = setInterval(() => {
-      // send request to get the hosts devices from gethostsdevices function in electron
-
-      ipcRenderer.send('STARTSCAN-GET-HOSTS', {
-        network: JSON.stringify(data),
-      });
-      ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event, hostsDevices) => {
-        if (hostsDevices.length === 0) {
-          sessionStorage.removeItem('hostsDevices');
-          return alert.show(
-            'there is no hosts connected at your local network at this moment'
-          );
-        }
-        sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
-        setState(hostsDevices);
-        setisLoading(false);
-      });
-      for (const channel of ['STARTSCAN-GET-HOSTS'])
-        ipcRenderer.removeAllListeners(channel);
-    }, 5000);
-
+    // call it once
+    getHostsAPI();
+    const timer = setInterval(getHostsAPI, 5000);
+    ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event, hostsDevices) => {
+      console.log('the hosts ', hostsDevices);
+      if (hostsDevices.length === 0) {
+        sessionStorage.removeItem('hostsDevices');
+        return alert.show(
+          'there is no hosts connected at your local network at this moment'
+        );
+      }
+      sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
+      setState(hostsDevices);
+      setisLoading(false);
+    });
+    for (const channel of ['STARTSCAN-GET-HOSTS'])
+      ipcRenderer.removeAllListeners(channel);
     return () => clearInterval(timer);
   }, [scanStop]);
 
