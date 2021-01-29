@@ -11,15 +11,21 @@
   ],
   "main": "scan.js",
   "scripts": {
-    "start_node": "node scan.js",
-    "start_electron": "electron electron.js --no-sandbox",
     "rebuild_node": "npm rebuild .",
-    "rebuild_electron": "electron-rebuild -f -w ."
+    "start": "NODE_ENV=production nodemon ./server/index.js",
+    "client-install": "cd client && npm install",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "dev": "concurrently \" npm run start\" \"npm run client\"",
+    "eject": "cd client && react-scripts eject",
+    "deploy": "npm run build"
   },
   "dependencies": {
     "async": "^3.2.0",
     "cap": "^0.2.1",
+    "concurrently": "^5.3.0",
     "default-network": "^0.2.0",
+    "electron-is-dev": "^1.2.0",
     "express": "4.17.1",
     "geolite2-redist": "^1.0.7",
     "http-mitm-proxy": "^0.8.2",
@@ -30,9 +36,10 @@
     "tldjs": "1.5.2"
   },
   "devDependencies": {
-    "electron": "^9.0.0",
-    "electron-builder": "^22.7.0",
-    "electron-rebuild": "^1.11.0"
+    "electron": "^11.1.1",
+    "electron-builder": "^22.9.1",
+    "electron-reload": "^1.5.0",
+    "nodemon": "^2.0.7"
   },
   "optionalDependencies": {
     "pcap": "^3.1.0",

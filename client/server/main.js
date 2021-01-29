@@ -8,6 +8,8 @@ const {
 } = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const getHostsDevices = require('./controller/getHostsDevices/host-devices');
+const getNetworkInterface = require('./controller/getNetworkInterface');
 
 let mainWindow, tray, settingWin;
 
@@ -17,7 +19,7 @@ function createWindow() {
     width: 900,
     height: 680,
     fullscreenable: 'true',
-    icon: path.join(__dirname, 'assets/png/logo.png'),
+    icon: path.join(__dirname, '../src/assets/logo.png'),
     webPreferences: {
       nodeIntegration: true,
       preload: `${__dirname}/preload.js`,
@@ -69,13 +71,13 @@ function createSettingWindow() {
 }
 
 // for auto reload after anychanging
-require('electron-reload')(__dirname, {
-  electron: path.join('../node_modules', '.bin', 'electron'),
+require('electron-reload')(process.cwd(), {
+  electron: path.join(__dirname, '../node_modules', '.bin', 'electron'),
 });
 
 // create icon on the tray
 const createTray = () => {
-  const icon = path.join(__dirname, './assets/png/logo.png');
+  const icon = path.join(__dirname, '../src/assets/logo.png');
   const image = nativeImage.createFromPath(icon);
 
   tray = new Tray(image);
@@ -96,12 +98,18 @@ const createRefresh = () => {
   });
   globalShortcut.register('CommandOrControl+R', function () {
     console.log('CommandOrControl+R is pressed');
-    mainWindow.reload();
-    settingWin.reload();
+    if (mainWindow) {
+      mainWindow.reload();
+    }
+    if (settingWin) {
+      settingWin.reload();
+    }
   });
   globalShortcut.register('Control+Shift+I', function () {
     console.log('Control+Shift+i is pressed');
-    mainWindow.webContents.openDevTools();
+    if (mainWindow) {
+      mainWindow.webContents.openDevTools();
+    }
     settingWin.webContents.openDevTools();
   });
 };
@@ -111,23 +119,27 @@ ipcMain.on('SETTINGBTN-CILICKED', (event, arg) => {
   createSettingWindow().then(settingWin.webContents.send('message-1', arg));
 });
 
-ipcMain.on('Selection-NetWork-Setting', (event, arg) => {
-  const net = require('os').networkInterfaces();
-  console.log('ipc server',net);
-  event.reply('Selection-NetWork-Setting-Reply', net)
+// geting all the network
+ipcMain.on('Fire-GetNetworkInterface-Function', getNetworkInterface);
+
+// ipcMain.on('', (event, arg) => {
+//   console.log(arg) // prints "ping"
+//   event.returnValue = 'pong'
+// })
+
+// when the start btn Clicked to start scaning the network to get the hosts
+ipcMain.on('STARTSCAN-GET-HOSTS', getHostsDevices);
+
+//listening to close the settingWindow
+ipcMain.on('DIALOG-CLOSED', (event, arg) => {
+  settingWin.hide();
 });
 
-//listening to close the settingWindow 
-ipcMain.on('DIALOG-CLOSED',(event,arg)=>{
-settingWin.hide()
-})
-
-//listening to get the networksetting info and send it to mainwindow 
-ipcMain.on('Network-Setting',(event,arg)=>{
-  console.log(arg)
-  mainWindow.webContents.send('NetWork-Setting-Values',arg)
-  })
-
+//listening to get the networksetting info and send it to mainwindow
+ipcMain.on('Network-Setting', (event, arg) => {
+  console.log(arg);
+  mainWindow.webContents.send('NetWork-Setting-Values', arg);
+});
 
 // when ready call the functions
 app.whenReady().then(() => {

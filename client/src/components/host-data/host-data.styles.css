@@ -1,10 +1,3 @@
-@media screen and (max-width: 1080px) {
-  .card {
-    height: 74px !important;
-    justify-content: space-around !important;
-    margin-top: 8px !important;
-  }
-}
 
 @media screen and (max-width: 1080px) {
   .stopBtn {
@@ -22,16 +15,7 @@
   align-items: center;
 }
 
-.card {
-  width: 87%;
-  height: 104px;
-  background-color: #dddfd4;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin-top: 30px;
-}
+
 
 .stopBtn {
   border-radius: 50% !important;

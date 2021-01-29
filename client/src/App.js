@@ -9,40 +9,59 @@ import AboutPage from './pages/aboutPage/aboutPage.component';
 import SettingPage from './pages/settingPage/settingPage.component.jsx';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import { useAlert } from 'react-alert';
 
 export var AppContext = createContext();
 function App() {
   const { ipcRenderer } = window.require('electron');
-  let [networkOptions, setNetworkOptions] = useState({});
-  let [loading, setLoading] = useState(true);
+
+  // getting the network setting from get network interface function from electron function
+  let [networkInterface, setNetworkInterface] = useState({});
+
+  let [isloading, setIsLoading] = useState(true);
+
+  //alert for no connections
+  const alert = useAlert();
 
   useEffect(() => {
-    ipcRenderer.sendSync('Selection-NetWork-Setting');
-    ipcRenderer.on('Selection-NetWork-Setting-Reply', (event, arg) => {
-      if (!arg) {
-        return console.log('couldnt get the network data from the backend');
-      }
-      setNetworkOptions(arg);
-      localStorage.setItem('networkData', JSON.stringify(arg));
-      setLoading(false);
-    });
-  }, []);
-  console.log('after the useffect', networkOptions);
+    // communicat with electron to invoke the getnetworkinterface function
+    const networkInterfaces = ipcRenderer.sendSync(
+      'Fire-GetNetworkInterface-Function',
+      'fired'
+    );
+
+    if (!networkInterfaces) {
+      return alert.show(
+        'couldnt get the network interfaces cause there is no internet connection, So please your internet connection and try again'
+      );
+    }
+
+    setNetworkInterface(networkInterfaces);
+    sessionStorage.setItem('networkData', JSON.stringify(networkInterfaces));
+    setIsLoading(false);
+
+    for (const channel of ['Fire-GetNetworkInterface-Function'])
+      ipcRenderer.removeAllListeners(channel);
+  }, [isloading]);
+
   return (
     <Fragment>
-      <AppContext.Provider value={{ networkOptions, loading, setLoading }}>
-        <Router>
-          {loading ? (
-            <Loader
-              type="Rings"
-              color="#3BB7E3"
-              height={500}
-              width={500}
-              visible={loading}
-              secondaryColor="#C4C4C4"
-              className="loader"
-            />
-          ) : (
+      {isloading ? (
+        <Loader
+          type="Rings"
+          color="#3BB7E3"
+          height={500}
+          width={500}
+          visible={isloading}
+          secondaryColor="#C4C4C4"
+          className="loader"
+          timeout={2000} //3 secs
+        />
+      ) : (
+        <AppContext.Provider
+          value={{ networkInterface, isloading, setIsLoading }}
+        >
+          <Router>
             <Switch>
               <Route path="/" exact component={LandingPage} />
               <Route path="/lan" exact component={LanPage} />
@@ -50,9 +69,9 @@ function App() {
               <Route path="/about" exact component={AboutPage} />
               <Route path="/setting" exact component={SettingPage} />
             </Switch>
-          )}
-        </Router>
-      </AppContext.Provider>
+          </Router>
+        </AppContext.Provider>
+      )}
     </Fragment>
   );
 }

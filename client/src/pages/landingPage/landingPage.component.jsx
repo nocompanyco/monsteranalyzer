@@ -1,11 +1,4 @@
-import React, {
-  Fragment,
-  useEffect,
-  useContext,
-  useRef,
-  useState,
-} from 'react';
-import { AppContext } from '../../App.js';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import useStyles from './landingPage.styles.jsx';
 import { Grid } from '@material-ui/core';
 import logo from '../../assets/logo.png';
@@ -13,26 +6,25 @@ import SwiperText from '../../components/swiper/swiper.component.jsx';
 import Form from '../../components/form/form.component';
 import lottie from 'lottie-web';
 import firstpageData from './firstpageData.json';
-
-import SuccessAlert from '../../components/success-alert/success-alert.component';
-
+import MultiAlert from '../../components/success-alert/success-alert.component';
 import Video from '../../components/video/video.component';
 
 const { ipcRenderer } = window.require('electron');
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  // const { networkOptions, loading } = useContext(AppContext);
-
   const logoContainer = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
   const onLoadedData = () => {
     setIsVideoLoaded(true);
   };
 
+  //  this is for networking data setting page
   const [networkSetting, setNetworkSetting] = useState([]);
 
   const [hidden, setHidden] = useState(false);
+  // the selection option that the user clicked
+  const [network, setNetwork] = useState('');
 
   // for animation
   useEffect(() => {
@@ -49,7 +41,7 @@ const LandingPage = (props) => {
   useEffect(() => {
     ipcRenderer.on('NetWork-Setting-Values', (event, arg) => {
       if (!arg) {
-        console.log('didnt get the info');
+        console.log('didnt all the network information from the backend');
       }
       setOpenAlert(true);
       setNetworkSetting(arg.networkSetting);
@@ -64,17 +56,27 @@ const LandingPage = (props) => {
 
   // for sucess alert after save btn
   const [openAlert, setOpenAlert] = React.useState(false);
+  const [severity, setseverity] = React.useState('');
+  const [message, setMessage] = React.useState('');
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setOpenAlert(false);
   };
-
+  // start button
   const handleStart = (event) => {
     event.preventDefault();
-    console.log('clicked');
-    return props.history.push('/lan');
+    if (!network) {
+      setseverity('error');
+      setMessage('Please select on of the options before your start');
+      return setOpenAlert(true);
+    }
+    sessionStorage.setItem('selectedOption', network);
+    return props.history.push({
+      pathname: '/lan',
+      data: network,
+    });
   };
   return (
     <Fragment>
@@ -118,18 +120,17 @@ const LandingPage = (props) => {
             hidden={hidden}
             networkSetting={networkSetting}
             handleStart={handleStart}
+            network={network}
+            setNetwork={setNetwork}
           />
-          {/* <SettingPage
-            open={open}
-            handleClose={handleClose}
-            networkSetting={networkSetting}
-            handleChange={handleChange}
-            error={error}
-            handleSave={handleSave}
-         />*/}
         </Grid>
       </Grid>
-      <SuccessAlert openAlert={openAlert} handleAlertClose={handleAlertClose} />
+      <MultiAlert
+        openAlert={openAlert}
+        handleAlertClose={handleAlertClose}
+        severity={severity}
+        message={message}
+      />
     </Fragment>
   );
 };

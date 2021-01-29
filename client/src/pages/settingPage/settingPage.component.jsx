@@ -7,7 +7,7 @@ import {
   DialogTitle,
   Slide,
 } from '@material-ui/core';
-import CardSettingPage from '../../components/card/card.component';
+import CardSettingPage from '../../components/cardSettingPage/card.component';
 import './settingPage.styles.css';
 
 const { ipcRenderer } = window.require('electron');
