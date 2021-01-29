@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/pages-header/pages-header.component';
 import LanBody from '../../components/lan-body/lan-body.component';
 import './lanPage.styles.css';
@@ -6,6 +6,9 @@ import Loader from '../../components/loader/loader.component';
 import { useAlert } from 'react-alert';
 
 const { ipcRenderer } = window.require('electron');
+
+require('events').EventEmitter.prototype._maxListeners = 120;
+require('events').defaultMaxListeners = 100;
 
 export default function LanPage(props) {
   const { history } = props;
@@ -22,34 +25,42 @@ export default function LanPage(props) {
   // state that containes all the host devices
   const [state, setState] = useState([]);
 
+  // toggle between the sart and the stop btn
+  const [scanStop, setScanStop] = useState(false);
+
   useEffect(() => {
-    // call this function after each 5 seconds
+    if (scanStop) {
+      for (const channel of ['STARTSCAN-GET-HOSTS'])
+        ipcRenderer.removeAllListeners(channel);
+      return alert.show('operation has stopped');
+    }
+
     const timer = setInterval(() => {
       // send request to get the hosts devices from gethostsdevices function in electron
-      const hostsDevices = ipcRenderer.sendSync('STARTSCAN-GET-HOSTS', {
+
+      ipcRenderer.send('STARTSCAN-GET-HOSTS', {
         network: JSON.stringify(data),
       });
-      console.log('hostdevices from the backend', hostsDevices);
-      if (hostsDevices.length === 0) {
-        console.log(sessionStorage.getItem('hostsDevices'));
-        sessionStorage.removeItem('hostsDevices');
-        return alert.show(
-          'there is no hosts connected at your local network at this moment'
-        );
-      }
-      sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
-      console.log('inside the timer hostdecises: ', hostsDevices);
-      setState(hostsDevices);
-      setisLoading(false);
+      ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event, hostsDevices) => {
+        if (hostsDevices.length === 0) {
+          sessionStorage.removeItem('hostsDevices');
+          return alert.show(
+            'there is no hosts connected at your local network at this moment'
+          );
+        }
+        sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
+        setState(hostsDevices);
+        setisLoading(false);
+      });
       for (const channel of ['STARTSCAN-GET-HOSTS'])
         ipcRenderer.removeAllListeners(channel);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [scanStop]);
 
   const onhandleStop = (e) => {
-    console.log('clicked');
+    setScanStop((scanStop) => !scanStop);
     e.preventDefault();
   };
 
@@ -59,7 +70,12 @@ export default function LanPage(props) {
     <div id="lanPage" className="lanConatiner">
       <Loader isLoading={isLoading} />
       <Header history={history} />
-      <LanBody data={state} ipAdress={ourip} onhandleStop={onhandleStop} />
+      <LanBody
+        data={state}
+        ipAdress={ourip}
+        onhandleStop={onhandleStop}
+        scanStop={scanStop}
+      />
     </div>
   );
 }

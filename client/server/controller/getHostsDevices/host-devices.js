@@ -1,7 +1,7 @@
 // Without using a transpiler
 const find = require('local-devices');
 
-const DEBUG = false;
+const DEBUG = true;
 function __(...args) { DEBUG && console.log(...args) }
 
 let devicesMap = new Map()  ; // acculative object to hold all found hosts forever
@@ -48,7 +48,10 @@ const getHostsDevices = (event, arg) => {
          { name: '?', ip: '192.168.0.10', mac: '...' },
         ]
     */        
-    event.returnValue = Array.from(devicesMap, ([name, value]) => (value));;
+    let returnValue = Array.from(devicesMap, ([name, value]) => (value));
+    // event.returnValue = returnValue
+    event.reply('STARTSCAN-GET-HOSTS-REPLY', returnValue);
+
   });
 };
 
