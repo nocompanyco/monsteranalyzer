@@ -15,6 +15,7 @@ const LandingPage = (props) => {
   const classes = useStyles();
   const logoContainer = useRef(null);
   const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
+
   const onLoadedData = () => {
     setIsVideoLoaded(true);
   };
@@ -122,6 +123,7 @@ const LandingPage = (props) => {
             handleStart={handleStart}
             network={network}
             setNetwork={setNetwork}
+            props={props}
           />
         </Grid>
       </Grid>

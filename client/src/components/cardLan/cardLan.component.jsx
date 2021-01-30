@@ -4,10 +4,14 @@ import './cardLan.styles.css';
 const cardLan = ({ hostAddress, hostName }) => {
   return (
     <div className="card">
-      <Typography style={{ color: '#32507E', marginRight: 173 }}>
-        {hostName === '?' ? 'Without a name' : hostName}
-      </Typography>
-      <Typography style={{ marginRight: 31 }}>{hostAddress}</Typography>
+      <div className='hostname-text'>
+        <Typography style={{ color: '#32507E'}}>
+          {hostName === '?' ? 'Without a name' : hostName}
+        </Typography>
+      </div>
+      <div className='hostaddress-text'>
+        <Typography>{hostAddress}</Typography>
+      </div>
     </div>
   );
 };

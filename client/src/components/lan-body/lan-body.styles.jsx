@@ -6,11 +6,12 @@ const useStyles = makeStyles((theme) => ({
     height: 'fit-content',
     background: '#FFFFFF',
     alignSelf: 'center',
-    marginTop: 50,
+    marginTop: 91,
+    marginLeft:29,
     boxShadow:
       '0px 9px 18px rgba(0, 0, 0, 0.18), 0px 5.5px 5px rgba(0, 0, 0, 0.24)',
     [theme.breakpoints.down('1080')]: {
-      width:' 85%',
+      width: ' 85%',
     },
   },
   top: {
@@ -22,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: '#A9AAAC',
-    fontSize: 33,
+    fontSize: 25,
     [theme.breakpoints.down('1080')]: {
-      fontSize: '20px !important',
+      fontSize: '18px !important',
     },
   },
   ipText: {
@@ -41,6 +42,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('1080')]: {
       justifyContent: 'space-around !important',
     },
+  },
+  lanTitle: {
+    width: 200,
+    textAlign:'center'
   },
 }));
 

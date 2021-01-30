@@ -7,10 +7,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import useStyles from './pages-header.styles';
 
-export default function Header({ history }) {
+export default function Header({ history, props }) {
   const classes = useStyles();
   const [clicked, setClicked] = useState(null);
   const pathName = history.location.pathname;
+
+  console.log('the location inside the header', props.location.pathname);
 
   const handleClick = (id) => {
     return setClicked(id);
@@ -28,7 +30,12 @@ export default function Header({ history }) {
               color="inherit"
               aria-label="back"
               component={NavLink}
-              to="/"
+              to={{
+                pathname: '/',
+                state: {
+                  from: pathName,
+                },
+              }}
               onClick={() => handleClick(1)}
             >
               <ArrowBackIosIcon

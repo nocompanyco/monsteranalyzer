@@ -3,13 +3,18 @@
     margin: unset !important;
     margin-top: 20px !important;
   }
-  .section2{
-    width: 90% !important;
+  .section2 {
+    width: 71% !important;
     margin-top: 10px;
   }
-  .logoAbout{
+  .logoAbout {
     margin-left: 120px;
   }
+}
+
+.imgAbout {
+  width: 150px;
+  height: 150px;
 }
 
 .containerAbout {
@@ -18,6 +23,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  margin-top: 70px;
 }
 
 .section1 {
@@ -31,10 +37,9 @@
 
 .section2 {
   width: 69%;
-  height: 450px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  padding: 10px;
   border: 1px solid #dddfd4;
 }
 

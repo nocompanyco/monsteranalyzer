@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     marginTop: 20,
     alignItems: 'center',
+    paddingLeft: 88,
   },
   paper: {
     width: '64%',

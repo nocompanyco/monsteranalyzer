@@ -7,7 +7,6 @@ export default function AboutPage(props) {
 
   return (
     <Fragment>
-      <Header history={history} />
       <AboutBody />
     </Fragment>
   );

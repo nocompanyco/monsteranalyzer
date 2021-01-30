@@ -6,7 +6,7 @@ export default function DataCollected({ name, data, page }) {
   return (
     <Fragment>
       <div className='container'>
-        <div className={'textcontainer'}>
+        <div>
           <Typography
             align="center"
             noWrap

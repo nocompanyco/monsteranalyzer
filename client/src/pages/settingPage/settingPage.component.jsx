@@ -31,7 +31,7 @@ export default function SettingPage() {
       name: 'Network_Interface',
       data: '',
     },
-    { id: 2, name: 'Filter', data: '' },
+    { id: 2, name: 'IP Address', data: '' },
     { id: 3, name: 'Gateway', data: '' },
   ]);
 

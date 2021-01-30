@@ -10,17 +10,16 @@ export default function AboutBody() {
     <Fragment>
       <div className="containerAbout">
         <div className="section1">
-          <div className='logoAbout'>
-            <img alt="logo" src={logo} />
+          <div className="logoAbout">
+            <img alt="logo" src={logo} className="imgAbout" />
           </div>
           <div className="textContainer">
-            <Typography className="logoName">Monster Analyzer</Typography>
+            <Typography variant='h3'>Monster Analyzer</Typography>
             <Typography className="badge">Free Version</Typography>
           </div>
         </div>
 
         <div className="section2">
-
           {data.map((item) => (
             <DataCollected
               key={item.id}

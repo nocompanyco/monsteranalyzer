@@ -4,10 +4,11 @@ import useStyles from './selection.styles';
 
 function Selection(props) {
   const { hidden, network, setNetwork } = props;
+
   const classes = useStyles();
 
   const networkOptions = JSON.parse(sessionStorage.getItem('networkData'));
-  console.log(networkOptions);
+
   let menuItems = () => {
     let selectOption = [];
     Object.keys(networkOptions).forEach((devicename) => {
@@ -39,9 +40,13 @@ function Selection(props) {
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={network}
+          defaultValue={'DEFAULT'}
           onChange={handleChange}
           label="Network"
         >
+          <MenuItem value="DEFAULT" disabled>
+            Choose a Netowrk ...
+          </MenuItem>
           {menuItems()}
         </Select>
       </FormControl>
