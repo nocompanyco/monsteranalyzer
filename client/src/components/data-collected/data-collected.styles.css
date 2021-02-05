@@ -1,7 +1,6 @@
 @media screen and (max-width: 1080px) {
   .aboutTitle {
-   font-size: 20px !important;
-    
+    font-size: 16px !important;
   }
 }
 
@@ -13,15 +12,20 @@
   width: 100%;
 }
 
-
 .textcontainer {
   text-align: left;
-    width: 100px;
-} 
+  width: 139px;
+}
+
+.aboutTextContainer {
+  text-align: left;
+  width: 322px;
+  margin-bottom: 0.7em;
+}
 
 .aboutTitle {
   color: #000000;
-  font-size: 25px ;
+  font-size: 25px;
   font-weight: 400 !important;
 }
 

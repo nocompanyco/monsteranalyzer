@@ -24,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
+  secondaryHeadingSmall: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+    [theme.breakpoints.down('md')]: {
+      marginLeft: 21,
+    },
+  },
   summery: {
     backgroundColor: 'white',
     height: 160,

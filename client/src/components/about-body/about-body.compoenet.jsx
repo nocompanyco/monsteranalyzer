@@ -14,7 +14,7 @@ export default function AboutBody() {
             <img alt="logo" src={logo} className="imgAbout" />
           </div>
           <div className="textContainer">
-            <Typography variant='h3'>Monster Analyzer</Typography>
+            <Typography className='appName'>Monster Analyzer</Typography>
             <Typography className="badge">Free Version</Typography>
           </div>
         </div>

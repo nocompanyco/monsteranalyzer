@@ -31,6 +31,7 @@ const Video = (props) => {
         style={{ display: isVideoLoaded ? 'unset' : 'none' }}
         className="video"
         autopictureinpicture="true"
+        muted={true}
       />
     </div>
   );

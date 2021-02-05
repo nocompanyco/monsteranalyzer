@@ -7,7 +7,8 @@ const useStyles = makeStyles((theme) => ({
     background: '#FFFFFF',
     alignSelf: 'center',
     marginTop: 91,
-    marginLeft:29,
+    marginLeft: 29,
+    overflowY: 'auto',
     boxShadow:
       '0px 9px 18px rgba(0, 0, 0, 0.18), 0px 5.5px 5px rgba(0, 0, 0, 0.24)',
     [theme.breakpoints.down('1080')]: {
@@ -45,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   lanTitle: {
     width: 200,
-    textAlign:'center'
+    textAlign: 'center',
   },
 }));
 

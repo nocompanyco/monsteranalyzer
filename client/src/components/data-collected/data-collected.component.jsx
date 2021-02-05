@@ -5,7 +5,7 @@ import './data-collected.styles.css';
 export default function DataCollected({ name, data, page }) {
   return (
     <Fragment>
-      <div className='container'>
+      <div className="container">
         <div>
           <Typography
             align="center"
@@ -15,7 +15,9 @@ export default function DataCollected({ name, data, page }) {
             {name}
           </Typography>
         </div>
-        <div className="textcontainer">
+        <div
+          className={page === 'about' ? 'aboutTextContainer' : 'textcontainer'}
+        >
           <Typography align="center" noWrap className="data">
             {data}
           </Typography>

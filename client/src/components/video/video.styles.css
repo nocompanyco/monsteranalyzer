@@ -10,7 +10,6 @@
   position: relative;
   left: 44px;
   object-fit: cover;
-  z-index: -1;
   transform: translate(-44px, -1px);
 }
 
