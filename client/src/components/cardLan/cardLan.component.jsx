@@ -6,7 +6,7 @@ const cardLan = ({ hostAddress, hostName }) => {
     <div className="card">
       <div className='hostname-text'>
         <Typography style={{ color: '#32507E'}}>
-          {hostName === '?' ? 'Without a name' : hostName}
+          {hostName === '?' ? 'Generic' : hostName}
         </Typography>
       </div>
       <div className='hostaddress-text'>
