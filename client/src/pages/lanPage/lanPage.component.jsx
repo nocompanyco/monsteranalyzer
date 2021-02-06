@@ -9,7 +9,7 @@ const { ipcRenderer } = window.require('electron');
 
 export default function LanPage(props) {
   const { history } = props;
-  console.log('props in the lanpage',props)
+  console.log('props in the lanpage', props);
 
   //alert for no connections
   const alert = useAlert();
@@ -63,6 +63,14 @@ export default function LanPage(props) {
     e.preventDefault();
   };
 
+  const handleHostDevice = (index, device, event) => {
+    console.log('hostadrees', index, event, device);
+    history.push({
+      pathname: `/hostdevice/${index}`,
+      state: device,
+    });
+  };
+
   let [device, ourip] = data.split('-');
 
   return (
@@ -73,6 +81,7 @@ export default function LanPage(props) {
         ipAdress={ourip}
         onhandleStop={onhandleStop}
         scanStop={scanStop}
+        handleHostDevice={handleHostDevice}
       />
     </div>
   );

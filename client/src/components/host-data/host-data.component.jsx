@@ -4,14 +4,14 @@ import './host-data.styles.css';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CardLan from '../cardLan/cardLan.component';
 
-export default function HostData({ data, onhandleStop, scanStop }) {
+export default function HostData({ data, onhandleStop, scanStop,handleHostDevice }) {
   const matches = useMediaQuery('(max-width:1080px)');
 
   return (
     <Fragment>
       <div className="hostDatacontainer">
         {data.map((device, index) => (
-          <CardLan key={index} hostAddress={device.ip} hostName={device.name} />
+          <CardLan key={index} hostAddress={device.ip} hostName={device.name} handleHostDevice={handleHostDevice.bind(this,index,device)}/>
         ))}
 
         <div className="marginBtn">
