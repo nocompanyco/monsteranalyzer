@@ -10,7 +10,7 @@ const styles = (theme) => ({
   Cardcontent: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
     [theme.breakpoints.down('507')]: {
       display: 'flex',
@@ -24,15 +24,13 @@ const styles = (theme) => ({
     width: 248,
   },
   textFieldSmall: {
-    position: 'relative',
-    left: 32,
     width: 248,
     [theme.breakpoints.down('507')]: {
       left: 'unset !important',
     },
   },
   nameText: {
-    fontSize: 15,
+    fontSize: '1em',
   },
 });
 

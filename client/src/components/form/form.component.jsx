@@ -6,7 +6,7 @@ import DataTable from '../table/table.component';
 import './form.styles.css';
 
 const Form = ({ handleClick, hidden, networkSetting, handleStart,network
-  ,setNetwork }) => {
+  ,setNetwork, props }) => {
   return (
     <Fragment>
       <Grid container item xs={12} justify="center">
@@ -17,7 +17,7 @@ const Form = ({ handleClick, hidden, networkSetting, handleStart,network
           alignItems={hidden ? 'center' : null}
         >
           <Selection hidden={hidden} network={network}
-          setNetwork={setNetwork}/>
+          setNetwork={setNetwork}  route={props}/>
           <DataTable
             hidden={hidden}
             handleClick={handleClick}

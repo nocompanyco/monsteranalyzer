@@ -14,10 +14,6 @@ const { ipcRenderer } = window.require('electron');
 const LandingPage = (props) => {
   const classes = useStyles();
   const logoContainer = useRef(null);
-  const [isVideoLoaded, setIsVideoLoaded] = React.useState(false);
-  const onLoadedData = () => {
-    setIsVideoLoaded(true);
-  };
 
   //  this is for networking data setting page
   const [networkSetting, setNetworkSetting] = useState([]);
@@ -122,6 +118,7 @@ const LandingPage = (props) => {
             handleStart={handleStart}
             network={network}
             setNetwork={setNetwork}
+            props={props}
           />
         </Grid>
       </Grid>

@@ -3,21 +3,34 @@
     margin: unset !important;
     margin-top: 20px !important;
   }
-  .section2{
-    width: 90% !important;
-    margin-top: 10px;
+  .section2 {
+    width: 71% !important;
+    margin-top: 21px;
   }
-  .logoAbout{
+  .logoAbout {
     margin-left: 120px;
   }
 }
 
+.imgAbout {
+  width: 150px;
+  height: 150px;
+}
+
+.appName {
+  font-size: 2.1rem !important;
+  font-weight: 500 !important;
+}
+
 .containerAbout {
-  width: 100%;
+  width: 92%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  top: 88px;
+  left:70px
 }
 
 .section1 {
@@ -31,19 +44,18 @@
 
 .section2 {
   width: 69%;
-  height: 450px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  padding: 10px;
   border: 1px solid #dddfd4;
 }
 
 .badge {
   background-color: #3bb7e3;
   color: white;
-  font-size: 22px !important;
-  width: 182px;
-  height: 40px;
+  font-size: 15px !important;
+  width: 112px;
+  height: 32px;
   text-align: center;
   border-radius: 4px;
   padding: 5px;

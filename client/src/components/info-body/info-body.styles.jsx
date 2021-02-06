@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     marginTop: 20,
     alignItems: 'center',
+    paddingLeft: 88,
   },
   paper: {
     width: '64%',
@@ -22,6 +23,13 @@ const useStyles = makeStyles((theme) => ({
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
+  },
+  secondaryHeadingSmall: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+    [theme.breakpoints.down('md')]: {
+      marginLeft: 21,
+    },
   },
   summery: {
     backgroundColor: 'white',

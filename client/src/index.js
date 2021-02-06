@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
+import { HashRouter as Router } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 
 // optional configuration
 const options = {
@@ -18,7 +20,9 @@ const options = {
 
 ReactDOM.render(
   <AlertProvider template={AlertTemplate} {...options}>
-    <App />
+    <Router>
+        <App />
+    </Router>
   </AlertProvider>,
   document.getElementById('root')
 );

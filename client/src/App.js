@@ -10,9 +10,12 @@ import SettingPage from './pages/settingPage/settingPage.component.jsx';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { useAlert } from 'react-alert';
+import Header from './components/pages-header/test';
+import { withRouter } from 'react-router';
+import { Grid } from '@material-ui/core';
 
 export var AppContext = createContext();
-function App() {
+const App = ({ location, history }) => {
   const { ipcRenderer } = window.require('electron');
 
   // getting the network setting from get network interface function from electron function
@@ -61,19 +64,19 @@ function App() {
         <AppContext.Provider
           value={{ networkInterface, isloading, setIsLoading }}
         >
-          <Router>
-            <Switch>
-              <Route path="/" exact component={LandingPage} />
-              <Route path="/lan" exact component={LanPage} />
-              <Route path="/info" exact component={infoPage} />
-              <Route path="/about" exact component={AboutPage} />
-              <Route path="/setting" exact component={SettingPage} />
-            </Switch>
-          </Router>
+          {location.pathname !== '/' ? <Header history={history} /> : null}
+
+          <Switch>
+            <Route path="/" exact component={LandingPage} />
+            <Route path="/lan" exact component={LanPage} />
+            <Route path="/info" exact component={infoPage} />
+            <Route path="/about" exact component={AboutPage} />
+            <Route path="/setting" exact component={SettingPage} />
+          </Switch>
         </AppContext.Provider>
       )}
     </Fragment>
   );
-}
+};
 
-export default App;
+export default withRouter(App);

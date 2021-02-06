@@ -15,15 +15,19 @@ export default function InfoBody({ id, header, descrption }) {
   //simpale collapse panel
   //datacollected its component to show only the data
   return (
-    <div  id='lan-body' className={classes.root}>
-      <Accordion classes={{ root: classes.paper }} defaultExpanded={true}>
+    <div className={classes.root}>
+      <Accordion
+        classes={{ root: classes.paper }}
+        defaultExpanded={true}
+        disabled
+      >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
         >
           <Typography className={classes.heading}>{header}</Typography>
-          <Typography className={classes.secondaryHeading}>
+          <Typography className={id ===2 ? classes.secondaryHeadingSmall : classes.secondaryHeading}>
             {descrption}
           </Typography>
         </AccordionSummary>

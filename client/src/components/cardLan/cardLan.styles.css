@@ -1,18 +1,36 @@
 @media screen and (max-width: 1080px) {
   .card {
     height: 74px !important;
-    justify-content: space-around !important;
     margin-top: 8px !important;
   }
 }
 
 .card {
-  width: 87%;
-  height: 104px;
+  width: 71%;
+  height: 97px;
   background-color: #dddfd4;
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: space-evenly;
-  margin-top: 30px;
+  justify-content: space-between;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+ 
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.hostaddress-text {
+  width: 120px;
+  height: auto;
+  padding: 1em;
+}
+
+.hostname-text {
+  width: 133px;
+  padding: 0.5em;
+  margin-left: 9px;
 }

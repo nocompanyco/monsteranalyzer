@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/pages-header/pages-header.component';
+import Header from '../../components/pages-header/test.js';
 import LanBody from '../../components/lan-body/lan-body.component';
 import './lanPage.styles.css';
 import Loader from '../../components/loader/loader.component';
@@ -9,6 +9,7 @@ const { ipcRenderer } = window.require('electron');
 
 export default function LanPage(props) {
   const { history } = props;
+  console.log('props in the lanpage',props)
 
   //alert for no connections
   const alert = useAlert();
@@ -67,7 +68,6 @@ export default function LanPage(props) {
   return (
     <div id="lanPage" className="lanConatiner">
       <Loader isLoading={isLoading} />
-      <Header history={history} />
       <LanBody
         data={state}
         ipAdress={ourip}

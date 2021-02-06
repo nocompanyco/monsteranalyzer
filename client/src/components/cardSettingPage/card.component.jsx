@@ -14,8 +14,8 @@ class CardSettingPage extends React.Component {
           </div>
           <TextField
             error={textError ? true : false}
-            id={networkSetting.name}
-            label={'Please Enter your data here'}
+            id={`${networkSetting.id}`}
+            label={networkSetting.id === 1 ? 'e.g: "wlan0"' :networkSetting.id === 2 ? 'e.g: 192.168.1.22': "e.g : 192.168.1.1"}
             variant="outlined"
             onChange={handleChange}
             required
