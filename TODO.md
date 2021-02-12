@@ -1,3 +1,25 @@
+TOC
+- [Todo](#todo)
+- [Examples](#examples)
+    - [settings (react)](#settings-react)
+  - [nettools.scan() start](#nettoolsscan-start)
+  - [scan() restart](#scan-restart)
+  - [resolve IP address to names](#resolve-ip-address-to-names)
+  - [Arp spoof](#arp-spoof)
+    - [Getting GatewayIp](#getting-gatewayip)
+
+# Todo
+
+(x = done, ?)
+- [ ] a
+
+
+
+
+
+# Examples
+
+
 all code can be excuted from commandline with in the `node` repl
 ``$ node``
 
@@ -124,3 +146,39 @@ Test ``multicast-dns`` library:
     })
     ```
 
+
+## Arp spoof
+
+This is how we kick devices off the network. Need to understand why ARP protocol exists, how it works.
+
+**ARP**: it is the first protocol used by computers on a network to find each other. Inside a network the final address used to find each computer is the MAC address. It is often the case that host names are the first address used, and these are translated into IP addresses using DNS, and then IP addresses are translated into MAC addresses using ARP. 
+
+Example: Computer at 192.168.1.12 wants to find MAC address for Printer at 192.168.1.13. Computer sends a broadcast message to all computers on the network that says "Hi, I'm 192.168.1.12 mac addr aa:bb:cc:11:22:33, whomever has 192.168.1.13 reply with your mac address".
+
+
+spoofloop(params.ourmac,
+          params.ourip,
+          params.gatewayip,
+          found_hosts,
+          params.spoofinterval);
+-> spoof1(ourmac, ourip, gatewayip, targetip, callback);
+---> send(poison_packet(ourmac, ourip, targetip, gatewayip));
+     if (gatewayip !== targetip)
+       send(poison_packet(ourmac, ourip, gatewayip, targetip));
+
+Hi, <victum_phone> the <router> is at <me_attacker_mac>
+
+
+### Getting GatewayIp
+
+In scan.js the user gives the gatewayip as argument
+
+Or:
+
+https://www.npmjs.com/package/network
+```js
+var network = require('network');
+network.get_gateway_ip(function(err, ip) {
+  console.log(err || ip); // err may be 'No active network interface found.'
+})
+```
