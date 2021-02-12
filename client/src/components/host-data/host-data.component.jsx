@@ -4,8 +4,9 @@ import './host-data.styles.css';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CardLan from '../cardLan/cardLan.component';
 
-export default function HostData({ data, onhandleStop }) {
+export default function HostData({ data, onhandleStop, scanStop }) {
   const matches = useMediaQuery('(max-width:1080px)');
+
   return (
     <Fragment>
       <div className="hostDatacontainer">
@@ -20,7 +21,7 @@ export default function HostData({ data, onhandleStop }) {
             className={matches ? 'responsiveBtn' : 'stopBtn'}
             onClick={onhandleStop}
           >
-            Stop
+            {scanStop ? 'Start' : 'Stop'}
           </Button>
         </div>
       </div>

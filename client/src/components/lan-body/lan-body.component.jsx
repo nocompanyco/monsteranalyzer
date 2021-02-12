@@ -3,9 +3,8 @@ import useStyles from './lan-body.styles';
 import { Divider, Typography } from '@material-ui/core';
 import HostData from '../host-data/host-data.component';
 
-export default function LanBody({ data, ipAdress, onhandleStop }) {
+export default function LanBody({ data, ipAdress, onhandleStop,scanStop }) {
   const classes = useStyles();
-
   return (
     <div id="lanBody" className={classes.container}>
       <div className={classes.top}>
@@ -29,7 +28,7 @@ export default function LanBody({ data, ipAdress, onhandleStop }) {
         </Typography>
       </div>
       <div className={classes.data}>
-        <HostData data={data} onhandleStop={onhandleStop} />
+        <HostData data={data} onhandleStop={onhandleStop} scanStop={scanStop} />
       </div>
     </div>
   );

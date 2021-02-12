@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/pages-header/pages-header.component';
 import LanBody from '../../components/lan-body/lan-body.component';
 import './lanPage.styles.css';
@@ -22,58 +22,43 @@ export default function LanPage(props) {
   // state that containes all the host devices
   const [state, setState] = useState([]);
 
+  // toggle between the sart and the stop btn
+  const [scanStop, setScanStop] = useState(false);
 
+  const getHostsAPI = () => {
+    ipcRenderer.send('STARTSCAN-GET-HOSTS', {
+      network: JSON.stringify(data),
+    });
+  };
 
-  // useEffect(() => {
-  //   // call this function after each 5 seconds
-  //   const hostsDevices = ipcRenderer.sendSync('STARTSCAN-GET-HOSTS', {
-  //     network: JSON.stringify(data),
-  //   });
-  //   console.log('hostdevices from the backend', hostsDevices);
-  //   if (hostsDevices.length === 0) {
-  //     console.log(sessionStorage.getItem('hostsDevices'));
-  //     sessionStorage.removeItem('hostsDevices');
-  //     return alert.show(
-  //       'there is no hosts connected at your local network at this moment'
-  //     );
-  //   }
-  //   sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
-  //   console.log('inside the timer hostdecises: ', hostsDevices);
-  //   setState(hostsDevices);
-  //   setisLoading(false);
-  //   for (const channel of ['STARTSCAN-GET-HOSTS'])
-  //     ipcRenderer.removeAllListeners(channel);
-  // },[state]);
   useEffect(() => {
-    const timer = setInterval(() => {
-      if (!scanEnabled) return;
-      // send request to get the hosts devices from gethostsdevices function in electron
-      ipcRenderer.send('STARTSCAN-GET-HOSTS',{
-        network: JSON.stringify(data),
-      });
-      ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event,hostsDevices)=>{
-        console.log('STARTSCAN-GET-HOSTS-REPLY',hostsDevices);
-        console.log('hostdevices from the backend', hostsDevices);
-        if (hostsDevices.length === 0) {
-          console.log(sessionStorage.getItem('hostsDevices'));
-          sessionStorage.removeItem('hostsDevices');
-          return alert.show(
-            'there is no hosts connected at your local network at this moment'
-          );
-        }
-        sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
-        console.log('inside the timer hostdecises: ', hostsDevices);
-        setState(hostsDevices);
-        setisLoading(false);
-      });
+    if (scanStop) {
       for (const channel of ['STARTSCAN-GET-HOSTS'])
         ipcRenderer.removeAllListeners(channel);
-    }, 5000);
-
+      return alert.show('operation has stopped');
+    }
+    // call it once
+    getHostsAPI();
+    const timer = setInterval(getHostsAPI, 5000);
+    ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event, hostsDevices) => {
+      console.log('the hosts ', hostsDevices);
+      if (hostsDevices.length === 0) {
+        sessionStorage.removeItem('hostsDevices');
+        return alert.show(
+          'there is no hosts connected at your local network at this moment'
+        );
+      }
+      sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
+      setState(hostsDevices);
+      setisLoading(false);
+    });
+    for (const channel of ['STARTSCAN-GET-HOSTS'])
+      ipcRenderer.removeAllListeners(channel);
     return () => clearInterval(timer);
-  },[])
+  }, [scanStop]);
+
   const onhandleStop = (e) => {
-    console.log('clicked');
+    setScanStop((scanStop) => !scanStop);
     e.preventDefault();
   };
 
@@ -83,7 +68,12 @@ export default function LanPage(props) {
     <div id="lanPage" className="lanConatiner">
       <Loader isLoading={isLoading} />
       <Header history={history} />
-      <LanBody data={state} ipAdress={ourip} onhandleStop={onhandleStop} />
+      <LanBody
+        data={state}
+        ipAdress={ourip}
+        onhandleStop={onhandleStop}
+        scanStop={scanStop}
+      />
     </div>
   );
 }
