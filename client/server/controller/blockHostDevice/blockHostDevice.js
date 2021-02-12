@@ -1,17 +1,16 @@
 // const pcap = require('pcap');
-const arp = require('arpjs')
-
+//const arp = require('arpjs');
 
 const blockHostDevice = (event, arg) => {
   // the new way
-  let { netinterface, gatewayip, targetip } = arg;
-  console.log(arg)
+ // let { netinterface, gatewayip, targetip } = arg;
+  console.log('the agr are', arg);
   // netinterface = JSON.parse(netinterface);
   // gatewayip    = JSON.parse(gatewayip);
   // targetip     = JSON.parse(targetip);
 
-  arp.setInterface(netinterface)
-  arp.poison(targetip, gatewayip) // tell target I am gateway
+  // arp.setInterface(netinterface)
+  // arp.poison(targetip, gatewayip) // tell target I am gateway
 
   // the old way:
   /*
@@ -27,16 +26,10 @@ const blockHostDevice = (event, arg) => {
     pcap_session = pcap.createSession(netinterface, 'arp');
     pcap_session.inject(packet);
   */
-}
-
-
+  event.reply('BLOCK-HOST-REPLY', 'we ahve received the data');
+};
 
 module.exports = blockHostDevice;
-
-
-
-
-
 
 /* Old way
 

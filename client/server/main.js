@@ -10,6 +10,7 @@ const path = require('path');
 const isDev = require('electron-is-dev');
 const getHostsDevices = require('./controller/getHostsDevices/host-devices');
 const getNetworkInterface = require('./controller/getNetworkInterface');
+const blockHostDevice = require('./controller/blockHostDevice/blockHostDevice');
 
 let mainWindow, tray, settingWin;
 
@@ -129,6 +130,11 @@ ipcMain.on('Fire-GetNetworkInterface-Function', getNetworkInterface);
 
 // when the start btn Clicked to start scaning the network to get the hosts
 ipcMain.on('STARTSCAN-GET-HOSTS', getHostsDevices);
+
+
+// kick the host outside the network
+ipcMain.on('BLOCK-HOST', blockHostDevice);
+
 
 //listening to close the settingWindow
 ipcMain.on('DIALOG-CLOSED', (event, arg) => {

@@ -11,6 +11,8 @@ import BugReportIcon from '@material-ui/icons/BugReport';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 
+const { ipcRenderer } = window.require('electron');
+
 const HostDevice = (props) => {
   const [hostInfo, setHostInfo] = useState({});
   const classes = useStyles();
@@ -25,6 +27,29 @@ const HostDevice = (props) => {
     }
     setHostInfo(JSON.parse(sessionStorage.getItem('hostDevice')));
   }, []);
+
+  // kick the host outside the network
+  const handleDeletehost = (ip) => {
+    console.log('clicked the host ', ip);
+    const hostDevice = JSON.parse(sessionStorage.getItem('hostDevice'));
+    const hostIP = hostDevice.ip;
+    if (ip === hostIP) {
+      ipcRenderer.send('BLOCK-HOST', {
+        hostDevice: JSON.stringify(sessionStorage.getItem('hostDevice')),
+        ournetworkOption: JSON.stringify(
+          sessionStorage.getItem('selectedOption')
+        ),
+      });
+      ipcRenderer.on('BLOCK-HOST-REPLY', (event, answer) => {
+        console.log('hey the answer is', answer);
+      });
+    }
+  };
+
+  // pong the host and check the traffics
+  const handlePinghost = (ip) => {
+    console.log('clicked the ping btn');
+  };
 
   console.log('State inside the hostDevice', hostInfo);
   const { name, ip, mac } = hostInfo;
@@ -70,10 +95,18 @@ const HostDevice = (props) => {
               </div>
             </div>
             <div>
-              <IconButton size="small" classes={{ root: classes.btnIcon }}>
+              <IconButton
+                size="small"
+                onClick={() => handlePinghost(ip)}
+                classes={{ root: classes.btnIcon }}
+              >
                 <BugReportIcon fontSize="large" />
               </IconButton>
-              <IconButton size="small" classes={{ root: classes.btnIcon }}>
+              <IconButton
+                size="small"
+                onClick={() => handleDeletehost(ip)}
+                classes={{ root: classes.btnIcon }}
+              >
                 <DeleteForeverIcon fontSize="large" />
               </IconButton>
             </div>
