@@ -30,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   ipText: {
+    color: 'rgb(0 0 0 / 58%)',
     [theme.breakpoints.down('1080')]: {
       fontSize: '25px !important',
     },

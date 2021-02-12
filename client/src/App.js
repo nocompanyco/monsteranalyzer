@@ -12,9 +12,12 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { useAlert } from 'react-alert';
 import Header from './components/pages-header/test';
 import { withRouter } from 'react-router';
-import { Grid } from '@material-ui/core';
+import HostDevicePage from './pages/hostDevicePage';
 
 export var AppContext = createContext();
+
+
+
 const App = ({ location, history }) => {
   const { ipcRenderer } = window.require('electron');
 
@@ -72,6 +75,7 @@ const App = ({ location, history }) => {
             <Route path="/info" exact component={infoPage} />
             <Route path="/about" exact component={AboutPage} />
             <Route path="/setting" exact component={SettingPage} />
+            <Route path="/hostdevice/:id" exact component={HostDevicePage} />
           </Switch>
         </AppContext.Provider>
       )}
