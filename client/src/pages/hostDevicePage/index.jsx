@@ -33,19 +33,16 @@ const HostDevice = (props) => {
     console.log('clicked the host ', ip);
     const hostDevice = JSON.parse(sessionStorage.getItem('hostDevice'));
     const hostIP = hostDevice.ip;
-    if (ip === hostIP) {
-      ipcRenderer.send('BLOCK-HOST', {
-        hostDevice: JSON.stringify(sessionStorage.getItem('hostDevice')),
-        ournetworkOption: JSON.stringify(
-          sessionStorage.getItem('selectedOption')
-        ),
-      });
-      ipcRenderer.on('BLOCK-HOST-REPLY', (event, answer) => {
-        console.log('hey the answer is', answer);
-      });
-    }
+    ipcRenderer.send('BLOCK-HOST', {
+      hostIP: hostIP,
+      ournetworkOption: JSON.stringify(
+        sessionStorage.getItem('selectedOption')
+      ),
+    });
+    ipcRenderer.on('BLOCK-HOST-REPLY', (event, answer) => {
+      console.log('hey the answer is', answer);
+    });
   };
-
   // pong the host and check the traffics
   const handlePinghost = (ip) => {
     console.log('clicked the ping btn');
