@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
-import InfoBody from '../../components/info-body/info-body.component';
+import InfoBody from './info-body/info-body.component';
 import './infoPage.styles.css';
 
-export default function InfoPage(props) {
+export default function InfoPage() {
   const data = [
     {
       id: 1,

@@ -9,6 +9,8 @@ import {
 } from '@material-ui/core';
 import CardSettingPage from '../../components/cardSettingPage/card.component';
 import './settingPage.styles.css';
+import { connect } from 'react-redux';
+import { setSettingsNetwork } from '../../redux/settings/settings.actions';
 
 const { ipcRenderer } = window.require('electron');
 
@@ -20,20 +22,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 DialogContent.muiName = 'IconMenu';
 
 // this is to open Dialog for SettingPage
-export default function SettingPage() {
+function SettingPage({ setSettingsNetwork, networkSetting }) {
   // error of the fileds and the input of the fields
   const [error, setError] = useState(false);
-  const [open, setOpen] = React.useState(false);
-  
-  const [networkSetting, setNetworkSetting] = useState([
-    {
-      id: 1,
-      name: 'Network_Interface',
-      data: '',
-    },
-    { id: 2, name: 'IP Address', data: '' },
-    { id: 3, name: 'Gateway', data: '' },
-  ]);
+  const [open, setOpen] = useState(false);
 
   // open the dialog when page rendered
   useEffect(() => {
@@ -59,7 +51,7 @@ export default function SettingPage() {
       return setError(!error);
     }
 
-    ipcRenderer.send('Network-Setting', { networkSetting, hidden:true });
+    ipcRenderer.send('Network-Setting', { networkSetting, hidden: true });
     handleClose();
   };
 
@@ -68,17 +60,19 @@ export default function SettingPage() {
     event.preventDefault();
     const { value } = event.target;
     const index = event.target.id;
-    setNetworkSetting((PrevNetworkSetting) => {
-      const updateSetting = PrevNetworkSetting.map((item) => {
-        if (index === item.name) {
-          item.data = value;
-        }
 
-        return item;
-      });
-
-      return updateSetting;
+    // update the settings according to the user input inside the fileds
+    const updateSetting = networkSetting.map((item) => {
+      console.log('index', index, 'item name', item.id);
+      console.log(typeof index, typeof item.id);
+      if (index == item.id) {
+        console.log('value', value);
+        item.data = value;
+      }
+      return item;
     });
+
+    setSettingsNetwork(updateSetting);
   };
 
   return (
@@ -125,3 +119,14 @@ export default function SettingPage() {
     </div>
   );
 }
+
+const mapStateToProps = ({ settings: { networkSetting } }) => ({
+  networkSetting,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setSettingsNetwork: (networkSetting) =>
+    dispatch(setSettingsNetwork(networkSetting)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingPage);

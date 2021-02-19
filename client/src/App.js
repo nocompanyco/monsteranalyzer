@@ -12,7 +12,7 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { useAlert } from 'react-alert';
 import Header from './components/pages-header/test';
 import { withRouter } from 'react-router';
-import HostDevicePage from './pages/hostDevicePage';
+import HostDevicePage from './pages/hostDevicePage/hostDevice.page';
 
 export var AppContext = createContext();
 

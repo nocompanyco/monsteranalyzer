@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { InputLabel, MenuItem, FormControl, Select } from '@material-ui/core';
 import useStyles from './selection.styles';
+import { connect } from 'react-redux';
+import {setNetwork} from '../../redux/network/network.actions';
 
 function Selection(props) {
   const { hidden, network, setNetwork } = props;
@@ -53,5 +55,12 @@ function Selection(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => ({
+  network: state.network.network,
+});
 
-export default Selection;
+const mapDispatchToProps = (dispatch) => ({
+  setNetwork: (network) => dispatch(setNetwork(network)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Selection);

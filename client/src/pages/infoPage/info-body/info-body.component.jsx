@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import useStyles from './info-body.styles';
-import DataCollected from '../data-collected/data-collected.component';
+import DataCollected from '../../../components/data-collected/data-collected.component';
 import { ConnectionsInfo, ScannerConfiguration } from './data.js';
 
 export default function InfoBody({ id, header, descrption }) {

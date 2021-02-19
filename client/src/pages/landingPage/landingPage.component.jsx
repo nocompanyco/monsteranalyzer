@@ -1,66 +1,60 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import useStyles from './landingPage.styles.jsx';
 import { Grid } from '@material-ui/core';
-import logo from '../../assets/logo.png';
 import SwiperText from '../../components/swiper/swiper.component.jsx';
 import Form from '../../components/form/form.component';
-import lottie from 'lottie-web';
-import firstpageData from './firstpageData.json';
 import MultiAlert from '../../components/success-alert/success-alert.component';
 import Video from '../../components/video/video.component';
+import { connect } from 'react-redux';
+import { toggleHidden } from '../../redux/network/network.actions';
+import { setSettingsNetwork } from '../../redux/settings/settings.actions';
 
 const { ipcRenderer } = window.require('electron');
 
 const LandingPage = (props) => {
   const classes = useStyles();
-  const logoContainer = useRef(null);
 
-  //  this is for networking data setting page
-  const [networkSetting, setNetworkSetting] = useState([]);
-
-  const [hidden, setHidden] = useState(false);
-  // the selection option that the user clicked
-  const [network, setNetwork] = useState('');
-
-  // for animation
-  useEffect(() => {
-    lottie.loadAnimation({
-      container: logoContainer.current, // the dom element that will contain the animation
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      animationData: firstpageData, // the path to the animation json
-    });
-  }, []);
+  // the selection option that the user clicked of the main page from redux and the hidden from redux
+  const { network, hidden, toggleHidden, setSettingsNetwork } = props;
 
   // for getting the info from settingPage
   useEffect(() => {
     ipcRenderer.on('NetWork-Setting-Values', (event, arg) => {
       if (!arg) {
         console.log('didnt all the network information from the backend');
+        setOpenAlert(true);
+        setseverity('error');
+        setMessage('please enter the network information again');
       }
       setOpenAlert(true);
-      setNetworkSetting(arg.networkSetting);
-      setHidden(arg.hidden);
+      setseverity('success');
+      setMessage('network information inserted correctly');
+      console.log('getting the newtowek ', arg);
+      setSettingsNetwork(arg.networkSetting);
+      toggleHidden(arg.hidden);
     });
   });
-  // click of the cutomize setting to open dialog box
+
+  // click of the cutomize setting btn to open dialog box
   const handleClick = (event) => {
     event.preventDefault();
     ipcRenderer.send('SETTINGBTN-CILICKED', 'Clicked');
   };
 
   // for sucess alert after save btn
-  const [openAlert, setOpenAlert] = React.useState(false);
-  const [severity, setseverity] = React.useState('');
-  const [message, setMessage] = React.useState('');
+  //alert for multialert
+  const [openAlert, setOpenAlert] = useState(false);
+  const [severity, setseverity] = useState('success');
+  const [message, setMessage] = useState('');
+
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
     setOpenAlert(false);
   };
-  // start button
+
+  // start button on the main page
   const handleStart = (event) => {
     event.preventDefault();
     if (!network) {
@@ -74,6 +68,7 @@ const LandingPage = (props) => {
       data: network,
     });
   };
+
   return (
     <Fragment>
       <Grid
@@ -91,11 +86,6 @@ const LandingPage = (props) => {
           alignItems="center"
           id="section1"
         >
-          {/* <div
-            id="logoContainer"
-            style={{ width: '34%', margin: '0 auto' }}
-            ref={logoContainer}
-         ></div>*/}
           <Video />
         </Grid>
         <Grid
@@ -109,15 +99,11 @@ const LandingPage = (props) => {
           id="section2"
         >
           <Grid item xs={12}>
-            <SwiperText hidden={hidden} />
+            <SwiperText />
           </Grid>
           <Form
             handleClick={handleClick}
-            hidden={hidden}
-            networkSetting={networkSetting}
             handleStart={handleStart}
-            network={network}
-            setNetwork={setNetwork}
             props={props}
           />
         </Grid>
@@ -132,4 +118,16 @@ const LandingPage = (props) => {
   );
 };
 
-export default LandingPage;
+const mapStateToProps = ({ network, settings }) => ({
+  network: network.network,
+  hidden: network.hidden,
+  networkSetting: settings.networkSetting,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleHidden: (hidden) => dispatch(toggleHidden(hidden)),
+  setSettingsNetwork: (settingsNetwork) =>
+    dispatch(setSettingsNetwork(settingsNetwork)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

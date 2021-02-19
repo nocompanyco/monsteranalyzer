@@ -1,9 +1,16 @@
 import React from 'react';
 import useStyles from './lan-body.styles';
 import { Divider, Typography } from '@material-ui/core';
-import HostData from '../host-data/host-data.component';
+import HostData from '../../../components/host-data/host-data.component';
+import { connect } from 'react-redux';
 
-export default function LanBody({ data, ipAdress, onhandleStop, scanStop, handleHostDevice }) {
+const LanBody = ({
+  hostDevices,
+  ipAdress,
+  onhandleStop,
+  scanStop,
+  handleHostDevice,
+}) => {
   const classes = useStyles();
   return (
     <div id="lanBody" className={classes.container}>
@@ -12,7 +19,7 @@ export default function LanBody({ data, ipAdress, onhandleStop, scanStop, handle
           Current IP Address:{ipAdress}
         </Typography>
         <Typography className={classes.text} style={{ marginRight: 20 }}>
-          Hosts#:{data.length}
+          Hosts#:{hostDevices.length}
         </Typography>
       </div>
       <Divider light />
@@ -33,7 +40,6 @@ export default function LanBody({ data, ipAdress, onhandleStop, scanStop, handle
       </div>
       <div className={classes.data}>
         <HostData
-          data={data}
           onhandleStop={onhandleStop}
           scanStop={scanStop}
           handleHostDevice={handleHostDevice}
@@ -41,4 +47,10 @@ export default function LanBody({ data, ipAdress, onhandleStop, scanStop, handle
       </div>
     </div>
   );
-}
+};
+
+const mapStateToProps = ({ host: { hostDevices } }) => ({
+  hostDevices,
+});
+
+export default connect(mapStateToProps)(LanBody);

@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core';
 import React, { Fragment } from 'react';
-import logo from '../../assets/logo.png';
+import logo from '../../../assets/logo.png';
 import data from './data';
-import DataCollected from '../data-collected/data-collected.component';
+import DataCollected from '../../../components/data-collected/data-collected.component';
 import './about-body.styles.css';
 
 export default function AboutBody() {

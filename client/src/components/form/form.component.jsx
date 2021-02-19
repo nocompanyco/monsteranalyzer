@@ -4,9 +4,10 @@ import Selection from '../selection/selection.component';
 import StartBtn from '../startBtn/startBtn.compoenet';
 import DataTable from '../table/table.component';
 import './form.styles.css';
+import { connect } from 'react-redux';
 
-const Form = ({ handleClick, hidden, networkSetting, handleStart,network
-  ,setNetwork, props }) => {
+const Form = ({ handleClick, hidden, handleStart, props }) => {
+  console.log('hidden', hidden);
   return (
     <Fragment>
       <Grid container item xs={12} justify="center">
@@ -16,13 +17,8 @@ const Form = ({ handleClick, hidden, networkSetting, handleStart,network
           justify="center"
           alignItems={hidden ? 'center' : null}
         >
-          <Selection hidden={hidden} network={network}
-          setNetwork={setNetwork}  route={props}/>
-          <DataTable
-            hidden={hidden}
-            handleClick={handleClick}
-            networkSetting={networkSetting}
-          />
+          <Selection hidden={hidden} route={props} />
+          <DataTable hidden={hidden} handleClick={handleClick} />
           <StartBtn hidden={hidden} handleStart={handleStart} />
         </Grid>
         <Grid item container justify="center">
@@ -40,4 +36,8 @@ const Form = ({ handleClick, hidden, networkSetting, handleStart,network
   );
 };
 
-export default Form;
+const mapStateToProps = ({ network }) => ({
+  hidden: network.hidden,
+});
+
+export default connect(mapStateToProps)(Form);

@@ -7,6 +7,8 @@ import SwiperCore, {
   Autoplay,
 } from 'swiper';
 
+import { connect } from 'react-redux';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import slides from './slides-data';
 
@@ -17,7 +19,8 @@ import './swiper.styles.css';
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
-const SwiperText = ({hidden}) => {
+const SwiperText = ({ hidden }) => {
+  console.log('inside the swiper', hidden);
   return (
     <Swiper
       spaceBetween={0}
@@ -31,7 +34,10 @@ const SwiperText = ({hidden}) => {
     >
       {slides.map((slide) => {
         return (
-          <SwiperSlide key={slide.id} className={hidden? 'SwiperSlideCustomized': null}>
+          <SwiperSlide
+            key={slide.id}
+            className={hidden ? 'SwiperSlideCustomized' : null}
+          >
             {slide.text}
             <span id="subText">{slide.subText}</span>
           </SwiperSlide>
@@ -41,4 +47,7 @@ const SwiperText = ({hidden}) => {
   );
 };
 
-export default SwiperText;
+const mapStateToProps = ({ network }) => ({
+  hidden: network.hidden,
+});
+export default connect(mapStateToProps)(SwiperText);

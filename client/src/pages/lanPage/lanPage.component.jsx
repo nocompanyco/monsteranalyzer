@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/pages-header/test.js';
-import LanBody from '../../components/lan-body/lan-body.component';
+import LanBody from './lan-body/lan-body.component';
 import './lanPage.styles.css';
 import Loader from '../../components/loader/loader.component';
 import { useAlert } from 'react-alert';
+import { connect } from 'react-redux';
+import { setHostDevices } from '../../redux/host/host.actions';
 
 const { ipcRenderer } = window.require('electron');
 
-export default function LanPage(props) {
-  const { history } = props;
-
+const LanPage = (props) => {
+  const { history, setHostDevices } = props; // setHostDevices hostDevices that containes all the host devices
 
   //alert for no connections
   const alert = useAlert();
@@ -19,9 +19,6 @@ export default function LanPage(props) {
 
   //loading for getting the hosts name
   const [isLoading, setisLoading] = useState(true);
-
-  // state that containes all the host devices
-  const [state, setState] = useState([]);
 
   // toggle between the sart and the stop btn
   const [scanStop, setScanStop] = useState(false);
@@ -50,7 +47,7 @@ export default function LanPage(props) {
         );
       }
       sessionStorage.setItem('hostsDevices', JSON.stringify(hostsDevices));
-      setState(hostsDevices);
+      setHostDevices(hostsDevices);
       setisLoading(false);
     });
     for (const channel of ['STARTSCAN-GET-HOSTS'])
@@ -63,6 +60,7 @@ export default function LanPage(props) {
     e.preventDefault();
   };
 
+  //click on the host device for more detials
   const handleHostDevice = (index, device, event) => {
     console.log('hostadrees', index, event, device);
     history.push({
@@ -71,13 +69,13 @@ export default function LanPage(props) {
     });
   };
 
+   // get our device name and ip of the current device
   let [device, ourip] = data.split('-');
 
   return (
     <div id="lanPage" className="lanConatiner">
       <Loader isLoading={isLoading} />
       <LanBody
-        data={state}
         ipAdress={ourip}
         onhandleStop={onhandleStop}
         scanStop={scanStop}
@@ -85,4 +83,9 @@ export default function LanPage(props) {
       />
     </div>
   );
-}
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setHostDevices: (host) => dispatch(setHostDevices(host)),
+});
+export default connect(null, mapDispatchToProps)(LanPage);

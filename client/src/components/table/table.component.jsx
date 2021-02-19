@@ -7,12 +7,12 @@ import {
   TableRow,
   Paper,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
 import { useStyles, StyledTableRow, StyledTableCell } from './table.styles';
 import SettingIconBtn from '../setting-icon-btn/setting-icon-btn';
 
-export default function DataTable({ hidden, handleClick, networkSetting }) {
+function DataTable({ hidden, handleClick, networkSetting }) {
   const classes = useStyles();
-
 
   return (
     <TableContainer
@@ -35,7 +35,9 @@ export default function DataTable({ hidden, handleClick, networkSetting }) {
               <StyledTableCell component="th" scope="row">
                 {item.name}
               </StyledTableCell>
-              <StyledTableCell align="center" className={classes.dataCell}>{item.data}</StyledTableCell>
+              <StyledTableCell align="center" className={classes.dataCell}>
+                {item.data}
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
@@ -43,3 +45,8 @@ export default function DataTable({ hidden, handleClick, networkSetting }) {
     </TableContainer>
   );
 }
+
+const mapStateToProps = ({ settings }) => ({
+  networkSetting: settings.networkSetting,
+});
+export default connect(mapStateToProps)(DataTable);
