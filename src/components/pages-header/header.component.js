@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@material-ui/core/styles';
 import {
@@ -17,7 +17,7 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import useStyles from './test.styles.jsx';
+import useStyles from './header.component.styles.jsx';
 import FeedbackIcon from '@material-ui/icons/Feedback';
 import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
 import RouterIcon from '@material-ui/icons/Router';

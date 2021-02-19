@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Typography, IconButton } from '@material-ui/core';
 import DevicesOtherIcon from '@material-ui/icons/DevicesOther';
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';

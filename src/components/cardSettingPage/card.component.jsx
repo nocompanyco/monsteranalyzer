@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './card.styles';
-import { connect } from 'react-redux';
+
 
 
 class CardSettingPage extends React.Component {
