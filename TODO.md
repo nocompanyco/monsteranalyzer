@@ -7,6 +7,7 @@ TOC
   - [resolve IP address to names](#resolve-ip-address-to-names)
   - [Arp spoof](#arp-spoof)
     - [Getting GatewayIp](#getting-gatewayip)
+    - [Resolving socket permission error](#resolving-socket-permission-error)
 
 # Todo
 
@@ -182,3 +183,21 @@ network.get_gateway_ip(function(err, ip) {
   console.log(err || ip); // err may be 'No active network interface found.'
 })
 ```
+
+
+
+### Resolving socket permission error
+arpjs and pcap require root permissions to send packets on the network. Run node as root or set node 
+
+    sudo setcap cap_net_raw,cap_net_admin+eip monsteranalyzer-git/client/node_modules/electron/dist/electron
+
+Could prompt user for root permissions to run command first:
+https://www.npmjs.com/package/sudo-prompt
+
+
+- test blocking works on your side
+- run blocking code in loop (once every 4 seconds)
+- allow stopping blocking loop with button
+
+- check is it easy or hard to block two or more hosts at the same time 
+

@@ -9,7 +9,7 @@ const { ipcRenderer } = window.require('electron');
 
 export default function LanPage(props) {
   const { history } = props;
-  console.log('props in the lanpage', props);
+
 
   //alert for no connections
   const alert = useAlert();
