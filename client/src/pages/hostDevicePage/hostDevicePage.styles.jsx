@@ -43,6 +43,10 @@ const useStyles = makeStyles({
     fontSize: '0.8rem',
     color: '#5ce65c',
   },
+  offlineIcon: {
+    color: 'gray',
+    fontSize: '0.8rem',
+  },
   adresses: {
     display: 'flex',
   },
@@ -52,8 +56,11 @@ const useStyles = makeStyles({
   space: {
     marginLeft: '5px',
   },
-  btnIcon: {
+  BlueIcon: {
     color: '#3BB7E3 !important',
+  },
+  redIcon: {
+    color: 'red',
   },
 });
 
