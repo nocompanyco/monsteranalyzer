@@ -39,13 +39,18 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     height: 70,
     [theme.breakpoints.down('1080')]: {
-      justifyContent: 'space-around !important',
+      justifyContent: 'space-between !important',
     },
   },
   lanTitle: {
+    width: 200,
+    textAlign: 'left',
+  },
+  select: {
+    paddingLeft: 72,
     width: 200,
     textAlign: 'center',
   },
