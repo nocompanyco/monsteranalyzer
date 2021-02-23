@@ -1,4 +1,3 @@
-
 @media screen and (max-width: 1080px) {
   .stopBtn {
     width: 80px !important;
@@ -14,8 +13,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
-
 
 .stopBtn {
   border-radius: 50% !important;
@@ -46,4 +43,10 @@
 }
 .responsiveBtn:active {
   background-color: #3f51b5 !important;
+}
+
+.selectContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
