@@ -15,6 +15,7 @@ const { ipcRenderer } = window.require('electron');
 
 const HostDevice = (props) => {
   const [hostInfo, setHostInfo] = useState({});
+  const [blocked, setBlocked] = useState(false);
   const classes = useStyles();
 
   useEffect(() => {
@@ -31,16 +32,18 @@ const HostDevice = (props) => {
   // kick the host outside the network
   const handleDeletehost = (ip) => {
     console.log('clicked the host ', ip);
-    const hostDevice = JSON.parse(sessionStorage.getItem('hostDevice'));
-    const hostIP = hostDevice.ip;
+    const hostIP = ip;
     ipcRenderer.send('BLOCK-HOST', {
       hostIP: hostIP,
       ournetworkOption: JSON.stringify(
         sessionStorage.getItem('selectedOption')
       ),
     });
+
+    // get the answer from the electron back after execute the blockfunction
     ipcRenderer.on('BLOCK-HOST-REPLY', (event, answer) => {
       console.log('hey the answer is', answer);
+      setBlocked(!blocked);
     });
   };
   // pong the host and check the traffics
@@ -65,10 +68,10 @@ const HostDevice = (props) => {
             <div className={classes.headerLeft}>
               <RadioButtonCheckedIcon
                 fontSize="small"
-                className={classes.onlineIcon}
+                className={blocked ? classes.offlineIcon : classes.onlineIcon}
               />
               <Typography className={classes.root} variant="caption">
-                device is online
+                {blocked ? 'device is offline' : 'device is online'}
               </Typography>
             </div>
           </div>
@@ -95,14 +98,14 @@ const HostDevice = (props) => {
               <IconButton
                 size="small"
                 onClick={() => handlePinghost(ip)}
-                classes={{ root: classes.btnIcon }}
+                classes={{ root: classes.BlueIcon }}
               >
                 <BugReportIcon fontSize="large" />
               </IconButton>
               <IconButton
                 size="small"
                 onClick={() => handleDeletehost(ip)}
-                classes={{ root: classes.btnIcon }}
+                classes={{ root: blocked ? classes.redIcon : classes.BlueIcon }}
               >
                 <DeleteForeverIcon fontSize="large" />
               </IconButton>

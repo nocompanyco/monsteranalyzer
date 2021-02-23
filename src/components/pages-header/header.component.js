@@ -97,21 +97,21 @@ export default function Header({ history }) {
             <ListItemIcon>
               <RouterIcon />
             </ListItemIcon>
-            <ListItemText primary="Lan" />
+            <ListItemText primary="Host devices" />
           </ListItem>
           {/* Info button */}
           <ListItem button key="Info" onClick={() => history.push('/info')}>
             <ListItemIcon>
               <FeedbackIcon />
             </ListItemIcon>
-            <ListItemText primary="Info" />
+            <ListItemText primary="Network Info" />
           </ListItem>
           {/* About button */}
           <ListItem button key="About" onClick={() => history.push('/about')}>
             <ListItemIcon>
               <LiveHelpIcon />
             </ListItemIcon>
-            <ListItemText primary="About" />
+            <ListItemText primary="About us" />
           </ListItem>
         </List>
         <Divider />

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, FormControlLabel, Checkbox } from '@material-ui/core';
 import './host-data.styles.css';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import CardLan from '../cardLan/cardLan.component';
@@ -10,19 +10,36 @@ const HostData = ({
   onhandleStop,
   scanStop,
   handleHostDevice,
+  selectAll,
+  hostSelected,
+  handleselecthost,
 }) => {
   const matches = useMediaQuery('(max-width:1080px)');
 
+  console.log('the selection', hostSelected);
   return (
     <Fragment>
       <div className="hostDatacontainer">
         {hostDevices.map((device, index) => (
-          <CardLan
-            key={index}
-            hostAddress={device.ip}
-            hostName={device.name}
-            handleHostDevice={handleHostDevice.bind(this, index, device)}
-          />
+          <div key={device.ip} className="selectContainer">
+            <FormControlLabel
+              key={device.id}
+              control={
+                <Checkbox
+                  name={device.ip}
+                  checked={selectAll ? true : hostSelected[device.ip] || false}
+                  onChange={handleselecthost}
+                />
+              }
+              label=""
+            />
+            <CardLan
+              key={index}
+              hostAddress={device.ip}
+              hostName={device.name}
+              handleHostDevice={handleHostDevice.bind(this, index, device)}
+            />
+          </div>
         ))}
 
         <div className="marginBtn">
