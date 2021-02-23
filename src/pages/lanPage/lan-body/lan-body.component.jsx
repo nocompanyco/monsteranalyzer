@@ -9,6 +9,10 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
+import {
+  SELECT_ALL_HOSTS,
+  SET_SELECTED_HOSTS,
+} from '../../../redux/host/host.actions';
 
 const LanBody = ({
   hostDevices,
@@ -16,15 +20,18 @@ const LanBody = ({
   onhandleStop,
   scanStop,
   handleHostDevice,
+  selectAll,
+  hostSelected,
+  SELECT_ALL_HOSTS,
+  SET_SELECTED_HOSTS,
 }) => {
-  const [selectAll, setSelectAll] = useState(false);
-  const [hostSelected, setHostselected] = useState({}); //checkbox selection
+ 
 
   const classes = useStyles();
 
   //select one or more checkbox
   const handleselecthost = (event) => {
-    setHostselected({
+    SET_SELECTED_HOSTS({
       ...hostSelected,
       [event.target.name]: event.target.checked,
     });
@@ -33,7 +40,7 @@ const LanBody = ({
   // select all checkbox
   const handleSelectAll = (event) => {
     console.log('selected all');
-    setSelectAll(event.target.checked);
+    SELECT_ALL_HOSTS(event.target.checked);
   };
 
   // kick all the hosts out the network
@@ -45,7 +52,6 @@ const LanBody = ({
     }
   };
 
-  console.log(selectAll);
   return (
     <div id="lanBody" className={classes.container}>
       <div className={classes.top}>
@@ -88,8 +94,18 @@ const LanBody = ({
   );
 };
 
-const mapStateToProps = ({ host: { hostDevices } }) => ({
-  hostDevices,
+const mapDispatchToProps = (dispatch) => ({
+  SELECT_ALL_HOSTS: (value) => dispatch(SELECT_ALL_HOSTS(value)),
+  SET_SELECTED_HOSTS: (selectedHosts) =>
+    dispatch(SET_SELECTED_HOSTS(selectedHosts)),
 });
 
-export default connect(mapStateToProps)(LanBody);
+const mapStateToProps = ({
+  host: { hostDevices, hostSelected, selectAll },
+}) => ({
+  hostDevices,
+  selectAll,
+  hostSelected,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LanBody);

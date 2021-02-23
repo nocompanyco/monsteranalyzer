@@ -57,8 +57,12 @@ const HostData = ({
   );
 };
 
-const mapStateToProps = ({ host: { hostDevices } }) => ({
+const mapStateToProps = ({
+  host: { hostDevices, selectAll, hostSelected },
+}) => ({
   hostDevices,
+  selectAll,
+  hostSelected,
 });
 
 export default connect(mapStateToProps)(HostData);

@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'left',
   },
   select: {
-    paddingLeft: 72,
+    paddingLeft: 73,
     width: 200,
     textAlign: 'center',
   },
