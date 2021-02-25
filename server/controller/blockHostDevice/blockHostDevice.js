@@ -6,50 +6,48 @@ var sudo = require('sudo-prompt');
 const blockHostDevice = async (event, arg) => {
   // console.log('blockHostDevice arg', arg);
   // console.log(`\nsudo setcap cap_net_raw,cap_net_admin=eip ${process.argv[0]}`);
-  console.log('before the auth');
+  return new Promise((resolve, reject) => {
+    console.log('before the auth');
 
-  var options = {
-    name: 'Electron',
-    icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
-  };
+    var options = {
+      name: 'Electron',
+      icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
+    };
 
-  sudo.exec(
-    `echo setcap cap_net_raw,cap_net_admin=eip ${process.argv[0]}`,
-    options,
-    function (error, stdout, stderr) {
-      if (error) console.log(error);
-      blockHost();
-    }
-  );
+    sudo.exec(
+      `setcap cap_net_raw,cap_net_admin=eip ${process.argv[0]}`,
+      options,
+      function (error, stdout, stderr) {
+        if (error) reject(error);
+        blockHost();
+      }
+    );
 
-  const blockHost = () => {
-    let { hostIP, ournetworkOption } = arg; // get the info from react
+    const blockHost = () => {
+      let { hostIP, ournetworkOption } = arg; // get the info from react
 
-    ournetworkOption = JSON.parse(ournetworkOption);
-    let netinterface = ournetworkOption.split('-')[0]; // this is the network interface
-    console.log('netinterface', netinterface);
-    let targetip = hostIP;
+      ournetworkOption = JSON.parse(ournetworkOption);
+      let netinterface = ournetworkOption.split('-')[0]; // this is the network interface
+      console.log('netinterface', netinterface);
+      let targetip = hostIP;
 
-    console.log('hostIP', hostIP);
-    console.log('targetip', targetip);
+      console.log('hostIP', hostIP);
+      console.log('targetip', targetip);
 
-    network.get_gateway_ip(function (err, gatewayip) {
-      if (err) console.log(err || gatewayip);
-      arp.setInterface(netinterface);
-      arp.poison(targetip, gatewayip); // tell target I am gateway
-      event.reply('BLOCK-HOST-REPLY', true); // send back to electron that it has been blocked
-    });
-  };
-
+      network.get_gateway_ip(function (err, gatewayip) {
+        if (err) return reject(err || gatewayip);
+        arp.setInterface(netinterface);
+        arp.poison(targetip, gatewayip); // tell target I am gateway
+        resolve(true); // send back to electron that it has been blocked
+      });
+    };
+  });
 };
-
-
 
 module.exports = blockHostDevice;
 
-
- // the old way:
-  /*
+// the old way:
+/*
     let { netinterface, ourmac, ourip, gatewayip, targetip } = arg;
     //    wlan0 aa:bb:cc:00:00 192.168.0.2 192.168.0.1,
     netinterface = JSON.parse(netinterface);

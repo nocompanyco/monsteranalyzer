@@ -133,7 +133,7 @@ ipcMain.on('STARTSCAN-GET-HOSTS', getHostsDevices);
 
 
 // kick the host outside the network
-ipcMain.on('BLOCK-HOST', blockHostDevice);
+ipcMain.handle('BLOCK-HOST', blockHostDevice);
 
 
 //listening to close the settingWindow

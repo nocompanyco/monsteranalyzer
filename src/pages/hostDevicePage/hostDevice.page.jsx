@@ -33,18 +33,21 @@ const HostDevice = (props) => {
   const handleDeletehost = (ip) => {
     console.log('clicked the host ', ip);
     const hostIP = ip;
-    ipcRenderer.send('BLOCK-HOST', {
-      hostIP: hostIP,
-      ournetworkOption: JSON.stringify(
-        sessionStorage.getItem('selectedOption')
-      ),
-    });
+    ipcRenderer
+      .invoke('BLOCK-HOST', {
+        hostIP: hostIP,
+        ournetworkOption: JSON.stringify(
+          sessionStorage.getItem('selectedOption')
+        ),
+      })
+      .then((data) => console.log('data from hte electron', data))
+      .catch((error) => console.log(error));
 
     // get the answer from the electron back after execute the blockfunction
-    ipcRenderer.on('BLOCK-HOST-REPLY', (event, answer) => {
-      console.log('hey the answer is', answer);
-      setBlocked(!blocked);
-    });
+    //   ipcRenderer.on('BLOCK-HOST-REPLY', (event, answer) => {
+    //     console.log('hey the answer is', answer);
+    //     setBlocked(!blocked);
+    //   });
   };
   // pong the host and check the traffics
   const handlePinghost = (ip) => {
