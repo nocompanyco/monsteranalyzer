@@ -11,5 +11,5 @@ let arguments = {
 blockHostDevice(fakeevent, arguments).then(console.log)
 setInterval(()=>{
   blockHostDevice(fakeevent, arguments).then(console.log)
-},4000)
+},8000)
 

@@ -2,9 +2,12 @@ const arp = require('arpjs');
 
 
 if (process.argv.length < 6) {
-  console.error('interface targetip gatewayip intervalms')
+  console.error('interface targetip gatewayip intervalms');
+  console.error('example');
+  console.error('node block.js wlan0 192.168.178.61 192.168.178.1 8000');
   process.exit(1);
 }
+
 const interface  = process.argv[2];
 const targetip   = process.argv[3];
 const gatewayip  = process.argv[4]; // should be OUR/workstation IP 
