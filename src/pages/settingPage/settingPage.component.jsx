@@ -63,10 +63,8 @@ function SettingPage({ setSettingsNetwork, networkSetting }) {
 
     // update the settings according to the user input inside the fileds
     const updateSetting = networkSetting.map((item) => {
-      console.log('index', index, 'item name', item.id);
-      console.log(typeof index, typeof item.id);
       if (index == item.id) {
-        console.log('value', value);
+   
         item.data = value;
       }
       return item;

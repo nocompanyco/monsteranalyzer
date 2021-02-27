@@ -16,7 +16,7 @@ const HostData = ({
 }) => {
   const matches = useMediaQuery('(max-width:1080px)');
 
-  console.log('the selection', hostSelected);
+  
   return (
     <Fragment>
       <div className="hostDatacontainer">

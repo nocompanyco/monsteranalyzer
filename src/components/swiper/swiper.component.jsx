@@ -20,7 +20,6 @@ import './swiper.styles.css';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay]);
 
 const SwiperText = ({ hidden }) => {
-  console.log('inside the swiper', hidden);
   return (
     <Swiper
       spaceBetween={0}

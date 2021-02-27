@@ -7,7 +7,7 @@ import './form.styles.css';
 import { connect } from 'react-redux';
 
 const Form = ({ handleClick, hidden, handleStart, props }) => {
-  console.log('hidden', hidden);
+
   return (
     <Fragment>
       <Grid container item xs={12} justify="center">

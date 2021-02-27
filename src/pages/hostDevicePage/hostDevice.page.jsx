@@ -19,7 +19,6 @@ const HostDevice = (props) => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.log(props.location);
     if (props.location.state !== undefined) {
       sessionStorage.setItem(
         'hostDevice',
@@ -31,7 +30,7 @@ const HostDevice = (props) => {
 
   // kick the host outside the network
   const handleDeletehost = (ip) => {
-    console.log('clicked the host ', ip);
+   
     const hostIP = ip;
     ipcRenderer
       .invoke('BLOCK-HOST', {

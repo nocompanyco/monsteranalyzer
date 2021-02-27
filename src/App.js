@@ -1,4 +1,4 @@
-import React, { Fragment, createContext, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 
 import './App.css';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
@@ -13,16 +13,25 @@ import { useAlert } from 'react-alert';
 import Header from './components/pages-header/header.component';
 import { withRouter } from 'react-router';
 import HostDevicePage from './pages/hostDevicePage/hostDevice.page';
+import { connect } from 'react-redux';
+import {
+  setNetworkInterface,
+  setIsLoading,
+} from './redux/networkInterface/networkInterface.actions';
 
-export var AppContext = createContext();
-
-const App = ({ location, history }) => {
+const App = ({
+  location,
+  history,
+  setNetworkInterface,
+  setIsLoading,
+  isloading,
+}) => {
   const { ipcRenderer } = window.require('electron');
 
   // getting the network setting from get network interface function from electron function
-  let [networkInterface, setNetworkInterface] = useState({});
+  //let [networkInterface, setNetworkInterface] = useState({});
 
-  let [isloading, setIsLoading] = useState(true);
+  //let [isloading, setIsLoading] = useState(true);
 
   //alert for no connections
   const alert = useAlert();
@@ -41,7 +50,7 @@ const App = ({ location, history }) => {
     }
 
     setNetworkInterface(networkInterfaces);
-    sessionStorage.setItem('networkData', JSON.stringify(networkInterfaces));
+    localStorage.setItem('networkData', JSON.stringify(networkInterfaces));
     setIsLoading(false);
 
     for (const channel of ['Fire-GetNetworkInterface-Function'])
@@ -62,24 +71,29 @@ const App = ({ location, history }) => {
           timeout={2000} //3 secs
         />
       ) : (
-        <AppContext.Provider
-          value={{ networkInterface, isloading, setIsLoading }}
-        >
+        <Router>
           {location.pathname !== '/' ? <Header history={history} /> : null}
-          <Router>
-            <Switch>
-              <Route path="/" exact component={LandingPage} />
-              <Route path="/lan" exact component={LanPage} />
-              <Route path="/info" exact component={infoPage} />
-              <Route path="/about" exact component={AboutPage} />
-              <Route path="/setting" exact component={SettingPage} />
-              <Route path="/hostdevice/:id" exact component={HostDevicePage} />
-            </Switch>
-          </Router>
-        </AppContext.Provider>
+          <Switch>
+            <Route path="/" exact component={LandingPage} />
+            <Route path="/lan" exact component={LanPage} />
+            <Route path="/info" exact component={infoPage} />
+            <Route path="/about" exact component={AboutPage} />
+            <Route path="/setting" exact component={SettingPage} />
+            <Route path="/hostdevice/:id" exact component={HostDevicePage} />
+          </Switch>
+        </Router>
       )}
     </Fragment>
   );
 };
 
-export default withRouter(App);
+const mapStateToProps = ({ isloading }) => ({
+  isloading,
+});
+
+const mapDispacthToProps = (dispatch) => ({
+  setNetworkInterface: (data) => dispatch(setNetworkInterface(data)),
+  setIsLoading: (loading) => dispatch(setIsLoading(loading)),
+});
+
+export default connect(mapStateToProps, mapDispacthToProps)(withRouter(App));

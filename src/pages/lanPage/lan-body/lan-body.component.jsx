@@ -39,7 +39,6 @@ const LanBody = ({
 
   // select all checkbox
   const handleSelectAll = (event) => {
-    console.log('selected all');
     SELECT_ALL_HOSTS(event.target.checked);
   };
 

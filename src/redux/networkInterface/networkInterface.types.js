@@ -1,0 +1,5 @@
+export const NetworkInterfaceActionType = {
+  SET_NETWORK_INTERFACE: 'SET_NETWORK_INTERFACE',
+  SET_LOADING: 'SET_LOADING',
+  SET_GATEWAYIP: 'SET_GATEWAYIP',
+};
