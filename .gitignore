@@ -1,8 +1,10 @@
 node_modules
 .vscode-upload.json
-.package-lock.json
+package-lock.json
 .eslintcache
 build
+dist
+
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

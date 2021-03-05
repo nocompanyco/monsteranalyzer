@@ -1,0 +1,133 @@
+import React, { Fragment, useEffect, useState } from 'react';
+import useStyles from './landingPage.styles.jsx';
+import { Grid } from '@material-ui/core';
+import SwiperText from '../../components/swiper/swiper.component.jsx';
+import Form from '../../components/form/form.component';
+import MultiAlert from '../../components/success-alert/success-alert.component';
+import Video from '../../components/video/video.component';
+import { connect } from 'react-redux';
+import { toggleHidden } from '../../redux/network/network.actions';
+import { setSettingsNetwork } from '../../redux/settings/settings.actions';
+
+const { ipcRenderer } = window.require('electron');
+
+const LandingPage = (props) => {
+  const classes = useStyles();
+
+  // the selection option that the user clicked of the main page from redux and the hidden from redux
+  const { network, hidden, toggleHidden, setSettingsNetwork } = props;
+
+  // for getting the info from settingPage
+  useEffect(() => {
+    ipcRenderer.on('NetWork-Setting-Values', (event, arg) => {
+      if (!arg) {
+        console.log('didnt all the network information from the backend');
+        setOpenAlert(true);
+        setseverity('error');
+        setMessage('please enter the network information again');
+      }
+      setOpenAlert(true);
+      setseverity('success');
+      setMessage('network information inserted correctly');
+      console.log('getting the newtowek ', arg);
+      setSettingsNetwork(arg.networkSetting);
+      toggleHidden(arg.hidden);
+    });
+  });
+
+  // click of the cutomize setting btn to open dialog box
+  const handleClick = (event) => {
+    event.preventDefault();
+    ipcRenderer.send('SETTINGBTN-CILICKED', 'Clicked');
+  };
+
+  // for sucess alert after save btn
+  //alert for multialert
+  const [openAlert, setOpenAlert] = useState(false);
+  const [severity, setseverity] = useState('success');
+  const [message, setMessage] = useState('');
+
+  const handleAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenAlert(false);
+  };
+
+  // start button on the main page
+  const handleStart = (event) => {
+    event.preventDefault();
+    if (!network) {
+      setseverity('error');
+      setMessage('Please select on of the options before your start');
+      return setOpenAlert(true);
+    }
+    sessionStorage.setItem('selectedOption', network);
+    return props.history.push({
+      pathname: '/lan',
+      data: network,
+    });
+  };
+
+  return (
+    <Fragment>
+      <Grid
+        container
+        justify="space-between"
+        id="WholeConatiner"
+        className={classes.container}
+      >
+        <Grid
+          container
+          item
+          xs={12}
+          className={hidden ? classes.section1Customized : classes.section1}
+          justify="center"
+          alignItems="center"
+          id="section1"
+        >
+          <Video />
+        </Grid>
+        <Grid
+          container
+          item
+          justify="space-between"
+          alignItems="center"
+          xs={12}
+          className={classes.section2}
+          direction="row"
+          id="section2"
+        >
+          <Grid item xs={12}>
+            <SwiperText />
+          </Grid>
+          <Form
+            handleClick={handleClick}
+            handleStart={handleStart}
+            props={props}
+          />
+        </Grid>
+      </Grid>
+      <MultiAlert
+        openAlert={openAlert}
+        handleAlertClose={handleAlertClose}
+        severity={severity}
+        message={message}
+      />
+    </Fragment>
+  );
+};
+
+const mapStateToProps = ({ network, settings }) => ({
+  network: network.network,
+  hidden: network.hidden,
+  networkSetting: settings.networkSetting,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleHidden: (hidden) => dispatch(toggleHidden(hidden)),
+  setSettingsNetwork: (settingsNetwork) =>
+    dispatch(setSettingsNetwork(settingsNetwork)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);
