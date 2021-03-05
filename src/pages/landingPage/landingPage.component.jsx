@@ -15,7 +15,13 @@ const LandingPage = (props) => {
   const classes = useStyles();
 
   // the selection option that the user clicked of the main page from redux and the hidden from redux
-  const { network, hidden, toggleHidden, setSettingsNetwork } = props;
+  const {
+    network,
+    hidden,
+    toggleHidden,
+    setSettingsNetwork,
+    networkSetting,
+  } = props;
 
   // for getting the info from settingPage
   useEffect(() => {
@@ -55,16 +61,31 @@ const LandingPage = (props) => {
   // start button on the main page
   const handleStart = (event) => {
     event.preventDefault();
-    if (!network) {
+    console.log(network, 'networklength', networkSetting.length);
+    if (!network && networkSetting.length === 0) {
       setseverity('error');
-      setMessage('Please select on of the options before your start');
+      setMessage('Please select/insert the options before your start!');
       return setOpenAlert(true);
+    } else {
+      if (network) {
+        console.log('no network');
+        sessionStorage.setItem('selectedOption', network);
+        sessionStorage.setItem('selected', true);
+        return props.history.push({
+          pathname: '/lan',
+        });
+      } else if (networkSetting.length !== 0) {
+        console.log('not selected here');
+        let networkName = networkSetting[0].data;
+        let ourip = networkSetting[1].data;
+        let networkInserted = [networkName, ourip].join('-');
+        sessionStorage.setItem('InsertedOption', networkInserted);
+        sessionStorage.selected ='';
+        return props.history.push({
+          pathname: '/lan',
+        });
+      }
     }
-    sessionStorage.setItem('selectedOption', network);
-    return props.history.push({
-      pathname: '/lan',
-      data: network,
-    });
   };
 
   return (

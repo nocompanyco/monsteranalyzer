@@ -14,3 +14,7 @@ export const SET_SELECTED_HOSTS = (SelectedHost) => ({
   type: hostActionType.SET_SELECTED_HOSTS,
   payload: SelectedHost,
 });
+
+export const resetHostDevices = () => ({
+  type: hostActionType.RESET_HOSTS,
+});

@@ -8,14 +8,23 @@ import { setHostDevices } from '../../redux/host/host.actions';
 
 const { ipcRenderer } = window.require('electron');
 
-const LanPage = (props) => {
-  const { history, setHostDevices } = props; // setHostDevices hostDevices that containes all the host devices
-
+const LanPage = ({ history, setHostDevices }) => {
   //alert for no connections
   const alert = useAlert();
 
-  // get the netowrk interface selected by the user
-  const data = sessionStorage.getItem('selectedOption');
+  // get the network data of interface and ipaddress
+  let data;
+
+  // check if the user selected or inserted the network option
+  const selected = sessionStorage.getItem('selected');
+
+  if (selected) {
+    // get the netowrk interface selected by the user
+    data = sessionStorage.getItem('selectedOption');
+  } else {
+    // get the network interface inserted by the user
+    data = sessionStorage.getItem('InsertedOption');
+  }
 
   //loading for getting the hosts name
   const [isLoading, setisLoading] = useState(true);
@@ -37,7 +46,10 @@ const LanPage = (props) => {
     }
     // call it once
     getHostsAPI();
+    // call it after each 5 sec
     const timer = setInterval(getHostsAPI, 5000);
+
+    // get the hosts from the electron function
     ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event, hostsDevices) => {
       if (hostsDevices.length === 0) {
         sessionStorage.removeItem('hostsDevices');
@@ -68,8 +80,11 @@ const LanPage = (props) => {
     });
   };
 
-   // get our device name and ip of the current device
-  let [device, ourip] = data.split('-');
+  // get our device name and ip of the current device
+  let device, ourip;
+  if (data !== undefined && data !== null) {
+    [device, ourip] = data.split('-');
+  }
 
   return (
     <div id="lanPage" className="lanConatiner">
@@ -87,4 +102,5 @@ const LanPage = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   setHostDevices: (host) => dispatch(setHostDevices(host)),
 });
+
 export default connect(null, mapDispatchToProps)(LanPage);

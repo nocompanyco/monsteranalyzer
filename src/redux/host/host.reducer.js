@@ -23,6 +23,8 @@ const hostReducer = (state = INITIAL_STATE, action) => {
         ...state,
         hostSelected: action.payload,
       };
+    case hostActionType.RESET_HOSTS:
+      return INITIAL_STATE;
     default:
       return state;
   }
