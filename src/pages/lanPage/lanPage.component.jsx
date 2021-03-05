@@ -39,7 +39,6 @@ const LanPage = (props) => {
     getHostsAPI();
     const timer = setInterval(getHostsAPI, 5000);
     ipcRenderer.on('STARTSCAN-GET-HOSTS-REPLY', (event, hostsDevices) => {
-      console.log('the hosts ', hostsDevices);
       if (hostsDevices.length === 0) {
         sessionStorage.removeItem('hostsDevices');
         return alert.show(

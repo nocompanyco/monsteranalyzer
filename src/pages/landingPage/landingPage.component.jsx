@@ -6,7 +6,7 @@ import Form from '../../components/form/form.component';
 import MultiAlert from '../../components/success-alert/success-alert.component';
 import Video from '../../components/video/video.component';
 import { connect } from 'react-redux';
-import { toggleHidden } from '../../redux/network/network.actions';
+import { toggleHidden } from '../../redux/selectedNetwork/network.actions';
 import { setSettingsNetwork } from '../../redux/settings/settings.actions';
 
 const { ipcRenderer } = window.require('electron');
@@ -21,7 +21,6 @@ const LandingPage = (props) => {
   useEffect(() => {
     ipcRenderer.on('NetWork-Setting-Values', (event, arg) => {
       if (!arg) {
-        console.log('didnt all the network information from the backend');
         setOpenAlert(true);
         setseverity('error');
         setMessage('please enter the network information again');
@@ -29,7 +28,6 @@ const LandingPage = (props) => {
       setOpenAlert(true);
       setseverity('success');
       setMessage('network information inserted correctly');
-      console.log('getting the newtowek ', arg);
       setSettingsNetwork(arg.networkSetting);
       toggleHidden(arg.hidden);
     });
@@ -119,7 +117,7 @@ const LandingPage = (props) => {
 };
 
 const mapStateToProps = ({ network, settings }) => ({
-  network: network.network,
+  network: network.selectedNetwork,
   hidden: network.hidden,
   networkSetting: settings.networkSetting,
 });

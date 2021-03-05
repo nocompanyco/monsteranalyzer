@@ -1,7 +1,7 @@
 import { NetworkActionType } from './network.types';
 
 const INITIAL_STATE = {
-  network: '',
+  selectedNetwork: '',
   hidden: false,
 };
 
@@ -10,7 +10,7 @@ const networkReducer = (state = INITIAL_STATE, action) => {
     case NetworkActionType.SET_NETWORK:
       return {
         ...state,
-        network: action.payload,
+        selectedNetwork: action.payload,
       };
     case NetworkActionType.TOGGLE_HIDDEN:
       return {

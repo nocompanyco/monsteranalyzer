@@ -2,22 +2,27 @@ export const ConnectionsInfo = [
   {
     id: 1,
     name: 'Network interface',
-    data: 'wlan0',
+    data: '',
   },
   {
     id: 2,
     name: '   IP address',
-    data: '192.168.1.101',
+    data: '',
   },
   {
     id: 3,
-    name: ' Default gateway   ',
-    data: ' 192.168.1.1',
+    name: 'IP Family',
+    data: '',
   },
   {
     id: 4,
-    name: 'Filter ',
-    data: ' tcp or udp',
+    name: 'Default gateway   ',
+    data: '',
+  },
+  {
+    id: 5,
+    name: 'Netmask ',
+    data: '',
   },
 ];
 
@@ -42,5 +47,5 @@ export const ScannerConfiguration = [
     name: 'IP Scan range stop',
     data: ' 192.168.1.254',
   },
-  { id: 5, name: 'Scan network every N seconds ', data: '30' },
+  { id: 5, name: 'Scan network every N seconds ', data: '5 sec' },
 ];
