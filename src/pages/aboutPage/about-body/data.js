@@ -17,17 +17,12 @@ const data = [
   {
     id: 4,
     name: 'Homepage',
-    data: ' https://monsteranalyzer.org',
+    data: 'github.com/nocompanyco/monsteranalyzer',
   },
   {
     id: 5,
     name: 'Documentation ',
-    data: 'Github/nocompanyco/monsteranalyzer/wiki',
-  },
-  {
-    id: 6,
-    name: 'Source',
-    data: 'Github/nocompanyco/monsteranalyzer',
-  },
+    data: 'github.com/nocompanyco/monsteranalyzer/wiki',
+  }
 ];
 export default data;
