@@ -80,12 +80,17 @@ const LandingPage = (props) => {
         let ourip = networkSetting[1].data;
         let networkInserted = [networkName, ourip].join('-');
         sessionStorage.setItem('InsertedOption', networkInserted);
-        sessionStorage.selected ='';
+        sessionStorage.selected = '';
         return props.history.push({
           pathname: '/lan',
         });
       }
     }
+  };
+  // show the selection
+
+  const handleShowSelection = () => {
+    toggleHidden(!hidden);
   };
 
   return (
@@ -124,6 +129,7 @@ const LandingPage = (props) => {
             handleClick={handleClick}
             handleStart={handleStart}
             props={props}
+            handleShowSelection={handleShowSelection}
           />
         </Grid>
       </Grid>

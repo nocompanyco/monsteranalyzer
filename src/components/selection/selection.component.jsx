@@ -36,7 +36,7 @@ function Selection(props) {
   };
 
   return (
-    <div style={{ display: hidden ? 'none' : 'null' }}>
+    <div style={{ display: hidden ? 'none' : null }}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="demo-simple-select-outlined-label">
           Select Your Network
