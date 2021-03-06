@@ -7,7 +7,6 @@ import {
   Card,
   IconButton,
 } from '@material-ui/core';
-import BugReportIcon from '@material-ui/icons/BugReport';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 
@@ -30,31 +29,36 @@ const HostDevice = (props) => {
 
   // kick the host outside the network
   const handleDeletehost = (ip) => {
-   
     const hostIP = ip;
+    const selected = sessionStorage.getItem('selected');
+
+    if (selected) {
+      ipcRenderer
+        .invoke('BLOCK-HOST', {
+          hostIP: hostIP,
+          ournetworkOption: JSON.stringify(
+            sessionStorage.getItem('selectedOption')
+          ),
+        })
+        .then((data) => console.log('data from the electron', data))
+        .catch((error) => console.log(error));
+    }
+
     ipcRenderer
       .invoke('BLOCK-HOST', {
         hostIP: hostIP,
         ournetworkOption: JSON.stringify(
-          sessionStorage.getItem('selectedOption')
+          sessionStorage.getItem('InsertedOption')
         ),
+        gateway: sessionStorage.getItem('gatewayIP'),
       })
-      .then((data) => console.log('data from hte electron', data))
+      .then((data) => console.log('data from the electron', data))
       .catch((error) => console.log(error));
-
-    // get the answer from the electron back after execute the blockfunction
-    //   ipcRenderer.on('BLOCK-HOST-REPLY', (event, answer) => {
-    //     console.log('hey the answer is', answer);
-    //     setBlocked(!blocked);
-    //   });
-  };
-  // pong the host and check the traffics
-  const handlePinghost = (ip) => {
-    console.log('clicked the ping btn');
   };
 
-  console.log('State inside the hostDevice', hostInfo);
+
   const { name, ip, mac } = hostInfo;
+
   return (
     <div id="hostdevicePage" className={classes.hostDeviceBody}>
       <Card className={classes.hostCard}>
@@ -99,13 +103,7 @@ const HostDevice = (props) => {
             <div>
               <IconButton
                 size="small"
-                onClick={() => handlePinghost(ip)}
-                classes={{ root: classes.BlueIcon }}
-              >
-                <BugReportIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                size="small"
+                title='Block Host'
                 onClick={() => handleDeletehost(ip)}
                 classes={{ root: blocked ? classes.redIcon : classes.BlueIcon }}
               >

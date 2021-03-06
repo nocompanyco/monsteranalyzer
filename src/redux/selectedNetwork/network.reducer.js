@@ -17,6 +17,9 @@ const networkReducer = (state = INITIAL_STATE, action) => {
         ...state,
         hidden: action.payload,
       };
+
+    case NetworkActionType.RESET_SELECTED_NETWORK:
+      return INITIAL_STATE;
     default:
       return state;
   }

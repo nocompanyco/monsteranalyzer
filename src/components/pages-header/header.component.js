@@ -22,8 +22,18 @@ import FeedbackIcon from '@material-ui/icons/Feedback';
 import SettingsBackupRestoreIcon from '@material-ui/icons/SettingsBackupRestore';
 import RouterIcon from '@material-ui/icons/Router';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
+import { connect } from 'react-redux';
 
-export default function Header({ history }) {
+import { resetSettingsNetwork } from '../../redux/settings/settings.actions';
+import { resetSelectedNetwork } from '../../redux/selectedNetwork/network.actions';
+import { resetHostDevices } from '../../redux/host/host.actions';
+
+function Header({
+  history,
+  resetHostDevices,
+  resetSelectedNetwork,
+  resetSettingsNetwork,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -34,6 +44,15 @@ export default function Header({ history }) {
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleBack = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    resetSelectedNetwork();
+    resetSettingsNetwork();
+    resetHostDevices();
+    return history.push('/');
   };
 
   return (
@@ -86,7 +105,7 @@ export default function Header({ history }) {
         </div>
         <Divider />
         <List>
-          <ListItem button key="Back" onClick={() => history.push('/')}>
+          <ListItem button key="Back" onClick={handleBack}>
             <ListItemIcon>
               <SettingsBackupRestoreIcon />
             </ListItemIcon>
@@ -119,3 +138,11 @@ export default function Header({ history }) {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  resetHostDevices: () => dispatch(resetHostDevices()),
+  resetSettingsNetwork: () => dispatch(resetSettingsNetwork()),
+  resetSelectedNetwork: () => dispatch(resetSelectedNetwork()),
+});
+
+export default connect(null, mapDispatchToProps)(Header);

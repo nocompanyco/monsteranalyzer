@@ -6,7 +6,7 @@ import LandingPage from './pages/landingPage/landingPage.component.jsx';
 import LanPage from './pages/lanPage/lanPage.component';
 import infoPage from './pages/infoPage/infoPage.component';
 import AboutPage from './pages/aboutPage/aboutPage.component';
-import SettingPage from './pages/settingPage/settingPage.component.jsx';
+import SettingPage from './pages/settingPage/settingPage.component';
 import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import { useAlert } from 'react-alert';
@@ -72,7 +72,9 @@ const App = ({
         />
       ) : (
         <Router>
-          {location.pathname !== '/' ? <Header history={history} /> : null}
+          {location.pathname !== '/' && location.pathname !== '/setting' ? (
+            <Header history={history} />
+          ) : null}
           <Switch>
             <Route path="/" exact component={LandingPage} />
             <Route path="/lan" exact component={LanPage} />

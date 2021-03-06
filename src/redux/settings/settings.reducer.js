@@ -19,6 +19,8 @@ const settingsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         networkSetting: action.payload,
       };
+    case SettingsActionType.RESET_NETWORK_SETTINGS:
+      return INITIAL_STATE;
 
     default:
       return state;

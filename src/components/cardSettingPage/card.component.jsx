@@ -3,17 +3,21 @@ import { Card, CardContent, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './card.styles';
 
-
-
 class CardSettingPage extends React.Component {
   render() {
-    const { networkSetting, handleChange, classes, textError } = this.props;
+    const {
+      networkSetting,
+      handleChange,
+      classes,
+      textError,
+      validate,
+    } = this.props;
     return (
       <Card className={classes.cardContainer}>
         <CardContent className={classes.Cardcontent}>
           <div className={classes.nameText}>{networkSetting.name}</div>
           <TextField
-            error={textError ? true : false}
+            error={textError ? true : validate ? true : false}
             id={`${networkSetting.id}`}
             label={
               networkSetting.id === 1
@@ -31,6 +35,7 @@ class CardSettingPage extends React.Component {
                 ? classes.textField
                 : classes.textFieldSmall
             }
+            helperText={validate ? 'Incorrect Entry' : null}
           />
         </CardContent>
       </Card>
