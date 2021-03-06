@@ -87,8 +87,8 @@ const LandingPage = (props) => {
       }
     }
   };
-  // show the selection
 
+  // show the selection 
   const handleShowSelection = () => {
     toggleHidden(!hidden);
   };

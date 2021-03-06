@@ -27,6 +27,9 @@ function SettingPage({ setSettingsNetwork, networkSetting }) {
   const [error, setError] = useState(false);
   const [open, setOpen] = useState(false);
 
+  // validation
+  const [validate, setValidation] = useState(false);
+
   // open the dialog when page rendered
   useEffect(() => {
     setOpen(true);
@@ -50,6 +53,14 @@ function SettingPage({ setSettingsNetwork, networkSetting }) {
     ) {
       return setError(!error);
     }
+    const IpAddr = networkSetting[1].data;
+    const gateIp = networkSetting[2].data;
+
+    var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+    if (!IpAddr.match(ipformat) && !gateIp.match(ipformat)) {
+      return setValidation(true);
+    }
 
     ipcRenderer.send('Network-Setting', { networkSetting, hidden: true });
     handleClose();
@@ -64,7 +75,6 @@ function SettingPage({ setSettingsNetwork, networkSetting }) {
     // update the settings according to the user input inside the fileds
     const updateSetting = networkSetting.map((item) => {
       if (index == item.id) {
-   
         item.data = value;
       }
       return item;
@@ -99,6 +109,7 @@ function SettingPage({ setSettingsNetwork, networkSetting }) {
                 networkSetting={value}
                 handleChange={handleChange}
                 textError={error}
+                validate={validate}
               />
             );
           })}
