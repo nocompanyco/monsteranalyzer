@@ -61,7 +61,7 @@ function SettingPage({ setSettingsNetwork, networkSetting }) {
     if (!IpAddr.match(ipformat) && !gateIp.match(ipformat)) {
       return setValidation(true);
     }
-
+    
     ipcRenderer.send('Network-Setting', { networkSetting, hidden: true });
     handleClose();
   };

@@ -78,8 +78,10 @@ const LandingPage = (props) => {
         console.log('not selected here');
         let networkName = networkSetting[0].data;
         let ourip = networkSetting[1].data;
+        const gateIp = networkSetting[2].data;
         let networkInserted = [networkName, ourip].join('-');
         sessionStorage.setItem('InsertedOption', networkInserted);
+        sessionStorage.setItem('gatewayIP', gateIp);
         sessionStorage.selected = '';
         return props.history.push({
           pathname: '/lan',
@@ -88,7 +90,7 @@ const LandingPage = (props) => {
     }
   };
 
-  // show the selection 
+  // show the selection
   const handleShowSelection = () => {
     toggleHidden(!hidden);
   };
