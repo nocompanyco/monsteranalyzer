@@ -7,7 +7,6 @@ import {
   Card,
   IconButton,
 } from '@material-ui/core';
-import BugReportIcon from '@material-ui/icons/BugReport';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 
@@ -57,10 +56,6 @@ const HostDevice = (props) => {
       .catch((error) => console.log(error));
   };
 
-  // pong the host and check the traffics
-  const handlePinghost = (ip) => {
-    console.log('clicked the ping btn');
-  };
 
   const { name, ip, mac } = hostInfo;
 
@@ -108,13 +103,7 @@ const HostDevice = (props) => {
             <div>
               <IconButton
                 size="small"
-                onClick={() => handlePinghost(ip)}
-                classes={{ root: classes.BlueIcon }}
-              >
-                <BugReportIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                size="small"
+                title='Block Host'
                 onClick={() => handleDeletehost(ip)}
                 classes={{ root: blocked ? classes.redIcon : classes.BlueIcon }}
               >
